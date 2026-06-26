@@ -19,59 +19,21 @@ const initialCSS = `
     <title>Typography Playground</title>
   </head>
   <body class="min-h-screen bg-[#f3f4f6] flex flex-col font-sans overflow-hidden">
-    <!-- Top Header Placeholder -->
-    <header id="top-header" class="h-[48px] bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10 relative">
-      <div class="flex items-center gap-6">
-        <h1 class="text-[17px] font-bold text-[#111] font-sans tracking-tight"><span class="text-[#3a82f6]">Font</span> Playground</h1>
-        <nav class="flex gap-4 text-[13px] text-slate-500 font-medium">
-          <a href="#" class="hover:text-slate-900 transition-colors">File</a>
-          <a href="#" class="hover:text-slate-900 transition-colors">Help</a>
-        </nav>
-      </div>
+    <!-- Top Header -->
+    <header id="top-header" class="h-[48px] bg-white border-b border-slate-200 flex items-center justify-center px-6 shrink-0 z-10 relative">
+      <h1 class="absolute left-6 text-[17px] font-bold text-[#111] font-sans tracking-tight"><span class="text-[#3a82f6]">Font</span> Playground</h1>
 
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-8 text-[13px] font-medium text-slate-400">
+      <div class="flex items-center gap-8 text-[13px] font-medium text-slate-400">
         <button class="text-slate-900 border-b-2 border-slate-900 pb-[13px] pt-[15px] -mb-[2px]">Design</button>
         <button class="hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px]">Code</button>
-        <button class="hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px]">About</button>
-      </div>
-
-      <div class="flex items-center gap-4 text-slate-400">
-        <button class="hover:text-slate-600 transition-colors">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-        </button>
-        <button class="hover:text-slate-600 transition-colors">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-        </button>
-        <button class="hover:text-slate-600 transition-colors">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </button>
-        <button class="hover:text-slate-600 transition-colors">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        </button>
       </div>
     </header>
 
     <!-- Main Layout -->
-    <div class="flex-1 flex overflow-hidden">
+    <div class="flex-1 flex overflow-hidden h-[calc(100vh-48px)]">
       <!-- Left Sidebar -->
       <aside id="left-sidebar" class="w-[260px] bg-white border-r border-slate-200 flex flex-col overflow-hidden shrink-0">
-        <!-- Sidebar Navigation (leftmost thin column) -->
-        <div class="absolute left-0 top-[48px] bottom-0 w-[48px] border-r border-slate-200 bg-[#fafafa] flex flex-col items-center py-4 gap-6 z-20">
-          <button class="text-blue-500">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <button class="text-slate-400 hover:text-slate-600">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
-          </button>
-          <button class="text-slate-400 hover:text-slate-600">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
-          </button>
-          <button class="text-slate-400 hover:text-slate-600">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-          </button>
-        </div>
-
-        <div class="ml-[48px] flex flex-col h-full bg-[#f8f9fa]">
+        <div class="flex flex-col h-full bg-[#f8f9fa]">
           <!-- Font Family Header & Search -->
           <div class="px-4 py-4 border-b border-slate-200">
             <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Font Family</h2>
@@ -167,55 +129,7 @@ const initialCSS = `
       <main id="main-area" class="flex-1 bg-white relative overflow-auto shadow-inner p-12">
         <div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32">
 
-          <div class="relative group">
-            <div class="absolute -inset-2 border-2 border-blue-400 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-              <!-- Resize handles -->
-              <div class="absolute -top-1.5 -left-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
-              <div class="absolute -top-1.5 left-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-x-1/2"></div>
-              <div class="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
-              <div class="absolute top-1/2 -left-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-y-1/2"></div>
-              <div class="absolute top-1/2 -right-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-y-1/2"></div>
-              <div class="absolute -bottom-1.5 -left-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
-              <div class="absolute -bottom-1.5 left-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-x-1/2"></div>
-              <div class="absolute -bottom-1.5 -right-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
-
-              <!-- Connection lines for the handle below -->
-              <div class="absolute -bottom-8 left-1/2 w-px h-8 bg-blue-400 -translate-x-1/2"></div>
-              <div class="absolute -bottom-8 left-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-x-1/2 translate-y-1/2"></div>
-
-              <!-- Connection lines for right handles -->
-               <div class="absolute -right-8 bottom-0 w-8 h-px bg-blue-400"></div>
-               <div class="absolute -right-8 bottom-0 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full translate-x-1/2 -translate-y-1/2"></div>
-
-               <div class="absolute -right-8 top-1/2 w-8 h-px bg-blue-400 -translate-y-1/2 -rotate-45 origin-left"></div>
-               <div class="absolute -right-8 top-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full translate-x-1/2 -translate-y-1/2" style="transform: translate(22px, -28px)"></div>
-            </div>
-
-            <div class="preview-text outline-none break-words" contenteditable="true" style="font-size: 1.5em; line-height: 1;">
-              Font Playground
-            </div>
-          </div>
-
-          <div class="preview-text outline-none break-words mt-4" contenteditable="true" style="font-size: 1.2em; line-height: 1;">
-            is
-          </div>
-
-          <div class="flex gap-4 items-baseline flex-wrap mt-8">
-            <div class="preview-text outline-none break-words" contenteditable="true" style="font-size: 1.5em; font-variation-settings: 'wght' 900, 'wdth' 50; line-height: 1;">
-              VERY
-            </div>
-            <div class="preview-text outline-none break-words" contenteditable="true" style="font-size: 1.5em; line-height: 1;">
-              Lorem Ipsum
-            </div>
-          </div>
-
-          <div class="preview-text outline-none break-words mt-8" contenteditable="true" style="font-size: 1.5em; line-height: 1;">
-            Awesome
-          </div>
-
-          <div class="preview-text outline-none break-words max-w-2xl mx-auto text-center mt-12" contenteditable="true" style="font-size: 0.35em; line-height: 1.4;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi dignissimos molestias, repellendus sequi incidunt itaque eligendi esse ab odio perspiciatis, eveniet libero est aliquid ipsam facilis blanditiis tenetur. Et
-          </div>
+          <div id="editorjs" class="preview-text"></div>
 
         </div>
 
@@ -232,20 +146,11 @@ const initialCSS = `
           </div>
         </div>
 
-        <div id="about-view" class="hidden h-full max-w-3xl mx-auto p-12 overflow-auto">
-          <h2 class="text-2xl font-bold text-slate-900 mb-6">About Font Playground</h2>
-          <div class="prose prose-slate prose-sm text-slate-700 space-y-4">
-            <p>Font Playground is built for three groups of audiences.</p>
-            <p>The first group of audience is typographers and designers, who would like to play with fonts that are built with the latest font technologies, such as variable font. It is a playground to fully explore what these new font technologies can offer and how they can be beneficial to your creative workflow.</p>
-            <p>The second group of audience is me, as a Type Tool's UI/UX designer. This is a playground for me to test UI experiments for variable fonts and other new upcoming font technologies. One of the key points to the success of new font technology is adoption by design tools, and furthermore, designers. How can design tool present variable fonts in a way that is useful but not too complicated to handle? I hope to find the answers with this playground.</p>
-            <p>The third group of audience is the type designers and foundries. This is a place to showcase the work-in-progress, cutting-edge font creations. It is a playground to see how fonts are being presented and used in future design tools. How fonts are used can also inform how fonts are made, and what standard should be defined.</p>
-          </div>
-        </div>
 
       </main>
 
       <!-- Right Sidebar -->
-      <aside id="right-sidebar" class="w-[280px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0">
+      <aside id="right-sidebar" class="w-[280px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 h-full">
         <div class="p-6 flex flex-col gap-8">
 
           <!-- Font Size -->
@@ -336,13 +241,76 @@ const initialCSS = `
         font-variation-settings: 'wght' var(--font-weight), 'wdth' var(--font-width), 'opsz' var(--font-opsz);
         outline: none;
       }
-      .preview-text:focus {
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        border-radius: 0.25rem;
+
+      /* Target editor.js blocks specifically to inherit the styles */
+      #editorjs .ce-block__content {
+        max-width: none; /* Let editor fill the container */
+      }
+
+      /* Make sure editor tools inherit the font styling */
+      #editorjs h1,
+      #editorjs h2,
+      #editorjs h3,
+      #editorjs h4,
+      #editorjs h5,
+      #editorjs h6,
+      #editorjs p,
+      #editorjs ul,
+      #editorjs ol,
+      #editorjs li {
+         font-family: inherit;
+         /* Don't strictly inherit size to allow headers to scale relatively,
+            but give a baseline if we want the slider to control the overall body scale */
       }
     </style>
 
     <script>
+      import EditorJS from '@editorjs/editorjs';
+      import Header from '@editorjs/header';
+      import List from '@editorjs/list';
+
+      const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+          header: Header,
+          list: List
+        },
+        data: {
+          blocks: [
+            {
+              type: "header",
+              data: {
+                text: "Typography Playground",
+                level: 1
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+              }
+            },
+             {
+              type: "paragraph",
+              data: {
+                text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              }
+            },
+            {
+              type: "list",
+              data: {
+                style: "unordered",
+                items: [
+                   "Variable fonts are cool",
+                   "They save bandwidth",
+                   "They offer granular design control"
+                ]
+              }
+            }
+          ]
+        }
+      });
+
       const root = document.documentElement;
 
       // Initial Font Family
@@ -497,15 +465,14 @@ const initialCSS = `
           const views = {
               'Design': document.getElementById('design-view'),
               'Code': document.getElementById('code-view'),
-              'About': document.getElementById('about-view'),
           };
 
           tabs.forEach(tab => {
-              if (['Design', 'Code', 'About'].includes(tab.textContent || '')) {
+              if (['Design', 'Code'].includes(tab.textContent || '')) {
                   tab.addEventListener('click', () => {
                       // Update active tab styling
                       tabs.forEach(t => {
-                          if (['Design', 'Code', 'About'].includes(t.textContent || '')) {
+                          if (['Design', 'Code'].includes(t.textContent || '')) {
                              t.className = 'hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px] text-slate-400';
                           }
                       });
