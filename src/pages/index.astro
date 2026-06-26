@@ -19,18 +19,9 @@ const initialCSS = `
     <title>Typography Playground</title>
   </head>
   <body class="min-h-screen bg-[#f3f4f6] flex flex-col font-sans overflow-hidden">
-    <!-- Top Header -->
-    <header id="top-header" class="h-[48px] bg-white border-b border-slate-200 flex items-center justify-center px-6 shrink-0 z-10 relative">
-      <h1 class="absolute left-6 text-[17px] font-bold text-[#111] font-sans tracking-tight"><span class="text-[#3a82f6]">Font</span> Playground</h1>
-
-      <div class="flex items-center gap-8 text-[13px] font-medium text-slate-400">
-        <button class="text-slate-900 border-b-2 border-slate-900 pb-[13px] pt-[15px] -mb-[2px]">Design</button>
-        <button class="hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px]">Code</button>
-      </div>
-    </header>
 
     <!-- Main Layout -->
-    <div class="flex-1 flex overflow-hidden h-[calc(100vh-48px)]">
+    <div class="flex-1 flex overflow-hidden h-screen">
       <!-- Left Sidebar -->
       <aside id="left-sidebar" class="w-[260px] bg-white border-r border-slate-200 flex flex-col overflow-hidden shrink-0">
         <div class="flex flex-col h-full bg-[#f8f9fa]">
@@ -127,107 +118,51 @@ const initialCSS = `
 
       <!-- Main Canvas -->
       <main id="main-area" class="flex-1 bg-white relative overflow-auto shadow-inner p-12">
-        <div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32">
+        <div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32 pt-12">
 
           <div id="editorjs" class="preview-text"></div>
 
         </div>
 
-        <div id="code-view" class="hidden h-full flex flex-col p-8">
-          <div class="flex justify-between items-center mb-4">
-             <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">CSS</h2>
-             <div class="flex gap-2">
-               <button class="px-3 py-1.5 bg-white border border-slate-200 rounded text-[13px] font-medium text-slate-700 hover:bg-slate-50">Copy Selected</button>
-               <button class="px-3 py-1.5 bg-blue-500 text-white rounded text-[13px] font-medium hover:bg-blue-600">Copy All</button>
-             </div>
-          </div>
-          <div class="flex-1 overflow-auto rounded-lg [&_pre]:!bg-slate-900 [&_pre]:!p-6 [&_pre]:!h-full text-[13px]" id="css-output-container">
-            <Code code={initialCSS} lang="css" theme="github-dark" />
-          </div>
-        </div>
-
-
       </main>
 
       <!-- Right Sidebar -->
-      <aside id="right-sidebar" class="w-[280px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 h-full">
-        <div class="p-6 flex flex-col gap-8">
+      <aside id="right-sidebar" class="w-[320px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 h-full">
+        <div class="p-6 flex flex-col gap-8 h-full">
 
-          <!-- Font Size -->
           <div>
-            <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4">
-              <span>Font Size</span>
-              <span id="font-size-val">93</span>
-            </div>
-            <input type="range" id="font-size" min="12" max="200" value="93" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-          </div>
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Font Details</h2>
+            <div class="bg-white border border-slate-200 rounded p-4 shadow-sm mb-6">
+              <h3 class="text-xl font-bold text-slate-900 mb-1" id="details-font-name">Google Sans</h3>
+              <p class="text-[13px] text-slate-500 mb-4">Variable Font with Weight, Width, and Optical Size axes.</p>
 
-          <!-- Preset Variations -->
-          <div>
-            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Preset Variations</h2>
-            <div class="flex flex-col gap-1" id="preset-variations">
-              <button class="preset-btn flex justify-between items-center w-full px-2 py-1.5 hover:bg-slate-200 rounded text-left text-[13px] text-slate-900 transition-colors" data-weight="900" data-width="100" data-opsz="14">
-                <span>Text Black Italic</span>
-                <span class="font-bold italic text-base">Ag</span>
-              </button>
-              <button class="preset-btn flex justify-between items-center w-full px-2 py-1.5 hover:bg-slate-200 rounded text-left text-[13px] text-slate-900 transition-colors" data-weight="900" data-width="75" data-opsz="144">
-                <span>Display Narrow Black Italic</span>
-                <span class="font-bold italic tracking-tighter text-base">Ag</span>
-              </button>
-              <button class="preset-btn flex justify-between items-center w-full px-2 py-1.5 hover:bg-slate-200 rounded text-left text-[13px] text-slate-900 transition-colors" data-weight="900" data-width="50" data-opsz="14">
-                <span>Text Condensed Black Italic</span>
-                <span class="font-bold italic tracking-tight text-base">Ag</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Variable Options -->
-          <div>
-            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Variable Options</h2>
-
-            <!-- 2D Pad Placeholder -->
-            <div class="w-full aspect-square border border-slate-200 bg-white rounded mb-6 relative">
-               <div class="absolute right-0 top-1/4 w-3 h-3 rounded-full border-2 border-slate-500 bg-white -mr-1.5 -mt-1.5 cursor-grab"></div>
-               <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-100"></div>
-               <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-100"></div>
-            </div>
-
-            <div class="flex flex-col gap-6">
-              <div>
-                <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4 items-center">
-                  <div class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19l8-8 8 8"/></svg>
-                    <span>Weight</span>
-                  </div>
-                  <span id="font-weight-val">708.50</span>
-                </div>
-                <input type="range" id="font-weight" min="100" max="900" step="1" value="708.5" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-              </div>
-
-              <div>
-                <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4 items-center">
-                  <div class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8V5a2 2 0 00-2-2H5a2 2 0 00-2 2v3M21 16v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3M12 2v20M8 12h8"/></svg>
-                    <span>Width</span>
-                  </div>
-                  <span id="font-width-val">66.88</span>
-                </div>
-                <input type="range" id="font-width" min="50" max="150" step="1" value="66.88" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-              </div>
-
-              <div>
-                <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4 items-center">
-                  <div class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18M9 21V9"/></svg>
-                    <span>Optical Size</span>
-                  </div>
-                  <span id="font-opsz-val">39.82</span>
-                </div>
-                <input type="range" id="font-opsz" min="8" max="144" step="1" value="39.82" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+              <div class="space-y-3">
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+                   <p class="text-[13px] text-slate-900">100 - 900</p>
+                 </div>
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
+                   <p class="text-[13px] text-slate-900">50 - 150</p>
+                 </div>
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
+                   <p class="text-[13px] text-slate-900">8 - 144</p>
+                 </div>
               </div>
             </div>
 
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">CSS Integration</h2>
+            <div class="flex-1 overflow-auto rounded-lg [&_pre]:!bg-slate-900 [&_pre]:!p-4 [&_pre]:!m-0 [&_pre]:!h-full text-[12px] shadow-sm mb-4" id="css-output-container">
+              <Code code={initialCSS} lang="css" theme="github-dark" />
+            </div>
+
+            <div class="flex gap-2">
+               <button class="flex-1 px-3 py-2 bg-white border border-slate-200 rounded text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition-colors text-center">Copy CSS</button>
+               <a href="https://fonts.google.com/" target="_blank" class="flex-1 px-3 py-2 bg-blue-500 text-white rounded text-[13px] font-medium hover:bg-blue-600 transition-colors text-center">Get Font</a>
+            </div>
           </div>
+
         </div>
       </aside>
     </div>
@@ -236,9 +171,6 @@ const initialCSS = `
     <style>
       .preview-text {
         font-family: var(--font-family);
-        font-size: var(--font-size);
-        font-weight: var(--font-weight);
-        font-variation-settings: 'wght' var(--font-weight), 'wdth' var(--font-width), 'opsz' var(--font-opsz);
         outline: none;
       }
 
@@ -257,10 +189,10 @@ const initialCSS = `
       #editorjs p,
       #editorjs ul,
       #editorjs ol,
-      #editorjs li {
+      #editorjs li,
+      #editorjs code,
+      #editorjs pre {
          font-family: inherit;
-         /* Don't strictly inherit size to allow headers to scale relatively,
-            but give a baseline if we want the slider to control the overall body scale */
       }
     </style>
 
@@ -268,12 +200,14 @@ const initialCSS = `
       import EditorJS from '@editorjs/editorjs';
       import Header from '@editorjs/header';
       import List from '@editorjs/list';
+      import CodeTool from '@editorjs/code';
 
       const editor = new EditorJS({
         holder: 'editorjs',
         tools: {
           header: Header,
-          list: List
+          list: List,
+          code: CodeTool
         },
         data: {
           blocks: [
@@ -306,6 +240,12 @@ const initialCSS = `
                    "They offer granular design control"
                 ]
               }
+            },
+            {
+              type: "code",
+              data: {
+                code: "body {\n  font-family: 'Google Sans', sans-serif;\n}"
+              }
             }
           ]
         }
@@ -317,21 +257,6 @@ const initialCSS = `
       let currentFontFamily = "'Google Sans', sans-serif";
       let currentFontName = "Google Sans";
       root.style.setProperty('--font-family', currentFontFamily);
-
-      // Right Sidebar Controls
-      const controls = {
-        fontSize: document.getElementById('font-size') as HTMLInputElement,
-        fontWeight: document.getElementById('font-weight') as HTMLInputElement,
-        fontWidth: document.getElementById('font-width') as HTMLInputElement,
-        fontOpsz: document.getElementById('font-opsz') as HTMLInputElement,
-      };
-
-      const values = {
-        fontSize: document.getElementById('font-size-val'),
-        fontWeight: document.getElementById('font-weight-val'),
-        fontWidth: document.getElementById('font-width-val'),
-        fontOpsz: document.getElementById('font-opsz-val'),
-      };
 
       const cssOutputContainer = document.getElementById('css-output-container');
 
@@ -350,62 +275,17 @@ const initialCSS = `
                 codeElement.innerHTML = `
 <span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">${controls.fontSize?.value || 93}px</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;wght&#39;</span><span style="color:#E1E4E8"> </span><span style="color:#79B8FF">${controls.fontWeight?.value || 400}</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">&#39;wdth&#39;</span><span style="color:#E1E4E8"> </span><span style="color:#79B8FF">${controls.fontWidth?.value || 100}</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">&#39;opsz&#39;</span><span style="color:#E1E4E8"> </span><span style="color:#79B8FF">${controls.fontOpsz?.value || 14}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>`;
               }
             }
         }
       }
 
-      function updateTypography() {
-        // Update CSS variables
-        if (controls.fontSize) root.style.setProperty('--font-size', `${controls.fontSize.value}px`);
-        if (controls.fontWeight) root.style.setProperty('--font-weight', controls.fontWeight.value);
-        if (controls.fontWidth) root.style.setProperty('--font-width', controls.fontWidth.value);
-        if (controls.fontOpsz) root.style.setProperty('--font-opsz', controls.fontOpsz.value);
-
-        // Update display values
-        if (values.fontSize && controls.fontSize) values.fontSize.textContent = controls.fontSize.value;
-        if (values.fontWeight && controls.fontWeight) values.fontWeight.textContent = parseFloat(controls.fontWeight.value).toFixed(2);
-        if (values.fontWidth && controls.fontWidth) values.fontWidth.textContent = parseFloat(controls.fontWidth.value).toFixed(2);
-        if (values.fontOpsz && controls.fontOpsz) values.fontOpsz.textContent = parseFloat(controls.fontOpsz.value).toFixed(2);
-
-        updateCSSOutput();
-      }
-
-      // Add event listeners
-      Object.values(controls).forEach(control => {
-        if (control) {
-          control.addEventListener('input', updateTypography);
-        }
-      });
-
-      // Preset variations logic
-      const presetVariations = document.getElementById('preset-variations');
-      if (presetVariations) {
-          const presetBtns = presetVariations.querySelectorAll('.preset-btn');
-          presetBtns.forEach(btn => {
-             btn.addEventListener('click', () => {
-                const weight = btn.getAttribute('data-weight');
-                const width = btn.getAttribute('data-width');
-                const opsz = btn.getAttribute('data-opsz');
-
-                if (weight && controls.fontWeight) controls.fontWeight.value = weight;
-                if (width && controls.fontWidth) controls.fontWidth.value = width;
-                if (opsz && controls.fontOpsz) controls.fontOpsz.value = opsz;
-
-                updateTypography();
-             });
-          });
-      }
-
       // Font Selection Logic
       const fontList = document.getElementById('font-list');
       if (fontList) {
         const fontItems = fontList.querySelectorAll('.font-item');
-        const infoFontName = document.getElementById('info-font-name');
-        const infoFontPreview = document.getElementById('info-font-preview');
+        const detailsFontName = document.getElementById('details-font-name');
 
         fontItems.forEach(item => {
           item.addEventListener('click', () => {
@@ -443,11 +323,7 @@ const initialCSS = `
               currentFontName = newName;
               root.style.setProperty('--font-family', currentFontFamily);
 
-              if (infoFontName) infoFontName.textContent = currentFontName;
-              if (infoFontPreview) {
-                infoFontPreview.textContent = currentFontName;
-                infoFontPreview.style.fontFamily = currentFontFamily;
-              }
+              if (detailsFontName) detailsFontName.textContent = currentFontName;
 
               updateCSSOutput();
             }
@@ -455,46 +331,6 @@ const initialCSS = `
         });
       }
 
-      // Initialize
-      updateTypography();
-
-      // Tab switching
-      const topHeader = document.getElementById('top-header');
-      if (topHeader) {
-          const tabs = topHeader.querySelectorAll('button');
-          const views = {
-              'Design': document.getElementById('design-view'),
-              'Code': document.getElementById('code-view'),
-          };
-
-          tabs.forEach(tab => {
-              if (['Design', 'Code'].includes(tab.textContent || '')) {
-                  tab.addEventListener('click', () => {
-                      // Update active tab styling
-                      tabs.forEach(t => {
-                          if (['Design', 'Code'].includes(t.textContent || '')) {
-                             t.className = 'hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px] text-slate-400';
-                          }
-                      });
-                      tab.className = 'text-slate-900 border-b-2 border-slate-900 pb-[13px] pt-[15px] -mb-[2px]';
-
-                      // Show/hide views
-                      Object.values(views).forEach(view => {
-                          if (view) view.classList.add('hidden');
-                      });
-
-                      const selectedView = views[tab.textContent as keyof typeof views];
-                      if (selectedView) {
-                          if (tab.textContent === 'Code') {
-                              selectedView.classList.replace('hidden', 'flex');
-                          } else {
-                              selectedView.classList.remove('hidden');
-                          }
-                      }
-                  });
-              }
-          });
-      }
     </script>
   </body>
 </html>

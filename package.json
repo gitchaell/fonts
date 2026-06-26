@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@editorjs/code": "^2.9.4",
     "@editorjs/editorjs": "^2.31.6",
     "@editorjs/header": "^2.8.9",
     "@editorjs/list": "^2.0.9",
