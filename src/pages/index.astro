@@ -1,5 +1,13 @@
 ---
 import '../styles/global.css';
+import { Code } from 'astro:components';
+
+const initialCSS = `
+.preview-text {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 93px;
+  font-variation-settings: 'wght' 708.5, 'wdth' 66.88, 'opsz' 39.82;
+}`;
 ---
 
 <html lang="en">
@@ -219,8 +227,9 @@ import '../styles/global.css';
                <button class="px-3 py-1.5 bg-blue-500 text-white rounded text-[13px] font-medium hover:bg-blue-600">Copy All</button>
              </div>
           </div>
-          <pre class="flex-1 bg-slate-900 text-slate-50 p-6 rounded-lg overflow-auto font-mono text-[13px]" id="css-output">
-          </pre>
+          <div class="flex-1 overflow-auto rounded-lg [&_pre]:!bg-slate-900 [&_pre]:!p-6 [&_pre]:!h-full text-[13px]" id="css-output-container">
+            <Code code={initialCSS} lang="css" theme="github-dark" />
+          </div>
         </div>
 
         <div id="about-view" class="hidden h-full max-w-3xl mx-auto p-12 overflow-auto">
@@ -356,16 +365,28 @@ import '../styles/global.css';
         fontOpsz: document.getElementById('font-opsz-val'),
       };
 
-      const cssOutput = document.getElementById('css-output');
+      const cssOutputContainer = document.getElementById('css-output-container');
 
       function updateCSSOutput() {
-        if (cssOutput) {
-            cssOutput.textContent = `
-.preview-text {
-  font-family: ${currentFontFamily};
-  font-size: ${controls.fontSize?.value || 93}px;
-  font-variation-settings: 'wght' ${controls.fontWeight?.value || 400}, 'wdth' ${controls.fontWidth?.value || 100}, 'opsz' ${controls.fontOpsz?.value || 14};
-}`;
+        if (cssOutputContainer) {
+            const preElement = cssOutputContainer.querySelector('pre');
+            if (preElement) {
+              const codeElement = preElement.querySelector('code');
+              // We'll update the text content. Astro's Code component renders static HTML on server,
+              // so updating it dynamically on client will lose the Shiki syntax highlighting,
+              // but it will maintain the correct structure and bg color.
+              // For a truly dynamic highlighted block we would need a client-side highlighter like prism or highlight.js,
+              // but replacing the raw text in the pre/code block is sufficient for the preview.
+              if (codeElement) {
+                // simple span replacements to retain some fake highlighting colors for the dynamically updated values
+                codeElement.innerHTML = `
+<span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">${controls.fontSize?.value || 93}px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;wght&#39;</span><span style="color:#E1E4E8"> </span><span style="color:#79B8FF">${controls.fontWeight?.value || 400}</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">&#39;wdth&#39;</span><span style="color:#E1E4E8"> </span><span style="color:#79B8FF">${controls.fontWidth?.value || 100}</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">&#39;opsz&#39;</span><span style="color:#E1E4E8"> </span><span style="color:#79B8FF">${controls.fontOpsz?.value || 14}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>`;
+              }
+            }
         }
       }
 
