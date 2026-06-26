@@ -10,99 +10,356 @@ import '../styles/global.css';
     <meta name="generator" content={Astro.generator} />
     <title>Typography Playground</title>
   </head>
-  <body class="min-h-screen p-8 flex flex-col md:flex-row gap-8">
-    <aside class="w-full md:w-80 shrink-0 bg-white p-6 rounded-lg shadow-sm border border-slate-200 h-fit">
-      <h1 class="text-2xl font-bold mb-6 text-slate-800">Typography Playground</h1>
-
-      <div class="space-y-6">
-        <div>
-          <label for="font-family" class="block text-sm font-medium text-slate-700 mb-1">Font Family</label>
-          <select id="font-family" class="w-full border border-slate-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500">
-            <option value="'Google Sans', sans-serif">Google Sans</option>
-            <option value="'Google Sans Mono', monospace">Google Sans Mono</option>
-            <option value="'Google Sans Code', monospace">Google Sans Code</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="font-size" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Font Size</span>
-            <span id="font-size-val">16px</span>
-          </label>
-          <input type="range" id="font-size" min="12" max="72" value="16" class="w-full">
-        </div>
-
-        <div>
-          <label for="font-weight" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Font Weight</span>
-            <span id="font-weight-val">400</span>
-          </label>
-          <input type="range" id="font-weight" min="100" max="900" step="100" value="400" class="w-full">
-        </div>
-
-        <div>
-          <label for="line-height" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Line Height</span>
-            <span id="line-height-val">1.5</span>
-          </label>
-          <input type="range" id="line-height" min="1" max="2.5" step="0.1" value="1.5" class="w-full">
-        </div>
-
-        <div>
-          <label for="letter-spacing" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Letter Spacing</span>
-            <span id="letter-spacing-val">0em</span>
-          </label>
-          <input type="range" id="letter-spacing" min="-0.1" max="0.5" step="0.01" value="0" class="w-full">
-        </div>
+  <body class="min-h-screen bg-[#f3f4f6] flex flex-col font-sans overflow-hidden">
+    <!-- Top Header Placeholder -->
+    <header id="top-header" class="h-[48px] bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10 relative">
+      <div class="flex items-center gap-6">
+        <h1 class="text-[17px] font-bold text-[#111] font-sans tracking-tight"><span class="text-[#3a82f6]">Font</span> Playground</h1>
+        <nav class="flex gap-4 text-[13px] text-slate-500 font-medium">
+          <a href="#" class="hover:text-slate-900 transition-colors">File</a>
+          <a href="#" class="hover:text-slate-900 transition-colors">Help</a>
+        </nav>
       </div>
-    </aside>
 
-    <main class="flex-1 bg-white p-8 rounded-lg shadow-sm border border-slate-200 overflow-hidden flex flex-col gap-12" id="preview-area">
-      <section>
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Paragraph Preview</h2>
-        <div class="preview-text" contenteditable="true">
-          <p>
-            Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing (leading), and letter-spacing (tracking), and adjusting the space between pairs of letters (kerning).
-          </p>
-          <p class="mt-4">
-            The term typography is also applied to the style, arrangement, and appearance of the letters, numbers, and symbols created by the process. Type design is a closely related craft, sometimes considered part of typography. Feel free to edit this text to see how the font looks with your own content!
-          </p>
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-8 text-[13px] font-medium text-slate-400">
+        <button class="text-slate-900 border-b-2 border-slate-900 pb-[13px] pt-[15px] -mb-[2px]">Design</button>
+        <button class="hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px]">Code</button>
+        <button class="hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px]">About</button>
+      </div>
+
+      <div class="flex items-center gap-4 text-slate-400">
+        <button class="hover:text-slate-600 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+        <button class="hover:text-slate-600 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+        </button>
+        <button class="hover:text-slate-600 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </button>
+        <button class="hover:text-slate-600 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Left Sidebar -->
+      <aside id="left-sidebar" class="w-[260px] bg-white border-r border-slate-200 flex flex-col overflow-hidden shrink-0">
+        <!-- Sidebar Navigation (leftmost thin column) -->
+        <div class="absolute left-0 top-[48px] bottom-0 w-[48px] border-r border-slate-200 bg-[#fafafa] flex flex-col items-center py-4 gap-6 z-20">
+          <button class="text-blue-500">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="text-slate-400 hover:text-slate-600">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+          </button>
+          <button class="text-slate-400 hover:text-slate-600">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+          </button>
+          <button class="text-slate-400 hover:text-slate-600">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </button>
         </div>
-      </section>
 
-      <section>
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Code Preview</h2>
-        <pre class="preview-text bg-slate-900 text-slate-50 p-6 rounded-lg overflow-x-auto" contenteditable="true"><code>{`function calculateFibonacci(n) {
-  if (n <= 1) return n;
+        <div class="ml-[48px] flex flex-col h-full bg-[#f8f9fa]">
+          <!-- Font Family Header & Search -->
+          <div class="px-4 py-4 border-b border-slate-200">
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Font Family</h2>
+            <div class="relative">
+              <input type="text" placeholder="Search by name, axis, designer..." class="w-full text-[13px] bg-transparent border-b border-slate-200 pb-1 outline-none placeholder:text-slate-400 focus:border-blue-500 transition-colors">
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute right-0 top-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
 
-  let prev = 0;
-  let curr = 1;
+          <!-- Font List -->
+          <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1">
 
-  for (let i = 2; i <= n; i++) {
-    const next = prev + curr;
-    prev = curr;
-    curr = next;
-  }
+            <button class="w-full text-left p-2 rounded hover:bg-slate-100 group">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-[12px] font-medium text-slate-700">Extraordinaire Shade</span>
+                <div class="flex items-center text-slate-400 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  2
+                </div>
+              </div>
+              <div class="text-xl text-slate-800" style="font-family: 'Times New Roman', serif;">EXTRAORDINAIRE SHADE</div>
+            </button>
 
-  return curr;
-}
+            <button class="w-full text-left p-2 rounded hover:bg-slate-100 group">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-[12px] font-medium text-slate-700">Fit</span>
+                <div class="flex items-center text-slate-400 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  1
+                </div>
+              </div>
+              <div class="text-xl font-bold bg-slate-800 text-white inline-block px-1">FIT</div>
+            </button>
 
-// Example usage:
-const result = calculateFibonacci(10);
-console.log(\`The 10th Fibonacci number is \${result}\`);`}</code></pre>
-      </section>
+            <button class="w-full text-left p-2 rounded hover:bg-slate-100 group">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-[12px] font-medium text-slate-700">Gimlet Beta</span>
+                <div class="flex items-center text-slate-400 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  3
+                </div>
+              </div>
+              <div class="text-xl text-slate-800" style="font-family: Georgia, serif;">Gimlet Beta</div>
+            </button>
 
-      <section>
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Alphabet & Numbers</h2>
-        <div class="preview-text break-all">
-          ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>
-          abcdefghijklmnopqrstuvwxyz<br/>
-          0123456789<br/>
-          !@#$%^&*()_+-=[]{}|;':",./&lt;&gt;?
+            <!-- Active Font -->
+            <button class="w-full text-left p-2 rounded bg-white border border-blue-400 shadow-sm relative">
+              <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l"></div>
+              <div class="flex justify-between items-center mb-1 pl-1">
+                <span class="text-[12px] font-medium text-slate-900">Gimlet Italic Beta</span>
+                <div class="flex items-center text-slate-500 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  3
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 italic pl-1" style="font-family: Georgia, serif;">Gimlet Italic Beta</div>
+            </button>
+
+            <button class="w-full text-left p-2 rounded hover:bg-slate-100 group">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-[12px] font-medium text-slate-700">Gingham</span>
+                <div class="flex items-center text-slate-400 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  2
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 font-sans">Gingham</div>
+            </button>
+
+            <button class="w-full text-left p-2 rounded hover:bg-slate-100 group">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-[12px] font-medium text-slate-700">Gnomon*</span>
+                <div class="flex items-center text-slate-400 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  2
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 font-bold">Gnomon*</div>
+            </button>
+
+            <button class="w-full text-left p-2 rounded hover:bg-slate-100 group">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-[12px] font-medium text-slate-700">Input Mono Beta</span>
+                <div class="flex items-center text-slate-400 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  3
+                </div>
+              </div>
+              <div class="text-lg text-slate-800 font-mono tracking-tight">Input Mono Beta</div>
+            </button>
+
+          </div>
+
+          <!-- Font Info -->
+          <div class="p-4 border-t border-slate-200 bg-white">
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Font Info</h2>
+
+            <div class="border border-blue-400 rounded p-2 mb-4 relative shadow-sm">
+               <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l"></div>
+              <div class="flex justify-between items-center mb-1 pl-1">
+                <span class="text-[12px] font-medium text-slate-900">Gimlet Italic Beta</span>
+                <div class="flex items-center text-slate-500 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  3
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 italic pl-1" style="font-family: Georgia, serif;">Gimlet Italic Beta</div>
+            </div>
+
+            <table class="text-[12px] w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td class="text-slate-500 py-1 align-top w-20">Designer</td>
+                  <td class="text-slate-900 py-1">David Jonathan Ross</td>
+                </tr>
+                <tr>
+                  <td class="text-slate-500 py-1 align-top">Publisher</td>
+                  <td class="text-slate-900 py-1">DJR</td>
+                </tr>
+                <tr>
+                  <td class="text-slate-500 py-1 align-top">License</td>
+                  <td class="text-slate-900 py-1">Paid/commercial</td>
+                </tr>
+                <tr>
+                  <td class="text-slate-500 py-1 align-top">Link</td>
+                  <td class="text-slate-900 py-1"><a href="#" class="hover:underline">djr.com</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </section>
-    </main>
+      </aside>
+
+      <!-- Main Canvas -->
+      <main id="main-area" class="flex-1 bg-white relative overflow-auto shadow-inner p-12">
+        <div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32">
+
+          <div class="relative group">
+            <div class="absolute -inset-2 border-2 border-blue-400 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <!-- Resize handles -->
+              <div class="absolute -top-1.5 -left-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
+              <div class="absolute -top-1.5 left-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-x-1/2"></div>
+              <div class="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
+              <div class="absolute top-1/2 -left-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-y-1/2"></div>
+              <div class="absolute top-1/2 -right-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-y-1/2"></div>
+              <div class="absolute -bottom-1.5 -left-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
+              <div class="absolute -bottom-1.5 left-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-x-1/2"></div>
+              <div class="absolute -bottom-1.5 -right-1.5 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full"></div>
+
+              <!-- Connection lines for the handle below -->
+              <div class="absolute -bottom-8 left-1/2 w-px h-8 bg-blue-400 -translate-x-1/2"></div>
+              <div class="absolute -bottom-8 left-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full -translate-x-1/2 translate-y-1/2"></div>
+
+              <!-- Connection lines for right handles -->
+               <div class="absolute -right-8 bottom-0 w-8 h-px bg-blue-400"></div>
+               <div class="absolute -right-8 bottom-0 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full translate-x-1/2 -translate-y-1/2"></div>
+
+               <div class="absolute -right-8 top-1/2 w-8 h-px bg-blue-400 -translate-y-1/2 -rotate-45 origin-left"></div>
+               <div class="absolute -right-8 top-1/2 w-2.5 h-2.5 border-2 border-blue-400 bg-white rounded-full translate-x-1/2 -translate-y-1/2" style="transform: translate(22px, -28px)"></div>
+            </div>
+
+            <div class="preview-text outline-none break-words" contenteditable="true" style="font-size: 1.5em; line-height: 1;">
+              Font Playground
+            </div>
+          </div>
+
+          <div class="preview-text outline-none break-words mt-4" contenteditable="true" style="font-size: 1.2em; line-height: 1;">
+            is
+          </div>
+
+          <div class="flex gap-4 items-baseline flex-wrap mt-8">
+            <div class="preview-text outline-none break-words" contenteditable="true" style="font-size: 1.5em; font-variation-settings: 'wght' 900, 'wdth' 50; line-height: 1;">
+              VERY
+            </div>
+            <div class="preview-text outline-none break-words" contenteditable="true" style="font-size: 1.5em; line-height: 1;">
+              Lorem Ipsum
+            </div>
+          </div>
+
+          <div class="preview-text outline-none break-words mt-8" contenteditable="true" style="font-size: 1.5em; line-height: 1;">
+            Awesome
+          </div>
+
+          <div class="preview-text outline-none break-words max-w-2xl mx-auto text-center mt-12" contenteditable="true" style="font-size: 0.35em; line-height: 1.4;">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi dignissimos molestias, repellendus sequi incidunt itaque eligendi esse ab odio perspiciatis, eveniet libero est aliquid ipsam facilis blanditiis tenetur. Et
+          </div>
+
+        </div>
+
+        <div id="code-view" class="hidden h-full flex flex-col p-8">
+          <div class="flex justify-between items-center mb-4">
+             <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">CSS</h2>
+             <div class="flex gap-2">
+               <button class="px-3 py-1.5 bg-white border border-slate-200 rounded text-[13px] font-medium text-slate-700 hover:bg-slate-50">Copy Selected</button>
+               <button class="px-3 py-1.5 bg-blue-500 text-white rounded text-[13px] font-medium hover:bg-blue-600">Copy All</button>
+             </div>
+          </div>
+          <pre class="flex-1 bg-slate-900 text-slate-50 p-6 rounded-lg overflow-auto font-mono text-[13px]" id="css-output">
+          </pre>
+        </div>
+
+        <div id="about-view" class="hidden h-full max-w-3xl mx-auto p-12 overflow-auto">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6">About Font Playground</h2>
+          <div class="prose prose-slate prose-sm text-slate-700 space-y-4">
+            <p>Font Playground is built for three groups of audiences.</p>
+            <p>The first group of audience is typographers and designers, who would like to play with fonts that are built with the latest font technologies, such as variable font. It is a playground to fully explore what these new font technologies can offer and how they can be beneficial to your creative workflow.</p>
+            <p>The second group of audience is me, as a Type Tool's UI/UX designer. This is a playground for me to test UI experiments for variable fonts and other new upcoming font technologies. One of the key points to the success of new font technology is adoption by design tools, and furthermore, designers. How can design tool present variable fonts in a way that is useful but not too complicated to handle? I hope to find the answers with this playground.</p>
+            <p>The third group of audience is the type designers and foundries. This is a place to showcase the work-in-progress, cutting-edge font creations. It is a playground to see how fonts are being presented and used in future design tools. How fonts are used can also inform how fonts are made, and what standard should be defined.</p>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Right Sidebar -->
+      <aside id="right-sidebar" class="w-[280px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0">
+        <div class="p-6 flex flex-col gap-8">
+
+          <!-- Font Size -->
+          <div>
+            <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4">
+              <span>Font Size</span>
+              <span id="font-size-val">93</span>
+            </div>
+            <input type="range" id="font-size" min="12" max="200" value="93" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+          </div>
+
+          <!-- Preset Variations -->
+          <div>
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Preset Variations</h2>
+            <div class="flex flex-col gap-1">
+              <button class="flex justify-between items-center w-full px-2 py-1.5 hover:bg-slate-200 rounded text-left text-[13px] text-slate-900 transition-colors">
+                <span>Text Black Italic</span>
+                <span class="font-bold italic text-base">Ag</span>
+              </button>
+              <button class="flex justify-between items-center w-full px-2 py-1.5 hover:bg-slate-200 rounded text-left text-[13px] text-slate-900 transition-colors">
+                <span>Display Narrow Black Italic</span>
+                <span class="font-bold italic tracking-tighter text-base">Ag</span>
+              </button>
+              <button class="flex justify-between items-center w-full px-2 py-1.5 hover:bg-slate-200 rounded text-left text-[13px] text-slate-900 transition-colors">
+                <span>Text Condensed Black Italic</span>
+                <span class="font-bold italic tracking-tight text-base">Ag</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Variable Options -->
+          <div>
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Variable Options</h2>
+
+            <!-- 2D Pad Placeholder -->
+            <div class="w-full aspect-square border border-slate-200 bg-white rounded mb-6 relative">
+               <div class="absolute right-0 top-1/4 w-3 h-3 rounded-full border-2 border-slate-500 bg-white -mr-1.5 -mt-1.5 cursor-grab"></div>
+               <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-100"></div>
+               <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-100"></div>
+            </div>
+
+            <div class="flex flex-col gap-6">
+              <div>
+                <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4 items-center">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19l8-8 8 8"/></svg>
+                    <span>Weight</span>
+                  </div>
+                  <span id="font-weight-val">708.50</span>
+                </div>
+                <input type="range" id="font-weight" min="100" max="900" step="1" value="708.5" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4 items-center">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8V5a2 2 0 00-2-2H5a2 2 0 00-2 2v3M21 16v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3M12 2v20M8 12h8"/></svg>
+                    <span>Width</span>
+                  </div>
+                  <span id="font-width-val">66.88</span>
+                </div>
+                <input type="range" id="font-width" min="50" max="150" step="1" value="66.88" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] font-medium text-slate-700 mb-4 items-center">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18M9 21V9"/></svg>
+                    <span>Optical Size</span>
+                  </div>
+                  <span id="font-opsz-val">39.82</span>
+                </div>
+                <input type="range" id="font-opsz" min="8" max="144" step="1" value="39.82" class="w-full accent-slate-400 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </aside>
+    </div>
+
 
     <style>
       .preview-text {
@@ -122,34 +379,52 @@ console.log(\`The 10th Fibonacci number is \${result}\`);`}</code></pre>
     <script>
       const root = document.documentElement;
 
+      // Font Family
+      // Hardcode Gimlet Italic Beta as initial font for now
+      root.style.setProperty('--font-family', "'Gimlet Italic Beta', Georgia, serif");
+
+      // Right Sidebar Controls
       const controls = {
-        fontFamily: document.getElementById('font-family') as HTMLSelectElement,
         fontSize: document.getElementById('font-size') as HTMLInputElement,
         fontWeight: document.getElementById('font-weight') as HTMLInputElement,
-        lineHeight: document.getElementById('line-height') as HTMLInputElement,
-        letterSpacing: document.getElementById('letter-spacing') as HTMLInputElement,
+        fontWidth: document.getElementById('font-width') as HTMLInputElement,
+        fontOpsz: document.getElementById('font-opsz') as HTMLInputElement,
       };
 
       const values = {
         fontSize: document.getElementById('font-size-val'),
         fontWeight: document.getElementById('font-weight-val'),
-        lineHeight: document.getElementById('line-height-val'),
-        letterSpacing: document.getElementById('letter-spacing-val'),
+        fontWidth: document.getElementById('font-width-val'),
+        fontOpsz: document.getElementById('font-opsz-val'),
       };
+
+      const cssOutput = document.getElementById('css-output');
+
+      function updateCSSOutput() {
+        if (cssOutput) {
+            cssOutput.textContent = `
+.preview-text {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-variation-settings: 'wght' var(--font-weight), 'wdth' var(--font-width), 'opsz' var(--font-opsz);
+}`;
+        }
+      }
 
       function updateTypography() {
         // Update CSS variables
-        root.style.setProperty('--font-family', controls.fontFamily.value);
-        root.style.setProperty('--font-size', `${controls.fontSize.value}px`);
-        root.style.setProperty('--font-weight', controls.fontWeight.value);
-        root.style.setProperty('--line-height', controls.lineHeight.value);
-        root.style.setProperty('--letter-spacing', `${controls.letterSpacing.value}em`);
+        if (controls.fontSize) root.style.setProperty('--font-size', `${controls.fontSize.value}px`);
+        if (controls.fontWeight) root.style.setProperty('--font-weight', controls.fontWeight.value);
+        if (controls.fontWidth) root.style.setProperty('--font-width', controls.fontWidth.value);
+        if (controls.fontOpsz) root.style.setProperty('--font-opsz', controls.fontOpsz.value);
 
         // Update display values
-        if (values.fontSize) values.fontSize.textContent = `${controls.fontSize.value}px`;
-        if (values.fontWeight) values.fontWeight.textContent = controls.fontWeight.value;
-        if (values.lineHeight) values.lineHeight.textContent = controls.lineHeight.value;
-        if (values.letterSpacing) values.letterSpacing.textContent = `${controls.letterSpacing.value}em`;
+        if (values.fontSize && controls.fontSize) values.fontSize.textContent = controls.fontSize.value;
+        if (values.fontWeight && controls.fontWeight) values.fontWeight.textContent = parseFloat(controls.fontWeight.value).toFixed(2);
+        if (values.fontWidth && controls.fontWidth) values.fontWidth.textContent = parseFloat(controls.fontWidth.value).toFixed(2);
+        if (values.fontOpsz && controls.fontOpsz) values.fontOpsz.textContent = parseFloat(controls.fontOpsz.value).toFixed(2);
+
+        updateCSSOutput();
       }
 
       // Add event listeners
@@ -158,6 +433,48 @@ console.log(\`The 10th Fibonacci number is \${result}\`);`}</code></pre>
           control.addEventListener('input', updateTypography);
         }
       });
+
+      // Initialize
+      updateTypography();
+
+      // Tab switching
+      const topHeader = document.getElementById('top-header');
+      if (topHeader) {
+          const tabs = topHeader.querySelectorAll('button');
+          const views = {
+              'Design': document.getElementById('design-view'),
+              'Code': document.getElementById('code-view'),
+              'About': document.getElementById('about-view'),
+          };
+
+          tabs.forEach(tab => {
+              if (['Design', 'Code', 'About'].includes(tab.textContent || '')) {
+                  tab.addEventListener('click', () => {
+                      // Update active tab styling
+                      tabs.forEach(t => {
+                          if (['Design', 'Code', 'About'].includes(t.textContent || '')) {
+                             t.className = 'hover:text-slate-900 transition-colors pb-[13px] pt-[15px] -mb-[2px] text-slate-400';
+                          }
+                      });
+                      tab.className = 'text-slate-900 border-b-2 border-slate-900 pb-[13px] pt-[15px] -mb-[2px]';
+
+                      // Show/hide views
+                      Object.values(views).forEach(view => {
+                          if (view) view.classList.add('hidden');
+                      });
+
+                      const selectedView = views[tab.textContent as keyof typeof views];
+                      if (selectedView) {
+                          if (tab.textContent === 'Code') {
+                              selectedView.classList.replace('hidden', 'flex');
+                          } else {
+                              selectedView.classList.remove('hidden');
+                          }
+                      }
+                  });
+              }
+          });
+      }
     </script>
   </body>
 </html>
