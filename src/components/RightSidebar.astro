@@ -1,0 +1,50 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  initialCSS: string;
+}
+
+const { initialCSS } = Astro.props;
+---
+<aside id="right-sidebar" class="fixed right-0 top-0 h-screen w-[320px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 z-10">
+  <div class="p-6 flex flex-col gap-8 h-full">
+
+    <div>
+      <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Font Details</h2>
+      <div class="bg-white border border-slate-200 rounded p-4 shadow-sm mb-6">
+        <h3 class="text-xl font-bold text-slate-900 mb-1" id="details-font-name">Google Sans</h3>
+        <p class="text-[13px] text-slate-500 mb-4" id="details-font-type">Variable Font with Weight, Width, and Optical Size axes.</p>
+
+        <div class="space-y-3" id="details-axes">
+           <div>
+             <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+             <p class="text-[13px] text-slate-900">100 - 900</p>
+           </div>
+           <div>
+             <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
+             <p class="text-[13px] text-slate-900">50 - 150</p>
+           </div>
+           <div>
+             <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
+             <p class="text-[13px] text-slate-900">8 - 144</p>
+           </div>
+        </div>
+      </div>
+
+      <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">CSS Integration</h2>
+      <div class="flex-1 overflow-auto rounded-lg [&_pre]:!bg-slate-900 [&_pre]:!p-4 [&_pre]:!m-0 [&_pre]:!h-full text-[12px] shadow-sm mb-4" id="css-output-container">
+        <Code code={initialCSS} lang="css" theme="github-dark" />
+      </div>
+
+      <div class="flex gap-2">
+         <button id="copy-css-btn" class="flex-1 px-3 py-2 bg-white border border-slate-200 rounded text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition-colors text-center relative overflow-hidden">
+            <span class="relative z-10 transition-transform duration-200 inline-block" id="copy-text">Copy CSS</span>
+            <span class="absolute inset-0 bg-green-50 text-green-600 flex items-center justify-center font-medium translate-y-full transition-transform duration-200" id="copied-text">Copied!</span>
+         </button>
+         <button id="download-font-btn" class="flex-1 px-3 py-2 bg-blue-500 text-white rounded text-[13px] font-medium hover:bg-blue-600 transition-colors text-center">Get Font</button>
+      </div>
+    </div>
+
+  </div>
+</aside>
