@@ -1,5 +1,13 @@
 ---
 import '../styles/global.css';
+import { Code } from 'astro:components';
+
+const initialCSS = `
+.preview-text {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 93px;
+  font-variation-settings: 'wght' 708.5, 'wdth' 66.88, 'opsz' 39.82;
+}`;
 ---
 
 <html lang="en">
@@ -10,154 +18,468 @@ import '../styles/global.css';
     <meta name="generator" content={Astro.generator} />
     <title>Typography Playground</title>
   </head>
-  <body class="min-h-screen p-8 flex flex-col md:flex-row gap-8">
-    <aside class="w-full md:w-80 shrink-0 bg-white p-6 rounded-lg shadow-sm border border-slate-200 h-fit">
-      <h1 class="text-2xl font-bold mb-6 text-slate-800">Typography Playground</h1>
+  <body class="min-h-screen bg-[#f3f4f6] flex flex-col font-sans overflow-hidden">
 
-      <div class="space-y-6">
-        <div>
-          <label for="font-family" class="block text-sm font-medium text-slate-700 mb-1">Font Family</label>
-          <select id="font-family" class="w-full border border-slate-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500">
-            <option value="'Google Sans', sans-serif">Google Sans</option>
-            <option value="'Google Sans Mono', monospace">Google Sans Mono</option>
-            <option value="'Google Sans Code', monospace">Google Sans Code</option>
-          </select>
+    <!-- Main Layout -->
+    <div class="flex-1 flex overflow-hidden h-screen">
+      <!-- Left Sidebar -->
+      <aside id="left-sidebar" class="w-[260px] bg-white border-r border-slate-200 flex flex-col overflow-hidden shrink-0">
+        <div class="flex flex-col h-full bg-[#f8f9fa]">
+          <!-- Font Family Header & Search -->
+          <div class="px-4 py-4 border-b border-slate-200">
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Font Family</h2>
+            <div class="relative">
+              <input type="text" placeholder="Search by name, axis, designer..." class="w-full text-[13px] bg-transparent border-b border-slate-200 pb-1 outline-none placeholder:text-slate-400 focus:border-blue-500 transition-colors">
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute right-0 top-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
+
+          <!-- Font List -->
+          <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1" id="font-list">
+
+            <!-- Active Font -->
+            <button class="font-item w-full text-left p-2 rounded bg-white border border-blue-400 shadow-sm relative" data-font="'Google Sans', sans-serif" data-name="Google Sans">
+              <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l font-active-indicator"></div>
+              <div class="flex justify-between items-center mb-1 pl-1">
+                <span class="text-[12px] font-medium text-slate-900 font-name-display">Google Sans</span>
+                <div class="flex items-center text-slate-500 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  1
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 pl-1" style="font-family: 'Google Sans', sans-serif;">Google Sans</div>
+            </button>
+
+            <button class="font-item w-full text-left p-2 rounded hover:bg-slate-100 group relative" data-font="'Google Sans Mono', monospace" data-name="Google Sans Mono">
+              <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l font-active-indicator hidden"></div>
+              <div class="flex justify-between items-center mb-1 pl-1">
+                <span class="text-[12px] font-medium text-slate-700 group-hover:text-slate-900 font-name-display">Google Sans Mono</span>
+                <div class="flex items-center text-slate-400 group-hover:text-slate-500 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  1
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 pl-1" style="font-family: 'Google Sans Mono', monospace;">Google Mono</div>
+            </button>
+
+            <button class="font-item w-full text-left p-2 rounded hover:bg-slate-100 group relative" data-font="'Google Sans Code', monospace" data-name="Google Sans Code">
+              <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l font-active-indicator hidden"></div>
+              <div class="flex justify-between items-center mb-1 pl-1">
+                <span class="text-[12px] font-medium text-slate-700 group-hover:text-slate-900 font-name-display">Google Sans Code</span>
+                <div class="flex items-center text-slate-400 group-hover:text-slate-500 text-[10px]">
+                  <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+                  1
+                </div>
+              </div>
+              <div class="text-xl text-slate-800 pl-1" style="font-family: 'Google Sans Code', monospace;">Google Code</div>
+            </button>
+
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Canvas -->
+      <main id="main-area" class="flex-1 bg-white relative overflow-auto shadow-inner p-12">
+        <div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32 pt-12">
+
+          <div id="editorjs" class="preview-text"></div>
+
         </div>
 
-        <div>
-          <label for="font-size" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Font Size</span>
-            <span id="font-size-val">16px</span>
-          </label>
-          <input type="range" id="font-size" min="12" max="72" value="16" class="w-full">
+      </main>
+
+      <!-- Right Sidebar -->
+      <aside id="right-sidebar" class="w-[320px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 h-full">
+        <div class="p-6 flex flex-col gap-8 h-full">
+
+          <div>
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Font Details</h2>
+            <div class="bg-white border border-slate-200 rounded p-4 shadow-sm mb-6">
+              <h3 class="text-xl font-bold text-slate-900 mb-1" id="details-font-name">Google Sans</h3>
+              <p class="text-[13px] text-slate-500 mb-4" id="details-font-type">Variable Font with Weight, Width, and Optical Size axes.</p>
+
+              <div class="space-y-3" id="details-axes">
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+                   <p class="text-[13px] text-slate-900">100 - 900</p>
+                 </div>
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
+                   <p class="text-[13px] text-slate-900">50 - 150</p>
+                 </div>
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
+                   <p class="text-[13px] text-slate-900">8 - 144</p>
+                 </div>
+              </div>
+            </div>
+
+            <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">CSS Integration</h2>
+            <div class="flex-1 overflow-auto rounded-lg [&_pre]:!bg-slate-900 [&_pre]:!p-4 [&_pre]:!m-0 [&_pre]:!h-full text-[12px] shadow-sm mb-4" id="css-output-container">
+              <Code code={initialCSS} lang="css" theme="github-dark" />
+            </div>
+
+            <div class="flex gap-2">
+               <button id="copy-css-btn" class="flex-1 px-3 py-2 bg-white border border-slate-200 rounded text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition-colors text-center relative overflow-hidden">
+                  <span class="relative z-10 transition-transform duration-200 inline-block" id="copy-text">Copy CSS</span>
+                  <span class="absolute inset-0 bg-green-50 text-green-600 flex items-center justify-center font-medium translate-y-full transition-transform duration-200" id="copied-text">Copied!</span>
+               </button>
+               <button id="download-font-btn" class="flex-1 px-3 py-2 bg-blue-500 text-white rounded text-[13px] font-medium hover:bg-blue-600 transition-colors text-center">Get Font</button>
+            </div>
+          </div>
+
         </div>
+      </aside>
+    </div>
 
-        <div>
-          <label for="font-weight" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Font Weight</span>
-            <span id="font-weight-val">400</span>
-          </label>
-          <input type="range" id="font-weight" min="100" max="900" step="100" value="400" class="w-full">
-        </div>
-
-        <div>
-          <label for="line-height" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Line Height</span>
-            <span id="line-height-val">1.5</span>
-          </label>
-          <input type="range" id="line-height" min="1" max="2.5" step="0.1" value="1.5" class="w-full">
-        </div>
-
-        <div>
-          <label for="letter-spacing" class="flex justify-between text-sm font-medium text-slate-700 mb-1">
-            <span>Letter Spacing</span>
-            <span id="letter-spacing-val">0em</span>
-          </label>
-          <input type="range" id="letter-spacing" min="-0.1" max="0.5" step="0.01" value="0" class="w-full">
-        </div>
-      </div>
-    </aside>
-
-    <main class="flex-1 bg-white p-8 rounded-lg shadow-sm border border-slate-200 overflow-hidden flex flex-col gap-12" id="preview-area">
-      <section>
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Paragraph Preview</h2>
-        <div class="preview-text" contenteditable="true">
-          <p>
-            Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing (leading), and letter-spacing (tracking), and adjusting the space between pairs of letters (kerning).
-          </p>
-          <p class="mt-4">
-            The term typography is also applied to the style, arrangement, and appearance of the letters, numbers, and symbols created by the process. Type design is a closely related craft, sometimes considered part of typography. Feel free to edit this text to see how the font looks with your own content!
-          </p>
-        </div>
-      </section>
-
-      <section>
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Code Preview</h2>
-        <pre class="preview-text bg-slate-900 text-slate-50 p-6 rounded-lg overflow-x-auto" contenteditable="true"><code>{`function calculateFibonacci(n) {
-  if (n <= 1) return n;
-
-  let prev = 0;
-  let curr = 1;
-
-  for (let i = 2; i <= n; i++) {
-    const next = prev + curr;
-    prev = curr;
-    curr = next;
-  }
-
-  return curr;
-}
-
-// Example usage:
-const result = calculateFibonacci(10);
-console.log(\`The 10th Fibonacci number is \${result}\`);`}</code></pre>
-      </section>
-
-      <section>
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Alphabet & Numbers</h2>
-        <div class="preview-text break-all">
-          ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>
-          abcdefghijklmnopqrstuvwxyz<br/>
-          0123456789<br/>
-          !@#$%^&*()_+-=[]{}|;':",./&lt;&gt;?
-        </div>
-      </section>
-    </main>
 
     <style>
       .preview-text {
         font-family: var(--font-family);
-        font-size: var(--font-size);
-        font-weight: var(--font-weight);
-        line-height: var(--line-height);
-        letter-spacing: var(--letter-spacing);
         outline: none;
       }
-      .preview-text:focus {
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        border-radius: 0.25rem;
+
+      /* Target editor.js blocks specifically to inherit the styles */
+      #editorjs .ce-block__content {
+        max-width: none; /* Let editor fill the container */
       }
+
+      /* Make sure editor tools inherit the font styling */
+      #editorjs h1,
+      #editorjs h2,
+      #editorjs h3,
+      #editorjs h4,
+      #editorjs h5,
+      #editorjs h6,
+      #editorjs p,
+      #editorjs ul,
+      #editorjs ol,
+      #editorjs li,
+      #editorjs code,
+      #editorjs pre {
+         font-family: inherit;
+      }
+
+      /* Restore heading/list styles overridden by Tailwind */
+      #editorjs h1 {
+          font-size: 2.25em;
+          font-weight: 700;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          line-height: 1.2;
+      }
+      #editorjs h2 {
+          font-size: 1.875em;
+          font-weight: 700;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          line-height: 1.3;
+      }
+      #editorjs h3 {
+          font-size: 1.5em;
+          font-weight: 700;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          line-height: 1.4;
+      }
+      #editorjs h4 {
+          font-size: 1.25em;
+          font-weight: 700;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          line-height: 1.5;
+      }
+      #editorjs h5 {
+          font-size: 1.125em;
+          font-weight: 700;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          line-height: 1.6;
+      }
+      #editorjs h6 {
+          font-size: 1em;
+          font-weight: 700;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          line-height: 1.6;
+      }
+      #editorjs p {
+          font-size: 1.1em;
+          line-height: 1.6;
+      }
+      #editorjs ul {
+          list-style-type: disc;
+          padding-left: 2em;
+          margin-bottom: 1em;
+          font-size: 1.1em;
+          line-height: 1.6;
+      }
+      #editorjs ol {
+          list-style-type: decimal;
+          padding-left: 2em;
+          margin-bottom: 1em;
+          font-size: 1.1em;
+          line-height: 1.6;
+      }
+
+      /* highlight.js theme for editor code blocks */
+      @import 'highlight.js/styles/github-dark.css';
     </style>
 
     <script>
-      const root = document.documentElement;
+      import EditorJS from '@editorjs/editorjs';
+      import Header from '@editorjs/header';
+      import List from '@editorjs/list';
+      import editorjsCodecup from '@calumk/editorjs-codecup';
+      import Underline from '@editorjs/underline';
+      import InlineCode from '@editorjs/inline-code';
 
-      const controls = {
-        fontFamily: document.getElementById('font-family') as HTMLSelectElement,
-        fontSize: document.getElementById('font-size') as HTMLInputElement,
-        fontWeight: document.getElementById('font-weight') as HTMLInputElement,
-        lineHeight: document.getElementById('line-height') as HTMLInputElement,
-        letterSpacing: document.getElementById('letter-spacing') as HTMLInputElement,
+      // Use editorjsCodecup for Editor.js Code blocks which inherently supports syntax highlighting
+
+      const defaultData = {
+          blocks: [
+            {
+              type: "header",
+              data: {
+                text: "Typography Playground",
+                level: 1
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+              }
+            },
+            {
+              type: "list",
+              data: {
+                style: "unordered",
+                items: [
+                   "Select a font from the left panel",
+                   "Write rich text right here",
+                   "Include code snippets"
+                ]
+              }
+            },
+            {
+              type: "code",
+              data: {
+                code: "function helloWorld() {\n  console.log('Typography is awesome!');\n}",
+                language: 'javascript'
+              }
+            }
+          ]
       };
 
-      const values = {
-        fontSize: document.getElementById('font-size-val'),
-        fontWeight: document.getElementById('font-weight-val'),
-        lineHeight: document.getElementById('line-height-val'),
-        letterSpacing: document.getElementById('letter-spacing-val'),
-      };
+      // Load data from localStorage or use defaults
+      const savedData = localStorage.getItem('editorjsData');
+      const initialData = savedData ? JSON.parse(savedData) : defaultData;
 
-      function updateTypography() {
-        // Update CSS variables
-        root.style.setProperty('--font-family', controls.fontFamily.value);
-        root.style.setProperty('--font-size', `${controls.fontSize.value}px`);
-        root.style.setProperty('--font-weight', controls.fontWeight.value);
-        root.style.setProperty('--line-height', controls.lineHeight.value);
-        root.style.setProperty('--letter-spacing', `${controls.letterSpacing.value}em`);
-
-        // Update display values
-        if (values.fontSize) values.fontSize.textContent = `${controls.fontSize.value}px`;
-        if (values.fontWeight) values.fontWeight.textContent = controls.fontWeight.value;
-        if (values.lineHeight) values.lineHeight.textContent = controls.lineHeight.value;
-        if (values.letterSpacing) values.letterSpacing.textContent = `${controls.letterSpacing.value}em`;
-      }
-
-      // Add event listeners
-      Object.values(controls).forEach(control => {
-        if (control) {
-          control.addEventListener('input', updateTypography);
+      const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+          header: {
+              class: Header,
+              inlineToolbar: ['link', 'bold', 'italic', 'underline']
+          },
+          list: {
+              class: List,
+              inlineToolbar: true
+          },
+          code: editorjsCodecup,
+          underline: Underline,
+          inlineCode: InlineCode
+        },
+        data: initialData,
+        onChange: (api, event) => {
+            // Save to localStorage on every change
+            editor.save().then((outputData) => {
+               localStorage.setItem('editorjsData', JSON.stringify(outputData));
+            }).catch((error) => {
+               console.log('Saving failed: ', error);
+            });
         }
       });
+
+      const root = document.documentElement;
+
+      // Initial Font Family
+      let currentFontFamily = "'Google Sans', sans-serif";
+      let currentFontName = "Google Sans";
+      root.style.setProperty('--font-family', currentFontFamily);
+
+      const cssOutputContainer = document.getElementById('css-output-container');
+
+      function updateCSSOutput() {
+        if (cssOutputContainer) {
+            const preElement = cssOutputContainer.querySelector('pre');
+            if (preElement) {
+              const codeElement = preElement.querySelector('code');
+              // We'll update the text content. Astro's Code component renders static HTML on server,
+              // so updating it dynamically on client will lose the Shiki syntax highlighting,
+              // but it will maintain the correct structure and bg color.
+              // For a truly dynamic highlighted block we would need a client-side highlighter like prism or highlight.js,
+              // but replacing the raw text in the pre/code block is sufficient for the preview.
+              if (codeElement) {
+                // simple span replacements to retain some fake highlighting colors for the dynamically updated values
+                codeElement.innerHTML = `
+<span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>`;
+              }
+            }
+        }
+      }
+
+      // Font Selection Logic
+      const fontList = document.getElementById('font-list');
+      if (fontList) {
+        const fontItems = fontList.querySelectorAll('.font-item');
+        const detailsFontName = document.getElementById('details-font-name');
+        const detailsFontType = document.getElementById('details-font-type');
+        const detailsAxes = document.getElementById('details-axes');
+
+        // Font Definitions for the details panel
+        const fontInfoMap: Record<string, any> = {
+            "'Google Sans', sans-serif": {
+                type: "Variable Font with Weight, Width, and Optical Size axes.",
+                axes: `
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+                   <p class="text-[13px] text-slate-900">100 - 900</p>
+                 </div>
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
+                   <p class="text-[13px] text-slate-900">50 - 150</p>
+                 </div>
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
+                   <p class="text-[13px] text-slate-900">8 - 144</p>
+                 </div>`
+            },
+            "'Google Sans Mono', monospace": {
+                type: "Variable Font with Weight axis.",
+                axes: `
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+                   <p class="text-[13px] text-slate-900">400 - 500</p>
+                 </div>`
+            },
+            "'Google Sans Code', monospace": {
+                type: "Variable Font with Weight axis.",
+                axes: `
+                 <div>
+                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+                   <p class="text-[13px] text-slate-900">400 - 700</p>
+                 </div>`
+            }
+        };
+
+        fontItems.forEach(item => {
+          item.addEventListener('click', () => {
+            // Update UI state for all items
+            fontItems.forEach(i => {
+              i.classList.remove('bg-white', 'border', 'border-blue-400', 'shadow-sm');
+              i.classList.add('hover:bg-slate-100');
+              const indicator = i.querySelector('.font-active-indicator');
+              if (indicator) indicator.classList.add('hidden');
+
+              const nameDisplay = i.querySelector('.font-name-display');
+              if(nameDisplay) {
+                 nameDisplay.classList.remove('text-slate-900');
+                 nameDisplay.classList.add('text-slate-700', 'group-hover:text-slate-900');
+              }
+            });
+
+            // Set active state for clicked item
+            item.classList.add('bg-white', 'border', 'border-blue-400', 'shadow-sm');
+            item.classList.remove('hover:bg-slate-100');
+            const activeIndicator = item.querySelector('.font-active-indicator');
+            if (activeIndicator) activeIndicator.classList.remove('hidden');
+
+            const activeNameDisplay = item.querySelector('.font-name-display');
+            if (activeNameDisplay) {
+               activeNameDisplay.classList.remove('text-slate-700', 'group-hover:text-slate-900');
+               activeNameDisplay.classList.add('text-slate-900');
+            }
+
+            // Update typography
+            const newFont = item.getAttribute('data-font');
+            const newName = item.getAttribute('data-name');
+            if (newFont && newName) {
+              currentFontFamily = newFont;
+              currentFontName = newName;
+              root.style.setProperty('--font-family', currentFontFamily);
+
+              if (detailsFontName) detailsFontName.textContent = currentFontName;
+
+              const info = fontInfoMap[currentFontFamily];
+              if (info) {
+                 if (detailsFontType) detailsFontType.textContent = info.type;
+                 if (detailsAxes) detailsAxes.innerHTML = info.axes;
+              }
+
+              updateCSSOutput();
+            }
+          });
+        });
+      }
+
+      // Copy CSS button functionality
+      const copyBtn = document.getElementById('copy-css-btn');
+      if (copyBtn) {
+          copyBtn.addEventListener('click', () => {
+              const codeToCopy = `
+.preview-text {
+  font-family: ${currentFontFamily};
+}`;
+              navigator.clipboard.writeText(codeToCopy).then(() => {
+                  const copyText = document.getElementById('copy-text');
+                  const copiedText = document.getElementById('copied-text');
+                  if (copyText && copiedText) {
+                      copyText.style.transform = 'translateY(-100%)';
+                      copiedText.style.transform = 'translateY(0)';
+
+                      setTimeout(() => {
+                          copyText.style.transform = 'translateY(0)';
+                          copiedText.style.transform = 'translateY(100%)';
+                      }, 2000);
+                  }
+              });
+          });
+      }
+
+      // Get Font button functionality
+      const downloadBtn = document.getElementById('download-font-btn');
+      if (downloadBtn) {
+          downloadBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              // We only have three local fonts. Map the selected name to a local path to download.
+              let fileUrl = '';
+              let fileName = '';
+
+              if (currentFontFamily.includes('Google Sans Mono')) {
+                 fileUrl = '/fonts/GoogleSansMono-normal-500-1.woff2';
+                 fileName = 'GoogleSansMono.woff2';
+              } else if (currentFontFamily.includes('Google Sans Code')) {
+                 fileUrl = '/fonts/GoogleSansCode-normal-400-700-1.woff2';
+                 fileName = 'GoogleSansCode.woff2';
+              } else {
+                 fileUrl = '/fonts/GoogleSans-normal-400-1.woff2';
+                 fileName = 'GoogleSans.woff2';
+              }
+
+              const link = document.createElement('a');
+              link.href = fileUrl;
+              link.download = fileName;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          });
+      }
+
     </script>
   </body>
 </html>
