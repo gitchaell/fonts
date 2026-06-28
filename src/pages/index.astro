@@ -2,375 +2,45 @@
 import Layout from '../layouts/Layout.astro';
 import LeftSidebar from '../components/LeftSidebar.astro';
 import RightSidebar from '../components/RightSidebar.astro';
+import EditorCanvas from '../components/EditorCanvas.astro';
 
 const initialCSS = `
 .preview-text {
   font-family: 'Google Sans', sans-serif;
-  font-size: 93px;
-  font-variation-settings: 'wght' 708.5, 'wdth' 66.88, 'opsz' 39.82;
 }`;
 ---
 
 <Layout>
-  <!-- Left Sidebar -->
-  <LeftSidebar />
+  <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+    <!-- Left Sidebar -->
+    <LeftSidebar />
 
-  <!-- Main Canvas -->
-  <main id="main-area" class="ml-[260px] mr-[320px] h-screen overflow-y-auto bg-white relative shadow-inner p-12">
-    <div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32 pt-12">
-      <div id="editorjs" class="preview-text"></div>
-    </div>
-  </main>
+    <!-- Main Canvas -->
+    <main id="main-area" class="flex-1 overflow-y-auto bg-white relative shadow-inner p-8 lg:p-12 order-3 lg:order-2">
+      <EditorCanvas />
+    </main>
 
-  <!-- Right Sidebar -->
-  <RightSidebar initialCSS={initialCSS} />
+    <!-- Right Sidebar -->
+    <RightSidebar initialCSS={initialCSS} />
+  </div>
 
-    <style is:global>
-      .preview-text {
-        font-family: var(--font-family);
-        outline: none;
-      }
+  <style is:global>
+    .preview-text {
+      font-family: var(--font-family, 'Google Sans', sans-serif);
+      outline: none;
+    }
+  </style>
 
-      /* Target editor.js blocks specifically to inherit the styles */
-      #editorjs .ce-block__content {
-        max-width: none; /* Let editor fill the container */
-      }
+  <script>
+    const root = document.documentElement;
 
-      /* Make sure editor tools inherit the font styling */
-      #editorjs h1,
-      #editorjs h2,
-      #editorjs h3,
-      #editorjs h4,
-      #editorjs h5,
-      #editorjs h6,
-      #editorjs p,
-      #editorjs ul,
-      #editorjs ol,
-      #editorjs li,
-      #editorjs code,
-      #editorjs pre {
-         font-family: inherit;
-      }
+    // Initial Font Family
+    let currentFontFamily = "'Google Sans', sans-serif";
+    root.style.setProperty('--font-family', currentFontFamily);
 
-      /* Restore heading/list styles overridden by Tailwind */
-      #editorjs h1 {
-          font-size: 2.25em;
-          font-weight: 700;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
-          line-height: 1.2;
-      }
-      #editorjs h2 {
-          font-size: 1.875em;
-          font-weight: 700;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
-          line-height: 1.3;
-      }
-      #editorjs h3 {
-          font-size: 1.5em;
-          font-weight: 700;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
-          line-height: 1.4;
-      }
-      #editorjs h4 {
-          font-size: 1.25em;
-          font-weight: 700;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
-          line-height: 1.5;
-      }
-      #editorjs h5 {
-          font-size: 1.125em;
-          font-weight: 700;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
-          line-height: 1.6;
-      }
-      #editorjs h6 {
-          font-size: 1em;
-          font-weight: 700;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
-          line-height: 1.6;
-      }
-      #editorjs p {
-          font-size: 1.1em;
-          line-height: 1.6;
-      }
-      #editorjs ul {
-          list-style-type: disc;
-          padding-left: 2em;
-          margin-bottom: 1em;
-          font-size: 1.1em;
-          line-height: 1.6;
-      }
-      #editorjs ol {
-          list-style-type: decimal;
-          padding-left: 2em;
-          margin-bottom: 1em;
-          font-size: 1.1em;
-          line-height: 1.6;
-      }
-
-      /* highlight.js theme for editor code blocks */
-      @import 'highlight.js/styles/github-dark.css';
-    </style>
-
-    <script>
-      import EditorJS from '@editorjs/editorjs';
-      import Header from '@editorjs/header';
-      import List from '@editorjs/list';
-      import editorjsCodecup from '@calumk/editorjs-codecup';
-      import Underline from '@editorjs/underline';
-      import InlineCode from '@editorjs/inline-code';
-
-      // Use editorjsCodecup for Editor.js Code blocks which inherently supports syntax highlighting
-
-      const defaultData = {
-          blocks: [
-            {
-              type: "header",
-              data: {
-                text: "Typography Playground",
-                level: 1
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-              }
-            },
-            {
-              type: "list",
-              data: {
-                style: "unordered",
-                items: [
-                   "Select a font from the left panel",
-                   "Write rich text right here",
-                   "Include code snippets"
-                ]
-              }
-            },
-            {
-              type: "code",
-              data: {
-                code: "function helloWorld() {\n  console.log('Typography is awesome!');\n}",
-                language: 'javascript'
-              }
-            }
-          ]
-      };
-
-      // Load data from localStorage or use defaults
-      const savedData = localStorage.getItem('editorjsData');
-      const initialData = savedData ? JSON.parse(savedData) : defaultData;
-
-      const editor = new EditorJS({
-        holder: 'editorjs',
-        tools: {
-          header: {
-              class: Header,
-              inlineToolbar: ['link', 'bold', 'italic', 'underline']
-          },
-          list: {
-              class: List,
-              inlineToolbar: true
-          },
-          code: editorjsCodecup,
-          underline: Underline,
-          inlineCode: InlineCode
-        },
-        data: initialData,
-        onChange: (api, event) => {
-            // Save to localStorage on every change
-            editor.save().then((outputData) => {
-               localStorage.setItem('editorjsData', JSON.stringify(outputData));
-            }).catch((error) => {
-               console.log('Saving failed: ', error);
-            });
-        }
-      });
-
-      const root = document.documentElement;
-
-      // Initial Font Family
-      let currentFontFamily = "'Google Sans', sans-serif";
-      let currentFontName = "Google Sans";
+    window.addEventListener('font-selected', ((event: CustomEvent) => {
+      currentFontFamily = event.detail.fontFamily;
       root.style.setProperty('--font-family', currentFontFamily);
-
-      const cssOutputContainer = document.getElementById('css-output-container');
-
-      function updateCSSOutput() {
-        if (cssOutputContainer) {
-            const preElement = cssOutputContainer.querySelector('pre');
-            if (preElement) {
-              const codeElement = preElement.querySelector('code');
-              // We'll update the text content. Astro's Code component renders static HTML on server,
-              // so updating it dynamically on client will lose the Shiki syntax highlighting,
-              // but it will maintain the correct structure and bg color.
-              // For a truly dynamic highlighted block we would need a client-side highlighter like prism or highlight.js,
-              // but replacing the raw text in the pre/code block is sufficient for the preview.
-              if (codeElement) {
-                // simple span replacements to retain some fake highlighting colors for the dynamically updated values
-                codeElement.innerHTML = `
-<span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>`;
-              }
-            }
-        }
-      }
-
-      // Font Selection Logic
-      const fontList = document.getElementById('font-list');
-      if (fontList) {
-        const fontItems = fontList.querySelectorAll('.font-item');
-        const detailsFontName = document.getElementById('details-font-name');
-        const detailsFontType = document.getElementById('details-font-type');
-        const detailsAxes = document.getElementById('details-axes');
-
-        // Font Definitions for the details panel
-        const fontInfoMap: Record<string, any> = {
-            "'Google Sans', sans-serif": {
-                type: "Variable Font with Weight, Width, and Optical Size axes.",
-                axes: `
-                 <div>
-                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
-                   <p class="text-[13px] text-slate-900">100 - 900</p>
-                 </div>
-                 <div>
-                   <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
-                   <p class="text-[13px] text-slate-900">50 - 150</p>
-                 </div>
-                 <div>
-                   <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
-                   <p class="text-[13px] text-slate-900">8 - 144</p>
-                 </div>`
-            },
-            "'Google Sans Mono', monospace": {
-                type: "Variable Font with Weight axis.",
-                axes: `
-                 <div>
-                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
-                   <p class="text-[13px] text-slate-900">400 - 500</p>
-                 </div>`
-            },
-            "'Google Sans Code', monospace": {
-                type: "Variable Font with Weight axis.",
-                axes: `
-                 <div>
-                   <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
-                   <p class="text-[13px] text-slate-900">400 - 700</p>
-                 </div>`
-            }
-        };
-
-        fontItems.forEach(item => {
-          item.addEventListener('click', () => {
-            // Update UI state for all items
-            fontItems.forEach(i => {
-              i.classList.remove('bg-white', 'border', 'border-blue-400', 'shadow-sm');
-              i.classList.add('hover:bg-slate-100');
-              const indicator = i.querySelector('.font-active-indicator');
-              if (indicator) indicator.classList.add('hidden');
-
-              const nameDisplay = i.querySelector('.font-name-display');
-              if(nameDisplay) {
-                 nameDisplay.classList.remove('text-slate-900');
-                 nameDisplay.classList.add('text-slate-700', 'group-hover:text-slate-900');
-              }
-            });
-
-            // Set active state for clicked item
-            item.classList.add('bg-white', 'border', 'border-blue-400', 'shadow-sm');
-            item.classList.remove('hover:bg-slate-100');
-            const activeIndicator = item.querySelector('.font-active-indicator');
-            if (activeIndicator) activeIndicator.classList.remove('hidden');
-
-            const activeNameDisplay = item.querySelector('.font-name-display');
-            if (activeNameDisplay) {
-               activeNameDisplay.classList.remove('text-slate-700', 'group-hover:text-slate-900');
-               activeNameDisplay.classList.add('text-slate-900');
-            }
-
-            // Update typography
-            const newFont = item.getAttribute('data-font');
-            const newName = item.getAttribute('data-name');
-            if (newFont && newName) {
-              currentFontFamily = newFont;
-              currentFontName = newName;
-              root.style.setProperty('--font-family', currentFontFamily);
-
-              if (detailsFontName) detailsFontName.textContent = currentFontName;
-
-              const info = fontInfoMap[currentFontFamily];
-              if (info) {
-                 if (detailsFontType) detailsFontType.textContent = info.type;
-                 if (detailsAxes) detailsAxes.innerHTML = info.axes;
-              }
-
-              updateCSSOutput();
-            }
-          });
-        });
-      }
-
-      // Copy CSS button functionality
-      const copyBtn = document.getElementById('copy-css-btn');
-      if (copyBtn) {
-          copyBtn.addEventListener('click', () => {
-              const codeToCopy = `
-.preview-text {
-  font-family: ${currentFontFamily};
-}`;
-              navigator.clipboard.writeText(codeToCopy).then(() => {
-                  const copyText = document.getElementById('copy-text');
-                  const copiedText = document.getElementById('copied-text');
-                  if (copyText && copiedText) {
-                      copyText.style.transform = 'translateY(-100%)';
-                      copiedText.style.transform = 'translateY(0)';
-
-                      setTimeout(() => {
-                          copyText.style.transform = 'translateY(0)';
-                          copiedText.style.transform = 'translateY(100%)';
-                      }, 2000);
-                  }
-              });
-          });
-      }
-
-      // Get Font button functionality
-      const downloadBtn = document.getElementById('download-font-btn');
-      if (downloadBtn) {
-          downloadBtn.addEventListener('click', (e) => {
-              e.preventDefault();
-
-              // We only have three local fonts. Map the selected name to a local path to download.
-              let fileUrl = '';
-              let fileName = '';
-
-              if (currentFontFamily.includes('Google Sans Mono')) {
-                 fileUrl = '/fonts/GoogleSansMono-normal-500-1.woff2';
-                 fileName = 'GoogleSansMono.woff2';
-              } else if (currentFontFamily.includes('Google Sans Code')) {
-                 fileUrl = '/fonts/GoogleSansCode-normal-400-700-1.woff2';
-                 fileName = 'GoogleSansCode.woff2';
-              } else {
-                 fileUrl = '/fonts/GoogleSans-normal-400-1.woff2';
-                 fileName = 'GoogleSans.woff2';
-              }
-
-              const link = document.createElement('a');
-              link.href = fileUrl;
-              link.download = fileName;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-          });
-      }
-
-    </script>
+    }) as EventListener);
+  </script>
 </Layout>
