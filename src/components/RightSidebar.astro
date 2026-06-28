@@ -133,13 +133,46 @@ const { initialCSS } = Astro.props;
     return settings.join(', ');
   }
 
+  function getFontFaceStr() {
+    if (currentFontFamily.includes('Google Sans Mono')) {
+      return `@font-face {
+  font-family: 'Google Sans Mono';
+  src: url('/fonts/GoogleSansMono-normal-500-1.woff2') format('woff2');
+}
+`;
+    } else if (currentFontFamily.includes('Google Sans Code')) {
+      return `@font-face {
+  font-family: 'Google Sans Code';
+  src: url('/fonts/GoogleSansCode-normal-400-700-1.woff2') format('woff2');
+}
+`;
+    } else {
+      return `@font-face {
+  font-family: 'Google Sans';
+  src: url('/fonts/GoogleSans-normal-400-1.woff2') format('woff2');
+}
+`;
+    }
+  }
+
   function updateCSSOutput() {
     const cssOutputContainer = document.getElementById('css-output-container');
     if (cssOutputContainer) {
         const codeElement = cssOutputContainer.querySelector('code');
         if (codeElement) {
           const settingsStr = getVariationSettingsStr();
+          const fontFaceStr = getFontFaceStr();
+
+          // Escape HTML characters for the code block display
+          const escapedFontFace = fontFaceStr
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .split('\n')
+            .map(line => `<span class="line"><span style="color:#E1E4E8">${line}</span></span>`)
+            .join('\n');
+
           codeElement.innerHTML = `
+${escapedFontFace}
 <span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${settingsStr}</span><span style="color:#E1E4E8">;</span></span>
@@ -201,7 +234,7 @@ const { initialCSS } = Astro.props;
   const copyBtn = document.getElementById('copy-css-btn');
   if (copyBtn) {
       copyBtn.addEventListener('click', () => {
-          const codeToCopy = `
+          const codeToCopy = `${getFontFaceStr()}
 .preview-text {
   font-family: ${currentFontFamily};
   font-variation-settings: ${getVariationSettingsStr()};

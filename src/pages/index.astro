@@ -4,9 +4,14 @@ import LeftSidebar from '../components/LeftSidebar.astro';
 import RightSidebar from '../components/RightSidebar.astro';
 import EditorCanvas from '../components/EditorCanvas.astro';
 
-const initialCSS = `
+const initialCSS = `@font-face {
+  font-family: 'Google Sans';
+  src: url('/fonts/GoogleSans-normal-400-1.woff2') format('woff2');
+}
+
 .preview-text {
   font-family: 'Google Sans', sans-serif;
+  font-variation-settings: 'wght' 400, 'wdth' 100, 'opsz' 14;
 }`;
 ---
 
