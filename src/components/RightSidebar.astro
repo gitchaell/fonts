@@ -7,7 +7,7 @@ interface Props {
 
 const { initialCSS } = Astro.props;
 ---
-<aside id="right-sidebar" class="fixed right-0 top-0 h-screen w-[320px] bg-[#f8f9fa] border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 z-10">
+<aside id="right-sidebar" class="w-full lg:w-[320px] lg:h-screen bg-[#f8f9fa] border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col overflow-y-auto shrink-0 z-10 order-2 lg:order-3">
   <div class="p-6 flex flex-col gap-8 h-full">
 
     <div>
@@ -16,18 +16,27 @@ const { initialCSS } = Astro.props;
         <h3 class="text-xl font-bold text-slate-900 mb-1" id="details-font-name">Google Sans</h3>
         <p class="text-[13px] text-slate-500 mb-4" id="details-font-type">Variable Font with Weight, Width, and Optical Size axes.</p>
 
-        <div class="space-y-3" id="details-axes">
-           <div>
-             <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
-             <p class="text-[13px] text-slate-900">100 - 900</p>
+        <div class="space-y-4" id="details-axes">
+           <div class="axis-control" data-axis="wght">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">400</span>
+             </div>
+             <input type="range" min="100" max="900" value="400" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
            </div>
-           <div>
-             <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
-             <p class="text-[13px] text-slate-900">50 - 150</p>
+           <div class="axis-control" data-axis="wdth">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">100</span>
+             </div>
+             <input type="range" min="50" max="150" value="100" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
            </div>
-           <div>
-             <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
-             <p class="text-[13px] text-slate-900">8 - 144</p>
+           <div class="axis-control" data-axis="opsz">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">14</span>
+             </div>
+             <input type="range" min="8" max="144" value="14" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
            </div>
         </div>
       </div>
@@ -48,3 +57,197 @@ const { initialCSS } = Astro.props;
 
   </div>
 </aside>
+
+<script>
+  let currentFontFamily = "'Google Sans', sans-serif";
+  let currentFontName = "Google Sans";
+
+  const axesState: Record<string, string> = {
+    'wght': '400',
+    'wdth': '100',
+    'opsz': '14'
+  };
+
+  const fontInfoMap: Record<string, any> = {
+      "'Google Sans', sans-serif": {
+          type: "Variable Font with Weight, Width, and Optical Size axes.",
+          axesHTML: `
+           <div class="axis-control" data-axis="wght">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">400</span>
+             </div>
+             <input type="range" min="100" max="900" value="400" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
+           </div>
+           <div class="axis-control" data-axis="wdth">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Width (wdth)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">100</span>
+             </div>
+             <input type="range" min="50" max="150" value="100" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
+           </div>
+           <div class="axis-control" data-axis="opsz">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Optical Size (opsz)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">14</span>
+             </div>
+             <input type="range" min="8" max="144" value="14" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
+           </div>`
+      },
+      "'Google Sans Mono', monospace": {
+          type: "Variable Font with Weight axis.",
+          axesHTML: `
+           <div class="axis-control" data-axis="wght">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">400</span>
+             </div>
+             <input type="range" min="400" max="500" value="400" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
+           </div>`
+      },
+      "'Google Sans Code', monospace": {
+          type: "Variable Font with Weight axis.",
+          axesHTML: `
+           <div class="axis-control" data-axis="wght">
+             <div class="flex justify-between items-center mb-1">
+               <span class="text-[11px] font-bold text-slate-400 uppercase">Weight (wght)</span>
+               <span class="text-[12px] font-medium text-slate-700 axis-value">400</span>
+             </div>
+             <input type="range" min="400" max="700" value="400" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none">
+           </div>`
+      }
+  };
+
+  function getVariationSettingsStr() {
+    const activeAxes = document.querySelectorAll('.axis-control');
+    if(activeAxes.length === 0) return 'normal';
+
+    let settings: string[] = [];
+    activeAxes.forEach(control => {
+      const axis = control.getAttribute('data-axis');
+      const input = control.querySelector('input');
+      if (axis && input) {
+        settings.push(`'${axis}' ${input.value}`);
+      }
+    });
+    return settings.join(', ');
+  }
+
+  function updateCSSOutput() {
+    const cssOutputContainer = document.getElementById('css-output-container');
+    if (cssOutputContainer) {
+        const codeElement = cssOutputContainer.querySelector('code');
+        if (codeElement) {
+          const settingsStr = getVariationSettingsStr();
+          codeElement.innerHTML = `
+<span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${settingsStr}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>`;
+        }
+    }
+  }
+
+  function dispatchAxesChange() {
+    const settingsStr = getVariationSettingsStr();
+    window.dispatchEvent(new CustomEvent('axes-changed', {
+      detail: { settings: settingsStr }
+    }));
+    updateCSSOutput();
+  }
+
+  function setupSliderListeners() {
+    const axisControls = document.querySelectorAll('.axis-control');
+    axisControls.forEach(control => {
+      const input = control.querySelector('input');
+      const valueDisplay = control.querySelector('.axis-value');
+
+      if (input && valueDisplay) {
+        input.addEventListener('input', (e) => {
+          const target = e.target as HTMLInputElement;
+          valueDisplay.textContent = target.value;
+          dispatchAxesChange();
+        });
+      }
+    });
+    dispatchAxesChange();
+  }
+
+  // Handle font selection from LeftSidebar
+  window.addEventListener('font-selected', ((event: CustomEvent) => {
+    currentFontFamily = event.detail.fontFamily;
+    currentFontName = event.detail.fontName;
+
+    const detailsFontName = document.getElementById('details-font-name');
+    const detailsFontType = document.getElementById('details-font-type');
+    const detailsAxes = document.getElementById('details-axes');
+
+    if (detailsFontName) detailsFontName.textContent = currentFontName;
+
+    const info = fontInfoMap[currentFontFamily];
+    if (info) {
+       if (detailsFontType) detailsFontType.textContent = info.type;
+       if (detailsAxes) {
+         detailsAxes.innerHTML = info.axesHTML;
+         setupSliderListeners();
+       }
+    }
+  }) as EventListener);
+
+  // Initialize
+  setupSliderListeners();
+
+  // Copy CSS button functionality
+  const copyBtn = document.getElementById('copy-css-btn');
+  if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+          const codeToCopy = `
+.preview-text {
+  font-family: ${currentFontFamily};
+  font-variation-settings: ${getVariationSettingsStr()};
+}`;
+          navigator.clipboard.writeText(codeToCopy).then(() => {
+              const copyText = document.getElementById('copy-text');
+              const copiedText = document.getElementById('copied-text');
+              if (copyText && copiedText) {
+                  copyText.style.transform = 'translateY(-100%)';
+                  copiedText.style.transform = 'translateY(0)';
+
+                  setTimeout(() => {
+                      copyText.style.transform = 'translateY(0)';
+                      copiedText.style.transform = 'translateY(100%)';
+                  }, 2000);
+              }
+          });
+      });
+  }
+
+  // Get Font button functionality
+  const downloadBtn = document.getElementById('download-font-btn');
+  if (downloadBtn) {
+      downloadBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          let fileUrl = '';
+          let fileName = '';
+
+          if (currentFontFamily.includes('Google Sans Mono')) {
+             fileUrl = '/fonts/GoogleSansMono-normal-500-1.woff2';
+             fileName = 'GoogleSansMono.woff2';
+          } else if (currentFontFamily.includes('Google Sans Code')) {
+             fileUrl = '/fonts/GoogleSansCode-normal-400-700-1.woff2';
+             fileName = 'GoogleSansCode.woff2';
+          } else {
+             fileUrl = '/fonts/GoogleSans-normal-400-1.woff2';
+             fileName = 'GoogleSans.woff2';
+          }
+
+          const link = document.createElement('a');
+          link.href = fileUrl;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      });
+  }
+</script>
