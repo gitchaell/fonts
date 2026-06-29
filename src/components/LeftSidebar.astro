@@ -1,14 +1,16 @@
 ---
+import { Search } from '@lucide/astro';
+// HACK: just import it from lucide if astro is an issue, but it should be lucide-astro based on the package error
 import FontItem from './FontItem.astro';
 ---
-<aside id="left-sidebar" class="w-full lg:w-[260px] lg:h-screen bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col overflow-hidden shrink-0 z-10 order-1 lg:order-1 h-64">
-  <div class="flex flex-col h-full bg-[#f8f9fa]">
+<aside id="left-sidebar" class="w-full lg:w-[260px] lg:h-screen bg-[#1e1e1e] border-b lg:border-b-0 lg:border-r border-[#333] flex flex-col overflow-hidden shrink-0 z-10 order-1 lg:order-1 h-64">
+  <div class="flex flex-col h-full bg-[#1e1e1e]">
     <!-- Font Family Header & Search -->
-    <div class="px-4 py-4 border-b border-slate-200">
+    <div class="px-4 py-4 border-b border-[#333]">
       <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Font Family</h2>
       <div class="relative">
-        <input type="text" placeholder="Search by name, axis, designer..." class="w-full text-[13px] bg-transparent border-b border-slate-200 pb-1 pr-8 outline-none placeholder:text-slate-400 focus:border-blue-500 transition-colors">
-        <svg class="w-3.5 h-3.5 text-slate-400 absolute right-0 top-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" placeholder="Search by name, axis, designer..." class="w-full text-[13px] bg-transparent border-b border-[#333] pb-1 pr-8 outline-none placeholder:text-slate-400 focus:border-blue-500 transition-colors">
+        <Search class="w-3.5 h-3.5 text-slate-400 absolute right-0 top-1" />
       </div>
     </div>
 
@@ -30,28 +32,28 @@ import FontItem from './FontItem.astro';
       item.addEventListener('click', () => {
         // Update UI state for all items
         fontItems.forEach(i => {
-          i.classList.remove('bg-white', 'border-blue-400', 'shadow-sm');
-          i.classList.add('hover:bg-slate-100', 'border-transparent');
+          i.classList.remove('bg-[#2c2c2c]', 'border-blue-500', 'shadow-sm');
+          i.classList.add('hover:bg-[#2c2c2c]', 'border-transparent');
           const indicator = i.querySelector('.font-active-indicator');
           if (indicator) indicator.classList.add('hidden');
 
           const nameDisplay = i.querySelector('.font-name-display');
           if(nameDisplay) {
-             nameDisplay.classList.remove('text-slate-900');
-             nameDisplay.classList.add('text-slate-700', 'group-hover:text-slate-900');
+             nameDisplay.classList.remove('text-white');
+             nameDisplay.classList.add('text-gray-400', 'group-hover:text-white');
           }
         });
 
         // Set active state for clicked item
-        item.classList.add('bg-white', 'border-blue-400', 'shadow-sm');
-        item.classList.remove('hover:bg-slate-100', 'border-transparent');
+        item.classList.add('bg-[#2c2c2c]', 'border-blue-500', 'shadow-sm');
+        item.classList.remove('hover:bg-[#2c2c2c]', 'border-transparent');
         const activeIndicator = item.querySelector('.font-active-indicator');
         if (activeIndicator) activeIndicator.classList.remove('hidden');
 
         const activeNameDisplay = item.querySelector('.font-name-display');
         if (activeNameDisplay) {
-           activeNameDisplay.classList.remove('text-slate-700', 'group-hover:text-slate-900');
-           activeNameDisplay.classList.add('text-slate-900');
+           activeNameDisplay.classList.remove('text-gray-400', 'group-hover:text-white');
+           activeNameDisplay.classList.add('text-white');
         }
 
         // Dispatch Custom Event for cross-component communication
