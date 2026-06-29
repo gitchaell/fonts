@@ -12,7 +12,6 @@
   import editorjsCodecup from '@calumk/editorjs-codecup';
   import Underline from '@editorjs/underline';
   import InlineCode from '@editorjs/inline-code';
-  import Checklist from '@editorjs/checklist';
   import Quote from '@editorjs/quote';
 
   const defaultData = {
@@ -76,10 +75,6 @@
       code: editorjsCodecup,
       underline: Underline,
       inlineCode: InlineCode,
-      checklist: {
-        class: Checklist,
-        inlineToolbar: true,
-      },
       quote: {
         class: Quote,
         inlineToolbar: true,
@@ -105,9 +100,20 @@
     const root = document.documentElement;
     root.style.setProperty('--font-family', event.detail.fontFamily);
   }) as EventListener);
+
+  window.addEventListener('axes-changed', ((event: CustomEvent) => {
+    const root = document.documentElement;
+    if (event.detail.features) {
+       root.style.setProperty('--font-feature-settings', event.detail.features);
+    }
+  }) as EventListener);
 </script>
 
 <style is:global>
+  #editorjs {
+    font-feature-settings: var(--font-feature-settings, normal);
+  }
+
   /* Target editor.js blocks specifically to inherit the styles */
   #editorjs .ce-block__content,
   #editorjs .ce-toolbar__content {
