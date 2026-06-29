@@ -1,7 +1,7 @@
 ---
 ---
 
-<div id="design-view" class="max-w-4xl mx-auto flex flex-col gap-8 pb-32 pt-12">
+<div id="design-view" class="px-12 flex flex-col gap-8 pb-32 pt-12">
   <div id="editorjs" class="preview-text"></div>
 </div>
 
@@ -13,6 +13,7 @@
   import Underline from '@editorjs/underline';
   import InlineCode from '@editorjs/inline-code';
   import Checklist from '@editorjs/checklist';
+  import Quote from '@editorjs/quote';
 
   const defaultData = {
       blocks: [
@@ -46,6 +47,14 @@
             code: "function helloWorld() {\n  console.log('Typography is awesome!');\n}",
             language: 'javascript'
           }
+        },
+        {
+          type: "quote",
+          data: {
+            text: "The details are not the details. They make the design.",
+            caption: "Charles Eames",
+            alignment: "left"
+          }
         }
       ]
   };
@@ -70,6 +79,15 @@
       checklist: {
         class: Checklist,
         inlineToolbar: true,
+      },
+      quote: {
+        class: Quote,
+        inlineToolbar: true,
+        shortcut: 'CMD+SHIFT+O',
+        config: {
+          quotePlaceholder: 'Enter a quote',
+          captionPlaceholder: 'Quote\'s author',
+        },
       }
     },
     data: initialData,
@@ -86,14 +104,6 @@
   window.addEventListener('font-selected', ((event: CustomEvent) => {
     const root = document.documentElement;
     root.style.setProperty('--font-family', event.detail.fontFamily);
-  }) as EventListener);
-
-  window.addEventListener('axes-changed', ((event: CustomEvent) => {
-    const root = document.documentElement;
-    const settings = event.detail.settings;
-    if (settings) {
-       root.style.setProperty('font-variation-settings', settings);
-    }
   }) as EventListener);
 </script>
 
