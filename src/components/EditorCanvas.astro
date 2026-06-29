@@ -12,6 +12,7 @@
   import editorjsCodecup from '@calumk/editorjs-codecup';
   import Underline from '@editorjs/underline';
   import InlineCode from '@editorjs/inline-code';
+  import Checklist from '@editorjs/checklist';
   import Quote from '@editorjs/quote';
 
   const defaultData = {
@@ -75,6 +76,10 @@
       code: editorjsCodecup,
       underline: Underline,
       inlineCode: InlineCode,
+      checklist: {
+        class: Checklist,
+        inlineToolbar: true,
+      },
       quote: {
         class: Quote,
         inlineToolbar: true,
@@ -135,6 +140,22 @@
   #editorjs pre,
   #editorjs .cdx-checklist {
      font-family: inherit;
+  }
+
+  #editorjs .cdx-quote {
+    padding: 16px;
+    border-left: 4px solid #cbd5e1;
+    background-color: #f8fafc;
+    margin: 16px 0;
+  }
+  #editorjs .cdx-quote__text {
+    font-style: italic;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+  }
+  #editorjs .cdx-quote__caption {
+    font-size: 0.9em;
+    color: #64748b;
   }
 
   /* Restore heading/list styles overridden by Tailwind */
