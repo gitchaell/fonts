@@ -118,8 +118,11 @@
       if (event.detail.fontSize) root.style.setProperty('--font-size', event.detail.fontSize);
       if (event.detail.lineHeight) root.style.setProperty('--line-height', event.detail.lineHeight);
       if (event.detail.letterSpacing) root.style.setProperty('--letter-spacing', event.detail.letterSpacing);
+      if (event.detail.wordSpacing) root.style.setProperty('--word-spacing', event.detail.wordSpacing);
       if (event.detail.textAlign) root.style.setProperty('--text-align', event.detail.textAlign);
       if (event.detail.color) root.style.setProperty('--text-color', event.detail.color);
+      if (event.detail.textTransform) root.style.setProperty('--text-transform', event.detail.textTransform);
+      if (event.detail.textDecoration) root.style.setProperty('--text-decoration', event.detail.textDecoration);
     }
   });
 </script>
@@ -131,8 +134,11 @@
     font-size: var(--font-size, 16px);
     line-height: var(--line-height, 1.5);
     letter-spacing: var(--letter-spacing, 0em);
+    word-spacing: var(--word-spacing, 0em);
     text-align: var(--text-align, left);
     color: var(--text-color, #000000);
+    text-transform: var(--text-transform, none);
+    text-decoration: var(--text-decoration, none);
   }
 
   /* Target editor.js blocks specifically to inherit the styles */
@@ -158,8 +164,11 @@
      font-family: inherit;
      /* Don't override font-size and line-height here to allow em scaling on headings */
      letter-spacing: var(--letter-spacing, inherit);
+     word-spacing: var(--word-spacing, inherit);
      text-align: var(--text-align, inherit);
      color: var(--text-color, inherit);
+     text-transform: var(--text-transform, inherit);
+     text-decoration: var(--text-decoration, inherit);
   }
 
   #editorjs .cdx-quote {
