@@ -23,3 +23,4 @@ declare global {
     Buffer: any;
   }
 }
+declare module '@editorjs/checklist';
