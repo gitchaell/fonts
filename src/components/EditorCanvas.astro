@@ -9,10 +9,8 @@
   import EditorJS from '@editorjs/editorjs';
   import Header from '@editorjs/header';
   import List from '@editorjs/list';
-  import editorjsCodecup from '@calumk/editorjs-codecup';
   import Underline from '@editorjs/underline';
   import InlineCode from '@editorjs/inline-code';
-    import Quote from '@editorjs/quote';
 
   const defaultData = {
       blocks: [
@@ -26,39 +24,39 @@
         {
           type: "paragraph",
           data: {
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            text: "Explore advanced typographic features like standard ligatures (fi, fl, ffi), discretionary ligatures (st, ct), and contextual alternates. Notice how character variants and stylistic sets completely change the mood of the text."
           }
         },
         {
-          type: "list",
+          type: "header",
           data: {
-            style: "unordered",
-            items: [
-               "Select a font from the left panel",
-               "Write rich text right here",
-               "Include code snippets"
-            ]
+            text: "Numerics & Fractions",
+            level: 2
           }
         },
         {
-          type: "code",
+          type: "paragraph",
           data: {
-            code: "function helloWorld() {\n  console.log('Typography is awesome!');\n}",
-            language: 'javascript'
+            text: "Lining figures: 0123456789. Oldstyle figures: 0123456789. Proportional and tabular figures align perfectly for data. Fractions like 1/2, 3/4, or 7/8 render beautifully when enabled."
           }
         },
         {
-          type: "quote",
+          type: "header",
           data: {
-            text: "The details are not the details. They make the design.",
-            caption: "Charles Eames",
-            alignment: "left"
+            text: "Capitals & Positioning",
+            level: 2
+          }
+        },
+        {
+          type: "paragraph",
+          data: {
+            text: "Small capitals (SMALL CAPS) are perfect for acronyms like NASA or HTML. Superscripts (x2 + y2 = z2) and subscripts (H2O) demonstrate precise positioning alternates."
           }
         }
       ]
   };
 
-  const savedData = localStorage.getItem('editorjsData');
+  const savedData = localStorage.getItem('editorjsData_v2');
   const initialData = savedData ? JSON.parse(savedData) : defaultData;
 
   const editor = new EditorJS({
@@ -72,23 +70,13 @@
           class: List,
           inlineToolbar: true
       },
-      code: editorjsCodecup,
       underline: Underline,
-      inlineCode: InlineCode,
-      quote: {
-        class: Quote,
-        inlineToolbar: true,
-        shortcut: 'CMD+SHIFT+O',
-        config: {
-          quotePlaceholder: 'Enter a quote',
-          captionPlaceholder: 'Quote\'s author',
-        },
-      }
+      inlineCode: InlineCode
     },
     data: initialData,
     onChange: () => {
         editor.save().then((outputData) => {
-           localStorage.setItem('editorjsData', JSON.stringify(outputData));
+           localStorage.setItem('editorjsData_v2', JSON.stringify(outputData));
         }).catch((error) => {
            console.log('Saving failed: ', error);
         });
@@ -123,6 +111,9 @@
       if (event.detail.color) root.style.setProperty('--text-color', event.detail.color);
       if (event.detail.textTransform) root.style.setProperty('--text-transform', event.detail.textTransform);
       if (event.detail.textDecoration) root.style.setProperty('--text-decoration', event.detail.textDecoration);
+      if (event.detail.fontStyle) root.style.setProperty('--font-style', event.detail.fontStyle);
+      if (event.detail.textIndent) root.style.setProperty('--text-indent', event.detail.textIndent);
+      if (event.detail.paragraphSpacing) root.style.setProperty('--paragraph-spacing', event.detail.paragraphSpacing);
     }
   });
 </script>
@@ -139,6 +130,7 @@
     color: var(--text-color, #000000);
     text-transform: var(--text-transform, none);
     text-decoration: var(--text-decoration, none);
+    font-style: var(--font-style, normal);
   }
 
   /* Target editor.js blocks specifically to inherit the styles */
@@ -169,6 +161,23 @@
      color: var(--text-color, inherit);
      text-transform: var(--text-transform, inherit);
      text-decoration: var(--text-decoration, inherit);
+     font-style: var(--font-style, inherit);
+  }
+
+  #editorjs p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-indent: var(--text-indent, 0);
+      margin-bottom: var(--paragraph-spacing, 1em);
+  }
+
+  #editorjs h1,
+  #editorjs h2,
+  #editorjs h3,
+  #editorjs h4,
+  #editorjs h5,
+  #editorjs h6 {
+      margin-bottom: var(--paragraph-spacing, 0.5em);
   }
 
   #editorjs .cdx-quote {
@@ -229,10 +238,6 @@
       font-weight: 700;
       margin-top: 1em;
       margin-bottom: 0.5em;
-      line-height: 1.6;
-  }
-  #editorjs p {
-      font-size: 1.1em;
       line-height: 1.6;
   }
   #editorjs ul {
