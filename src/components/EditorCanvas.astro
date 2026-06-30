@@ -10,47 +10,59 @@
   import Header from '@editorjs/header';
   import List from '@editorjs/list';
   import Underline from '@editorjs/underline';
-  import InlineCode from '@editorjs/inline-code';
 
   const defaultData = {
       blocks: [
         {
           type: "header",
           data: {
-            text: "Typography Playground",
+            text: "The Art of Typography",
             level: 1
           }
         },
         {
           type: "paragraph",
           data: {
-            text: "Explore advanced typographic features like standard ligatures (fi, fl, ffi), discretionary ligatures (st, ct), and contextual alternates. Notice how character variants and stylistic sets completely change the mood of the text."
+            text: "Typography is not just about making words legible; it's about giving them a voice. A well-designed font incorporates standard ligatures like <b>fi</b>, <b>fl</b>, and <b>ffi</b> to prevent ugly collisions between characters. When you activate discretionary ligatures, combinations like <b>st</b> and <b>ct</b> might connect in historical or decorative ways."
           }
         },
         {
           type: "header",
           data: {
-            text: "Numerics & Fractions",
+            text: "Numerics: Fractions & Figures",
             level: 2
           }
         },
         {
           type: "paragraph",
           data: {
-            text: "Lining figures: 0123456789. Oldstyle figures: 0123456789. Proportional and tabular figures align perfectly for data. Fractions like 1/2, 3/4, or 7/8 render beautifully when enabled."
+            text: "Data deserves to be beautiful. Lining figures (0123456789) align perfectly with capital letters, while oldstyle figures (0123456789) blend seamlessly into lowercase text. With tabular figures, columns of numbers like $12,345.67 and $89,012.34 align perfectly. You can also generate beautiful fractions like 1/2, 3/4, or even 7/8 with a single toggle."
           }
         },
         {
           type: "header",
           data: {
-            text: "Capitals & Positioning",
+            text: "Capitals, Small Caps, & Positioning",
             level: 2
           }
         },
         {
           type: "paragraph",
           data: {
-            text: "Small capitals (SMALL CAPS) are perfect for acronyms like NASA or HTML. Superscripts (x2 + y2 = z2) and subscripts (H2O) demonstrate precise positioning alternates."
+            text: "Small capitals (SMALL CAPS) are perfect for acronyms like NASA or HTML without overpowering the text. For mathematical or scientific notation, OpenType handles superscripts (x2 + y2 = z2) and subscripts (H2O) with precise positioning, eliminating the need for crude HTML tags."
+          }
+        },
+        {
+          type: "header",
+          data: {
+            text: "Contextual & Stylistic Sets",
+            level: 2
+          }
+        },
+        {
+          type: "paragraph",
+          data: {
+            text: "Contextual alternates completely change how characters connect depending on their neighbors (e.g., -> turning into an arrow). Many modern variable fonts also provide Stylistic Sets (ss01, ss02) that completely alter the mood of the text by swapping out alternate character designs."
           }
         }
       ]
@@ -70,8 +82,7 @@
           class: List,
           inlineToolbar: true
       },
-      underline: Underline,
-      inlineCode: InlineCode
+      underline: Underline
     },
     data: initialData,
     onChange: () => {
@@ -150,8 +161,6 @@
   #editorjs ul,
   #editorjs ol,
   #editorjs li,
-  #editorjs code,
-  #editorjs pre,
   #editorjs .cdx-checklist {
      font-family: inherit;
      /* Don't override font-size and line-height here to allow em scaling on headings */
@@ -178,23 +187,6 @@
   #editorjs h5,
   #editorjs h6 {
       margin-bottom: var(--paragraph-spacing, 0.5em);
-  }
-
-  #editorjs .cdx-quote {
-    padding: 16px;
-    border-left: 4px solid #cbd5e1;
-    background-color: #f8fafc;
-    margin: 16px 0;
-  }
-  #editorjs .cdx-quote__text {
-    font-style: italic;
-    margin-bottom: 8px;
-    font-size: 1.1em;
-    min-height: unset;
-  }
-  #editorjs .cdx-quote__caption {
-    font-size: 0.9em;
-    color: #64748b;
   }
 
   /* Restore heading/list styles overridden by Tailwind */
@@ -254,7 +246,4 @@
       font-size: 1.1em;
       line-height: 1.6;
   }
-
-  /* highlight.js theme for editor code blocks */
-  @import 'highlight.js/styles/github-dark.css';
 </style>
