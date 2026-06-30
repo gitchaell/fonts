@@ -2,41 +2,41 @@
 > my-astro-app@0.0.1 dev
 > astro dev
 
-▶ Astro collects anonymous usage data.
-  This information helps us improve Astro.
-  Run "astro telemetry disable" to opt-out.
-  https://astro.build/telemetry
-
-14:40:34 [vite] connected.
-14:40:37 [types] Generated 1ms
-14:40:37 [vite] connected.
- astro  v7.0.3 ready in 2900 ms
+20:59:44 [vite] connected.
+20:59:46 [types] Generated 1ms
+20:59:46 [vite] connected.
+20:59:46 [vite] Re-optimizing dependencies because vite config has changed
+ astro  v7.0.3 ready in 2413 ms
 ┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
-14:40:37 watching for file changes...
-14:42:45 [200] / 233ms
-16:24:16 [200] / 797ms
-16:24:18 [404] /fonts/GoogleSans-normal-700-25.woff2 193ms
-16:24:18 [404] /fonts/GoogleSans-normal-500-25.woff2 178ms
-16:24:19 [vite] [optimizer] bundling dependencies...
-16:24:19 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
-16:24:19 [vite] ✨ optimized dependencies changed. reloading
-16:24:19 [200] / 106ms
-16:24:20 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
-16:24:20 [404] /fonts/GoogleSans-normal-500-25.woff2 2ms
-16:24:37 [200] / 95ms
-16:24:38 [404] /fonts/GoogleSans-normal-700-25.woff2 3ms
-16:24:38 [404] /fonts/GoogleSans-normal-500-25.woff2 2ms
-16:24:54 [watch] src/components/RightSidebar.astro
-16:25:14 [200] / 136ms
-16:25:15 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
-16:25:15 [404] /fonts/GoogleSans-normal-500-25.woff2 1ms
-16:25:15 [200] / 80ms
-16:25:15 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
-16:25:15 [404] /fonts/GoogleSans-normal-500-25.woff2 1ms
-16:26:02 [200] / 81ms
-16:26:02 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
-16:26:02 [404] /fonts/GoogleSans-normal-500-25.woff2 0ms
-16:26:49 [200] / 82ms
-16:26:49 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
-16:26:49 [404] /fonts/GoogleSans-normal-500-25.woff2 0ms
+20:59:46 watching for file changes...
+21:01:02 [200] / 243ms
+21:01:03 [404] /fonts/GoogleSans-normal-700-25.woff2 116ms
+21:01:03 [404] /fonts/GoogleSans-normal-500-25.woff2 109ms
+21:01:04 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+21:01:04 [vite] ✨ optimized dependencies changed. reloading
+21:01:04 [200] / 111ms
+21:01:04 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
+21:01:04 [404] /fonts/GoogleSans-normal-500-25.woff2 2ms
+21:01:08 [404] /fonts/GoogleSansMono-normal-500-1.woff2 6ms
+21:01:09 [404] /fonts/GoogleSansMono-normal-500-1.woff2 2ms
+21:03:49 Configuration file updated. Restarting...
+21:03:49 [vite] program reload
+21:03:49 [ERROR] [vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:19714:31)
+21:03:49 [vite] connected.
+21:03:52 [vite] connected.
+21:03:52 [vite] Re-optimizing dependencies because lockfile has changed
+21:03:52 [vite] server restarted.
+21:09:34 [200] / 144ms
+21:09:34 [404] /fonts/GoogleSans-normal-700-25.woff2 18ms
+21:09:34 [404] /fonts/GoogleSans-normal-500-25.woff2 14ms
+21:09:34 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+21:09:34 [vite] ✨ optimized dependencies changed. reloading
+21:09:35 [200] / 72ms
+21:09:35 [404] /fonts/GoogleSans-normal-700-25.woff2 1ms
+21:09:35 [404] /fonts/GoogleSans-normal-500-25.woff2 1ms
+21:09:38 [404] /fonts/GoogleSansMono-normal-500-1.woff2 1ms
+21:09:38 [404] /fonts/GoogleSansMono-normal-500-1.woff2 1ms
