@@ -10,6 +10,7 @@
   import Header from '@editorjs/header';
   import List from '@editorjs/list';
   import Underline from '@editorjs/underline';
+  import Checklist from '@editorjs/checklist';
 
   const defaultData = {
       blocks: [
@@ -82,7 +83,11 @@
           class: List,
           inlineToolbar: true
       },
-      underline: Underline
+      underline: Underline,
+      checklist: {
+        class: Checklist,
+        inlineToolbar: true,
+      }
     },
     data: initialData,
     onChange: () => {
