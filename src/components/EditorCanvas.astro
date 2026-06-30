@@ -12,8 +12,7 @@
   import editorjsCodecup from '@calumk/editorjs-codecup';
   import Underline from '@editorjs/underline';
   import InlineCode from '@editorjs/inline-code';
-  import Checklist from '@editorjs/checklist';
-  import Quote from '@editorjs/quote';
+    import Quote from '@editorjs/quote';
 
   const defaultData = {
       blocks: [
@@ -76,10 +75,6 @@
       code: editorjsCodecup,
       underline: Underline,
       inlineCode: InlineCode,
-      checklist: {
-        class: Checklist,
-        inlineToolbar: true,
-      },
       quote: {
         class: Quote,
         inlineToolbar: true,
@@ -110,6 +105,7 @@
     const root = document.documentElement;
     if (event.detail.features) {
        root.style.setProperty('--font-feature-settings', event.detail.features);
+       root.style.setProperty('--font-variation-settings', event.detail.settings);
     }
   }) as EventListener);
 </script>
@@ -117,6 +113,7 @@
 <style is:global>
   #editorjs {
     font-feature-settings: var(--font-feature-settings, normal);
+    font-variation-settings: var(--font-variation-settings, normal);
   }
 
   /* Target editor.js blocks specifically to inherit the styles */
@@ -152,6 +149,7 @@
     font-style: italic;
     margin-bottom: 8px;
     font-size: 1.1em;
+    min-height: unset;
   }
   #editorjs .cdx-quote__caption {
     font-size: 0.9em;
