@@ -64,6 +64,15 @@ const { initialCSS } = Astro.props;
              <input id="typo-letter-spacing" type="range" min="-0.1" max="0.5" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
            </div>
 
+           <!-- Word Spacing -->
+           <div class="typo-control">
+             <div class="flex justify-between items-center mb-1">
+               <label for="typo-word-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Word Spacing (em)</label>
+               <input id="typo-word-spacing-input" type="number" value="0" min="-0.5" max="2" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+             </div>
+             <input id="typo-word-spacing" type="range" min="-0.5" max="2" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+           </div>
+
            <!-- Alignment -->
            <div>
              <div class="text-[11px] font-bold text-slate-400 uppercase mb-2">Alignment</div>
@@ -84,6 +93,27 @@ const { initialCSS } = Astro.props;
              </div>
            </div>
 
+           <!-- Text Transform -->
+           <div>
+             <div class="text-[11px] font-bold text-slate-400 uppercase mb-2">Text Transform</div>
+             <div class="flex gap-1 bg-[#1e1e1e] p-1 rounded border border-[#333]" id="typo-transform-group">
+               <button data-transform="none" class="flex-1 py-1.5 flex justify-center items-center rounded bg-[#3a3a3a] text-white transition-colors transform-btn text-[10px] font-bold uppercase tracking-wider" aria-label="None">None</button>
+               <button data-transform="uppercase" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors transform-btn text-[10px] font-bold uppercase tracking-wider" aria-label="Uppercase">UP</button>
+               <button data-transform="lowercase" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors transform-btn text-[10px] font-bold lowercase tracking-wider" aria-label="Lowercase">low</button>
+               <button data-transform="capitalize" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors transform-btn text-[10px] font-bold capitalize tracking-wider" aria-label="Capitalize">Cap</button>
+             </div>
+           </div>
+
+           <!-- Text Decoration -->
+           <div>
+             <div class="text-[11px] font-bold text-slate-400 uppercase mb-2">Text Decoration</div>
+             <div class="flex gap-1 bg-[#1e1e1e] p-1 rounded border border-[#333]" id="typo-decoration-group">
+               <button data-decoration="none" class="flex-1 py-1.5 flex justify-center items-center rounded bg-[#3a3a3a] text-white transition-colors decoration-btn text-[10px] font-bold uppercase tracking-wider" aria-label="None">None</button>
+               <button data-decoration="underline" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors decoration-btn text-[10px] font-bold underline tracking-wider" aria-label="Underline">U</button>
+               <button data-decoration="line-through" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors decoration-btn text-[10px] font-bold line-through tracking-wider" aria-label="Line Through">S</button>
+             </div>
+           </div>
+
         </div>
       </div>
 
@@ -91,59 +121,7 @@ const { initialCSS } = Astro.props;
         <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Font Features</h3>
 
         <div class="space-y-4" id="font-features-container">
-           <!-- Ligatures -->
-           <div>
-              <div class="text-[11px] font-bold text-gray-500 uppercase mb-2">Ligatures</div>
-
-              <label class="flex items-center justify-between cursor-pointer group mb-2">
-                 <div class="flex items-center gap-3">
-                    <div class="relative">
-                       <input type="checkbox" class="sr-only peer feature-toggle" data-feature="liga">
-                       <div class="w-8 h-4 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all"></div>
-                    </div>
-                    <span class="text-[13px] text-gray-300 group-hover:text-white transition-colors">Standard Ligatures (liga)</span>
-                 </div>
-                 <span class="text-lg text-gray-400 feature-preview" style="font-feature-settings: 'liga' 1;">fi</span>
-              </label>
-
-              <label class="flex items-center justify-between cursor-pointer group mb-2">
-                 <div class="flex items-center gap-3">
-                    <div class="relative">
-                       <input type="checkbox" class="sr-only peer feature-toggle" data-feature="dlig">
-                       <div class="w-8 h-4 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all"></div>
-                    </div>
-                    <span class="text-[13px] text-gray-300 group-hover:text-white transition-colors">Discretionary (dlig)</span>
-                 </div>
-                 <span class="text-lg text-gray-400 feature-preview" style="font-feature-settings: 'dlig' 1;">ct</span>
-              </label>
-           </div>
-
-           <!-- Numerics -->
-           <div>
-              <div class="text-[11px] font-bold text-gray-500 uppercase mb-2">Numerics</div>
-
-              <label class="flex items-center justify-between cursor-pointer group mb-2">
-                 <div class="flex items-center gap-3">
-                    <div class="relative">
-                       <input type="checkbox" class="sr-only peer feature-toggle" data-feature="frac">
-                       <div class="w-8 h-4 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all"></div>
-                    </div>
-                    <span class="text-[13px] text-gray-300 group-hover:text-white transition-colors">Fractions (frac)</span>
-                 </div>
-                 <span class="text-lg text-gray-400 feature-preview" style="font-feature-settings: 'frac' 1;">1/2</span>
-              </label>
-
-              <label class="flex items-center justify-between cursor-pointer group mb-2">
-                 <div class="flex items-center gap-3">
-                    <div class="relative">
-                       <input type="checkbox" class="sr-only peer feature-toggle" data-feature="tnum">
-                       <div class="w-8 h-4 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all"></div>
-                    </div>
-                    <span class="text-[13px] text-gray-300 group-hover:text-white transition-colors">Tabular Figures (tnum)</span>
-                 </div>
-                 <span class="text-lg text-gray-400 feature-preview" style="font-feature-settings: 'tnum' 1;">00</span>
-              </label>
-           </div>
+           <div id="dynamic-font-features" class="space-y-4"></div>
 
            <div>
               <label for="font-feature-settings-input" class="text-[11px] font-bold text-gray-500 uppercase mb-2 block">Manual Features</label>
@@ -216,9 +194,49 @@ const { initialCSS } = Astro.props;
     fontSize: '16px',
     lineHeight: '1.5',
     letterSpacing: '0em',
+    wordSpacing: '0em',
     textAlign: 'left',
-    color: '#000000'
+    color: '#000000',
+    textTransform: 'none',
+    textDecoration: 'none'
   };
+
+  const otFeatures = [
+    { category: 'Ligatures & Contextual', features: [ { tag: 'liga', name: 'Standard Ligatures', preview: 'fi' }, { tag: 'dlig', name: 'Discretionary Ligatures', preview: 'ct' }, { tag: 'calt', name: 'Contextual Alternates', preview: '->' }, { tag: 'hlig', name: 'Historical Ligatures', preview: 'st' } ] },
+    { category: 'Capitals', features: [ { tag: 'smcp', name: 'Small Capitals', preview: 'Aa' }, { tag: 'c2sc', name: 'Capitals to Small Caps', preview: 'AA' }, { tag: 'case', name: 'Case-Sensitive Forms', preview: '(H)' }, { tag: 'titl', name: 'Titling Alternates', preview: 'H' } ] },
+    { category: 'Numerics', features: [ { tag: 'lnum', name: 'Lining Figures', preview: '12' }, { tag: 'onum', name: 'Oldstyle Figures', preview: '12' }, { tag: 'pnum', name: 'Proportional Figures', preview: '12' }, { tag: 'tnum', name: 'Tabular Figures', preview: '12' }, { tag: 'frac', name: 'Fractions', preview: '1/2' }, { tag: 'ordn', name: 'Ordinals', preview: '1st' }, { tag: 'zero', name: 'Slashed Zero', preview: '0' } ] },
+    { category: 'Position', features: [ { tag: 'sups', name: 'Superscript', preview: 'x²' }, { tag: 'subs', name: 'Subscript', preview: 'x₂' } ] },
+    { category: 'Stylistic', features: [ { tag: 'swsh', name: 'Swash', preview: 'Q' }, { tag: 'salt', name: 'Stylistic Alternates', preview: 'a' }, { tag: 'ss01', name: 'Stylistic Set 1', preview: '1' }, { tag: 'ss02', name: 'Stylistic Set 2', preview: '2' }, { tag: 'ss03', name: 'Stylistic Set 3', preview: '3' } ] }
+  ];
+
+  function renderDynamicFontFeatures() {
+    const container = document.getElementById('dynamic-font-features');
+    if (!container) return;
+
+    container.innerHTML = otFeatures.map(group => `
+      <details class="group bg-[#1e1e1e] border border-[#333] rounded overflow-hidden">
+        <summary class="text-[11px] font-bold text-gray-500 uppercase p-3 cursor-pointer select-none hover:bg-[#252525] transition-colors flex justify-between items-center list-none [&::-webkit-details-marker]:hidden">
+          ${group.category}
+          <svg class="w-4 h-4 text-gray-500 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="p-3 pt-0 border-t border-[#333] mt-1 space-y-2">
+          ${group.features.map(f => `
+            <label class="flex items-center justify-between cursor-pointer group/label mb-2">
+               <div class="flex items-center gap-3">
+                  <div class="relative">
+                     <input type="checkbox" class="sr-only peer feature-toggle" data-feature="${f.tag}">
+                     <div class="w-8 h-4 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all"></div>
+                  </div>
+                  <span class="text-[12px] text-gray-300 group-hover/label:text-white transition-colors">${f.name} (${f.tag})</span>
+               </div>
+               <span class="text-sm text-gray-400 feature-preview" style="font-feature-settings: '${f.tag}' 1;">${f.preview}</span>
+            </label>
+          `).join('')}
+        </div>
+      </details>
+    `).join('');
+  }
+
 
   function dispatchTypographyChange() {
     window.dispatchEvent(new CustomEvent('typography-changed', {
@@ -270,6 +288,20 @@ const { initialCSS } = Astro.props;
       lsInput.addEventListener('input', (e) => updateLS((e.target as HTMLInputElement).value));
     }
 
+    // Word Spacing
+    const wsRange = document.getElementById('typo-word-spacing') as HTMLInputElement;
+    const wsInput = document.getElementById('typo-word-spacing-input') as HTMLInputElement;
+    if (wsRange && wsInput) {
+      const updateWS = (val: string) => {
+        wsRange.value = val;
+        wsInput.value = val;
+        typoState.wordSpacing = `${val}em`;
+        dispatchTypographyChange();
+      };
+      wsRange.addEventListener('input', (e) => updateWS((e.target as HTMLInputElement).value));
+      wsInput.addEventListener('input', (e) => updateWS((e.target as HTMLInputElement).value));
+    }
+
     // Text Color
     const colorPicker = document.getElementById('typo-color') as HTMLInputElement;
     const colorText = document.getElementById('typo-color-text') as HTMLInputElement;
@@ -309,6 +341,46 @@ const { initialCSS } = Astro.props;
         }
       });
     });
+
+    // Text Transform
+    const transformBtns = document.querySelectorAll('.transform-btn');
+    transformBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const transform = target.getAttribute('data-transform');
+        if (transform) {
+          transformBtns.forEach(b => {
+            b.classList.remove('bg-[#3a3a3a]', 'text-white');
+            b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          });
+          target.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          target.classList.add('bg-[#3a3a3a]', 'text-white');
+
+          typoState.textTransform = transform;
+          dispatchTypographyChange();
+        }
+      });
+    });
+
+    // Text Decoration
+    const decorationBtns = document.querySelectorAll('.decoration-btn');
+    decorationBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const decoration = target.getAttribute('data-decoration');
+        if (decoration) {
+          decorationBtns.forEach(b => {
+            b.classList.remove('bg-[#3a3a3a]', 'text-white');
+            b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          });
+          target.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          target.classList.add('bg-[#3a3a3a]', 'text-white');
+
+          typoState.textDecoration = decoration;
+          dispatchTypographyChange();
+        }
+      });
+    });
   }
 
 
@@ -336,8 +408,11 @@ ${escapedFontFace}
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.fontSize}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">line-height</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.lineHeight}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">letter-spacing</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.letterSpacing}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">word-spacing</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.wordSpacing}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-align</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textAlign}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">color</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.color}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-transform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textTransform}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-decoration</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textDecoration}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${settingsStr}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-feature-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${featureSettingsStr}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>`;
@@ -457,6 +532,7 @@ ${escapedFontFace}
   }) as EventListener);
 
   // Initialize
+  renderDynamicFontFeatures();
   setupSliderListeners();
   updateFeaturePreviews();
   setupTypographyListeners();
@@ -489,8 +565,11 @@ ${escapedFontFace}
   font-size: ${typoState.fontSize};
   line-height: ${typoState.lineHeight};
   letter-spacing: ${typoState.letterSpacing};
+  word-spacing: ${typoState.wordSpacing};
   text-align: ${typoState.textAlign};
   color: ${typoState.color};
+  text-transform: ${typoState.textTransform};
+  text-decoration: ${typoState.textDecoration};
   font-variation-settings: ${getVariationSettingsStr()};
   font-feature-settings: ${getFontFeatureSettingsStr()};
 }`;
