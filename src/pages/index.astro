@@ -3,15 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import LeftSidebar from '../components/LeftSidebar.astro';
 import RightSidebar from '../components/RightSidebar.astro';
 import EditorCanvas from '../components/EditorCanvas.astro';
+import { defaultFont } from '../config/fonts';
 
-const initialCSS = `@font-face {
-  font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans-normal-400-1.woff2') format('woff2');
-}
-
+const initialCSS = `${defaultFont.fontFace}
 .preview-text {
-  font-family: 'Google Sans', sans-serif;
-  font-variation-settings: 'wght' 400, 'wdth' 100, 'opsz' 14;
+  font-family: ${defaultFont.fontFamily};
+  font-variation-settings: 'wght' ${defaultFont.axes.find(a => a.tag === 'wght')?.default || 400}, 'wdth' ${defaultFont.axes.find(a => a.tag === 'wdth')?.default || 100}, 'opsz' ${defaultFont.axes.find(a => a.tag === 'opsz')?.default || 14};
 }`;
 ---
 
@@ -37,15 +34,18 @@ const initialCSS = `@font-face {
   </style>
 
   <script>
+    import { defaultFont } from '../config/fonts';
+
     const root = document.documentElement;
 
     // Initial Font Family
-    let currentFontFamily = "'Google Sans', sans-serif";
+    let currentFontFamily = defaultFont.fontFamily;
     root.style.setProperty('--font-family', currentFontFamily);
 
-    window.addEventListener('font-selected', ((event: CustomEvent) => {
+    window.addEventListener('font-selected', (e) => {
+      const event = e as CustomEvent;
       currentFontFamily = event.detail.fontFamily;
       root.style.setProperty('--font-family', currentFontFamily);
-    }) as EventListener);
+    });
   </script>
 </Layout>

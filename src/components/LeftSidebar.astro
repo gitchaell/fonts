@@ -1,70 +1,87 @@
 ---
 import { Search } from '@lucide/astro';
-// HACK: just import it from lucide if astro is an issue, but it should be lucide-astro based on the package error
 import FontItem from './FontItem.astro';
+import { fonts, defaultFont } from '../config/fonts';
 ---
-<aside id="left-sidebar" class="w-full lg:w-[260px] lg:h-screen bg-[#1e1e1e] border-b lg:border-b-0 lg:border-r border-[#333] flex flex-col overflow-hidden shrink-0 z-10 order-1 lg:order-1 h-64">
+<aside id="left-sidebar" class="w-full lg:w-[260px] lg:h-screen bg-[#1e1e1e] border-b lg:border-b-0 lg:border-r border-[#333] flex flex-col overflow-hidden shrink-0 z-10 order-1 lg:order-1 flex-1 lg:flex-none max-h-64 lg:max-h-full">
   <div class="flex flex-col h-full bg-[#1e1e1e]">
     <!-- Font Family Header & Search -->
     <div class="px-4 py-4 border-b border-[#333]">
-      <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Font Family</h2>
+      <label for="font-search" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-3 block">Font Family</label>
       <div class="relative">
-        <input type="text" placeholder="Search by name, axis, designer..." class="w-full text-[13px] bg-transparent border-b border-[#333] pb-1 pr-8 outline-none placeholder:text-slate-400 focus:border-blue-500 transition-colors">
-        <Search class="w-3.5 h-3.5 text-slate-400 absolute right-0 top-1" />
+        <input id="font-search" type="text" placeholder="Search by name, axis, designer..." class="w-full text-[13px] bg-transparent border-b border-[#333] pb-1 pr-8 outline-none placeholder:text-slate-400 focus:border-blue-500 transition-colors text-white" aria-label="Search fonts">
+        <Search aria-hidden="true" class="w-3.5 h-3.5 text-slate-400 absolute right-0 top-1" />
       </div>
     </div>
 
     <!-- Font List -->
     <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1" id="font-list">
-      <FontItem fontFamily="'Google Sans', sans-serif" fontName="Google Sans" isActive={true} />
-      <FontItem fontFamily="'Google Sans Mono', monospace" fontName="Google Sans Mono" />
-      <FontItem fontFamily="'Google Sans Code', monospace" fontName="Google Sans Code" />
+      {fonts.map(font => (
+        <FontItem
+          id={font.id}
+          fontFamily={font.fontFamily}
+          fontName={font.fontName}
+          isActive={font.id === defaultFont.id}
+        />
+      ))}
     </div>
   </div>
 </aside>
 
 <script>
   const fontList = document.getElementById('font-list');
+
   if (fontList) {
-    const fontItems = fontList.querySelectorAll('.font-item');
+    // const fontItems = Array.from(fontList.querySelectorAll('.font-item'));
 
-    fontItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Update UI state for all items
-        fontItems.forEach(i => {
-          i.classList.remove('bg-[#2c2c2c]', 'border-blue-500', 'shadow-sm');
-          i.classList.add('hover:bg-[#2c2c2c]', 'border-transparent');
-          const indicator = i.querySelector('.font-active-indicator');
-          if (indicator) indicator.classList.add('hidden');
+    // Track the currently active element
+    let activeItem = fontList.querySelector('.active-font');
 
-          const nameDisplay = i.querySelector('.font-name-display');
-          if(nameDisplay) {
-             nameDisplay.classList.remove('text-white');
-             nameDisplay.classList.add('text-gray-400', 'group-hover:text-white');
-          }
-        });
+    fontList.addEventListener('click', (e) => {
+      const item = (e.target as Element).closest('.font-item');
 
-        // Set active state for clicked item
-        item.classList.add('bg-[#2c2c2c]', 'border-blue-500', 'shadow-sm');
-        item.classList.remove('hover:bg-[#2c2c2c]', 'border-transparent');
-        const activeIndicator = item.querySelector('.font-active-indicator');
-        if (activeIndicator) activeIndicator.classList.remove('hidden');
+      if (!item || item === activeItem) return;
 
-        const activeNameDisplay = item.querySelector('.font-name-display');
-        if (activeNameDisplay) {
-           activeNameDisplay.classList.remove('text-gray-400', 'group-hover:text-white');
-           activeNameDisplay.classList.add('text-white');
+      // Remove active state from previous item
+      if (activeItem) {
+        activeItem.classList.remove('active-font', 'bg-[#2c2c2c]', 'border-blue-500', 'shadow-sm');
+        activeItem.classList.add('hover:bg-[#2c2c2c]', 'border-transparent');
+
+        const indicator = activeItem.querySelector('.font-active-indicator');
+        if (indicator) indicator.classList.add('hidden');
+
+        const nameDisplay = activeItem.querySelector('.font-name-display');
+        if (nameDisplay) {
+           nameDisplay.classList.remove('text-white');
+           nameDisplay.classList.add('text-slate-300', 'group-hover:text-white');
         }
+      }
 
-        // Dispatch Custom Event for cross-component communication
-        const newFont = item.getAttribute('data-font');
-        const newName = item.getAttribute('data-name');
-        if (newFont && newName) {
-           window.dispatchEvent(new CustomEvent('font-selected', {
-              detail: { fontFamily: newFont, fontName: newName }
-           }));
-        }
-      });
+      // Set active state on new item
+      item.classList.add('active-font', 'bg-[#2c2c2c]', 'border-blue-500', 'shadow-sm');
+      item.classList.remove('hover:bg-[#2c2c2c]', 'border-transparent');
+
+      const activeIndicator = item.querySelector('.font-active-indicator');
+      if (activeIndicator) activeIndicator.classList.remove('hidden');
+
+      const activeNameDisplay = item.querySelector('.font-name-display');
+      if (activeNameDisplay) {
+         activeNameDisplay.classList.remove('text-slate-300', 'group-hover:text-white');
+         activeNameDisplay.classList.add('text-white');
+      }
+
+      activeItem = item;
+
+      // Dispatch Custom Event for cross-component communication
+      const newFont = item.getAttribute('data-font');
+      const newName = item.getAttribute('data-name');
+      const fontId = item.getAttribute('data-id');
+
+      if (newFont && newName) {
+         window.dispatchEvent(new CustomEvent('font-selected', {
+            detail: { fontFamily: newFont, fontName: newName, id: fontId }
+         }));
+      }
     });
   }
 </script>
