@@ -1,5 +1,6 @@
 ---
 import { Code } from 'astro:components';
+import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from '@lucide/astro';
 import { defaultFont } from '../config/fonts';
 
 interface Props {
@@ -27,6 +28,62 @@ const { initialCSS } = Astro.props;
                <input id={`axis-${axis.tag}`} type="range" min={axis.min} max={axis.max} value={axis.default} step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
              </div>
            ))}
+        </div>
+      </div>
+
+
+      <!-- Typography Section -->
+      <div class="bg-[#2c2c2c] border border-[#333] rounded p-4 shadow-sm mb-6">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Typography</h3>
+
+        <div class="space-y-4" id="typography-controls">
+           <!-- Font Size -->
+           <div class="typo-control">
+             <div class="flex justify-between items-center mb-1">
+               <label for="typo-size" class="text-[11px] font-bold text-slate-400 uppercase">Size (px)</label>
+               <input id="typo-size-input" type="number" value="16" min="8" max="144" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+             </div>
+             <input id="typo-size" type="range" min="8" max="144" value="16" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+           </div>
+
+           <!-- Line Height -->
+           <div class="typo-control">
+             <div class="flex justify-between items-center mb-1">
+               <label for="typo-line-height" class="text-[11px] font-bold text-slate-400 uppercase">Line Height</label>
+               <input id="typo-line-height-input" type="number" value="1.5" min="0.5" max="3" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+             </div>
+             <input id="typo-line-height" type="range" min="0.5" max="3" value="1.5" step="0.1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+           </div>
+
+           <!-- Letter Spacing -->
+           <div class="typo-control">
+             <div class="flex justify-between items-center mb-1">
+               <label for="typo-letter-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Letter Spacing (em)</label>
+               <input id="typo-letter-spacing-input" type="number" value="0" min="-0.1" max="0.5" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+             </div>
+             <input id="typo-letter-spacing" type="range" min="-0.1" max="0.5" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+           </div>
+
+           <!-- Alignment -->
+           <div>
+             <div class="text-[11px] font-bold text-slate-400 uppercase mb-2">Alignment</div>
+             <div class="flex gap-1 bg-[#1e1e1e] p-1 rounded border border-[#333]" id="typo-align-group">
+               <button data-align="left" class="flex-1 py-1.5 flex justify-center items-center rounded bg-[#3a3a3a] text-white transition-colors align-btn" aria-label="Align Left"><AlignLeft class="w-4 h-4" /></button>
+               <button data-align="center" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn" aria-label="Align Center"><AlignCenter class="w-4 h-4" /></button>
+               <button data-align="right" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn" aria-label="Align Right"><AlignRight class="w-4 h-4" /></button>
+               <button data-align="justify" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn" aria-label="Align Justify"><AlignJustify class="w-4 h-4" /></button>
+             </div>
+           </div>
+
+           <!-- Text Color -->
+           <div>
+             <div class="text-[11px] font-bold text-slate-400 uppercase mb-2">Color</div>
+             <div class="flex items-center gap-2">
+                 <input type="color" id="typo-color" value="#000000" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0 p-0">
+                 <input type="text" id="typo-color-text" value="#000000" class="flex-1 bg-[#1e1e1e] border border-[#333] rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-blue-500 uppercase">
+             </div>
+           </div>
+
         </div>
       </div>
 
@@ -154,6 +211,107 @@ const { initialCSS } = Astro.props;
     return currentFontConfig.fontFace;
   }
 
+
+  let typoState = {
+    fontSize: '16px',
+    lineHeight: '1.5',
+    letterSpacing: '0em',
+    textAlign: 'left',
+    color: '#000000'
+  };
+
+  function dispatchTypographyChange() {
+    window.dispatchEvent(new CustomEvent('typography-changed', {
+      detail: typoState
+    }));
+    updateCSSOutput();
+  }
+
+  function setupTypographyListeners() {
+    // Font Size
+    const sizeRange = document.getElementById('typo-size') as HTMLInputElement;
+    const sizeInput = document.getElementById('typo-size-input') as HTMLInputElement;
+    if (sizeRange && sizeInput) {
+      const updateSize = (val: string) => {
+        sizeRange.value = val;
+        sizeInput.value = val;
+        typoState.fontSize = `${val}px`;
+        dispatchTypographyChange();
+      };
+      sizeRange.addEventListener('input', (e) => updateSize((e.target as HTMLInputElement).value));
+      sizeInput.addEventListener('input', (e) => updateSize((e.target as HTMLInputElement).value));
+    }
+
+    // Line Height
+    const lhRange = document.getElementById('typo-line-height') as HTMLInputElement;
+    const lhInput = document.getElementById('typo-line-height-input') as HTMLInputElement;
+    if (lhRange && lhInput) {
+      const updateLH = (val: string) => {
+        lhRange.value = val;
+        lhInput.value = val;
+        typoState.lineHeight = val;
+        dispatchTypographyChange();
+      };
+      lhRange.addEventListener('input', (e) => updateLH((e.target as HTMLInputElement).value));
+      lhInput.addEventListener('input', (e) => updateLH((e.target as HTMLInputElement).value));
+    }
+
+    // Letter Spacing
+    const lsRange = document.getElementById('typo-letter-spacing') as HTMLInputElement;
+    const lsInput = document.getElementById('typo-letter-spacing-input') as HTMLInputElement;
+    if (lsRange && lsInput) {
+      const updateLS = (val: string) => {
+        lsRange.value = val;
+        lsInput.value = val;
+        typoState.letterSpacing = `${val}em`;
+        dispatchTypographyChange();
+      };
+      lsRange.addEventListener('input', (e) => updateLS((e.target as HTMLInputElement).value));
+      lsInput.addEventListener('input', (e) => updateLS((e.target as HTMLInputElement).value));
+    }
+
+    // Text Color
+    const colorPicker = document.getElementById('typo-color') as HTMLInputElement;
+    const colorText = document.getElementById('typo-color-text') as HTMLInputElement;
+    if (colorPicker && colorText) {
+      const updateColor = (val: string) => {
+        colorPicker.value = val;
+        colorText.value = val;
+        typoState.color = val;
+        dispatchTypographyChange();
+      };
+      colorPicker.addEventListener('input', (e) => updateColor((e.target as HTMLInputElement).value));
+      colorText.addEventListener('input', (e) => {
+        const val = (e.target as HTMLInputElement).value;
+        if (/^#[0-9A-F]{6}$/i.test(val) || /^#[0-9A-F]{3}$/i.test(val)) {
+            updateColor(val);
+        }
+      });
+    }
+
+    // Alignment
+    const alignBtns = document.querySelectorAll('.align-btn');
+    alignBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const align = target.getAttribute('data-align');
+        if (align) {
+          // Update active states
+          alignBtns.forEach(b => {
+            b.classList.remove('bg-[#3a3a3a]', 'text-white');
+            b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          });
+          target.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          target.classList.add('bg-[#3a3a3a]', 'text-white');
+
+          typoState.textAlign = align;
+          dispatchTypographyChange();
+        }
+      });
+    });
+  }
+
+
   function updateCSSOutput() {
     const cssOutputContainer = document.getElementById('css-output-container');
     if (cssOutputContainer) {
@@ -175,6 +333,11 @@ const { initialCSS } = Astro.props;
 ${escapedFontFace}
 <span class="line"><span style="color:#B392F0">.preview-text</span><span style="color:#E1E4E8"> {</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${currentFontConfig.fontFamily.replace(/'/g, '&#39;')}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.fontSize}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">line-height</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.lineHeight}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">letter-spacing</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.letterSpacing}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-align</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textAlign}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">color</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.color}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${settingsStr}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-feature-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${featureSettingsStr}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>`;
@@ -296,6 +459,7 @@ ${escapedFontFace}
   // Initialize
   setupSliderListeners();
   updateFeaturePreviews();
+  setupTypographyListeners();
 
   const featuresInputEl = document.getElementById('font-feature-settings-input');
   if (featuresInputEl) {
@@ -322,6 +486,11 @@ ${escapedFontFace}
           const codeToCopy = `${getFontFaceStr()}
 .preview-text {
   font-family: ${currentFontConfig.fontFamily};
+  font-size: ${typoState.fontSize};
+  line-height: ${typoState.lineHeight};
+  letter-spacing: ${typoState.letterSpacing};
+  text-align: ${typoState.textAlign};
+  color: ${typoState.color};
   font-variation-settings: ${getVariationSettingsStr()};
   font-feature-settings: ${getFontFeatureSettingsStr()};
 }`;

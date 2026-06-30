@@ -110,12 +110,29 @@
        root.style.setProperty('--font-variation-settings', event.detail.settings);
     }
   });
+
+  window.addEventListener('typography-changed', (e) => {
+    const event = e as CustomEvent;
+    const root = document.documentElement;
+    if (event.detail) {
+      if (event.detail.fontSize) root.style.setProperty('--font-size', event.detail.fontSize);
+      if (event.detail.lineHeight) root.style.setProperty('--line-height', event.detail.lineHeight);
+      if (event.detail.letterSpacing) root.style.setProperty('--letter-spacing', event.detail.letterSpacing);
+      if (event.detail.textAlign) root.style.setProperty('--text-align', event.detail.textAlign);
+      if (event.detail.color) root.style.setProperty('--text-color', event.detail.color);
+    }
+  });
 </script>
 
 <style is:global>
   #editorjs {
     font-feature-settings: var(--font-feature-settings, normal);
     font-variation-settings: var(--font-variation-settings, normal);
+    font-size: var(--font-size, 16px);
+    line-height: var(--line-height, 1.5);
+    letter-spacing: var(--letter-spacing, 0em);
+    text-align: var(--text-align, left);
+    color: var(--text-color, #000000);
   }
 
   /* Target editor.js blocks specifically to inherit the styles */
@@ -139,6 +156,10 @@
   #editorjs pre,
   #editorjs .cdx-checklist {
      font-family: inherit;
+     /* Don't override font-size and line-height here to allow em scaling on headings */
+     letter-spacing: var(--letter-spacing, inherit);
+     text-align: var(--text-align, inherit);
+     color: var(--text-color, inherit);
   }
 
   #editorjs .cdx-quote {

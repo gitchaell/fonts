@@ -8,6 +8,11 @@ import { defaultFont } from '../config/fonts';
 const initialCSS = `${defaultFont.fontFace}
 .preview-text {
   font-family: ${defaultFont.fontFamily};
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #000000;
   font-variation-settings: 'wght' ${defaultFont.axes.find(a => a.tag === 'wght')?.default || 400}, 'wdth' ${defaultFont.axes.find(a => a.tag === 'wdth')?.default || 100}, 'opsz' ${defaultFont.axes.find(a => a.tag === 'opsz')?.default || 14};
 }`;
 ---
