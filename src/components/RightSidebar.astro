@@ -46,6 +46,16 @@ const { initialCSS } = Astro.props;
              <input id="typo-size" type="range" min="8" max="144" value="16" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
            </div>
 
+           <!-- Font Style -->
+           <div class="typo-control">
+             <label class="text-[11px] font-bold text-slate-400 uppercase mb-2 block">Font Style</label>
+             <div class="flex bg-[#1e1e1e] rounded overflow-hidden border border-[#333]">
+               <button class="fontstyle-btn flex-1 py-1 text-[11px] font-medium bg-[#3a3a3a] text-white border-r border-[#333] transition-colors" data-style="normal">Normal</button>
+               <button class="fontstyle-btn flex-1 py-1 text-[11px] font-medium text-gray-400 hover:bg-[#2a2a2a] hover:text-white border-r border-[#333] transition-colors" data-style="italic">Italic</button>
+               <button class="fontstyle-btn flex-1 py-1 text-[11px] font-medium text-gray-400 hover:bg-[#2a2a2a] hover:text-white transition-colors" data-style="oblique">Oblique</button>
+             </div>
+           </div>
+
            <!-- Line Height -->
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
@@ -71,6 +81,24 @@ const { initialCSS } = Astro.props;
                <input id="typo-word-spacing-input" type="number" value="0" min="-0.5" max="2" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
              <input id="typo-word-spacing" type="range" min="-0.5" max="2" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+           </div>
+
+           <!-- Text Indent -->
+           <div class="typo-control">
+             <div class="flex justify-between items-center mb-1">
+               <label for="typo-text-indent" class="text-[11px] font-bold text-slate-400 uppercase">Text Indent (px)</label>
+               <input id="typo-text-indent-input" type="number" value="0" min="0" max="100" step="1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+             </div>
+             <input id="typo-text-indent" type="range" min="0" max="100" value="0" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+           </div>
+
+           <!-- Paragraph Spacing -->
+           <div class="typo-control">
+             <div class="flex justify-between items-center mb-1">
+               <label for="typo-paragraph-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Paragraph Spacing (em)</label>
+               <input id="typo-paragraph-spacing-input" type="number" value="1" min="0" max="4" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+             </div>
+             <input id="typo-paragraph-spacing" type="range" min="0" max="4" value="1" step="0.1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
            </div>
 
            <!-- Alignment -->
@@ -198,15 +226,19 @@ const { initialCSS } = Astro.props;
     textAlign: 'left',
     color: '#000000',
     textTransform: 'none',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontStyle: 'normal',
+    textIndent: '0px',
+    paragraphSpacing: '1em'
   };
 
   const otFeatures = [
-    { category: 'Ligatures & Contextual', features: [ { tag: 'liga', name: 'Standard Ligatures', preview: 'fi' }, { tag: 'dlig', name: 'Discretionary Ligatures', preview: 'ct' }, { tag: 'calt', name: 'Contextual Alternates', preview: '->' }, { tag: 'hlig', name: 'Historical Ligatures', preview: 'st' } ] },
-    { category: 'Capitals', features: [ { tag: 'smcp', name: 'Small Capitals', preview: 'Aa' }, { tag: 'c2sc', name: 'Capitals to Small Caps', preview: 'AA' }, { tag: 'case', name: 'Case-Sensitive Forms', preview: '(H)' }, { tag: 'titl', name: 'Titling Alternates', preview: 'H' } ] },
-    { category: 'Numerics', features: [ { tag: 'lnum', name: 'Lining Figures', preview: '12' }, { tag: 'onum', name: 'Oldstyle Figures', preview: '12' }, { tag: 'pnum', name: 'Proportional Figures', preview: '12' }, { tag: 'tnum', name: 'Tabular Figures', preview: '12' }, { tag: 'frac', name: 'Fractions', preview: '1/2' }, { tag: 'ordn', name: 'Ordinals', preview: '1st' }, { tag: 'zero', name: 'Slashed Zero', preview: '0' } ] },
-    { category: 'Position', features: [ { tag: 'sups', name: 'Superscript', preview: 'x²' }, { tag: 'subs', name: 'Subscript', preview: 'x₂' } ] },
-    { category: 'Stylistic', features: [ { tag: 'swsh', name: 'Swash', preview: 'Q' }, { tag: 'salt', name: 'Stylistic Alternates', preview: 'a' }, { tag: 'ss01', name: 'Stylistic Set 1', preview: '1' }, { tag: 'ss02', name: 'Stylistic Set 2', preview: '2' }, { tag: 'ss03', name: 'Stylistic Set 3', preview: '3' } ] }
+    { category: 'Ligatures & Contextual', features: [ { tag: 'liga', name: 'Standard Ligatures', preview: 'fi' }, { tag: 'dlig', name: 'Discretionary Ligatures', preview: 'ct' }, { tag: 'calt', name: 'Contextual Alternates', preview: '->' }, { tag: 'hlig', name: 'Historical Ligatures', preview: 'st' }, { tag: 'rclt', name: 'Required Contextual Alternates', preview: '->' } ] },
+    { category: 'Capitals', features: [ { tag: 'smcp', name: 'Small Capitals', preview: 'Aa' }, { tag: 'c2sc', name: 'Capitals to Small Caps', preview: 'AA' }, { tag: 'case', name: 'Case-Sensitive Forms', preview: '(H)' }, { tag: 'titl', name: 'Titling Alternates', preview: 'H' }, { tag: 'pcap', name: 'Petite Capitals', preview: 'Aa' }, { tag: 'c2pc', name: 'Capitals to Petite Caps', preview: 'AA' }, { tag: 'unic', name: 'Unicase', preview: 'aA' } ] },
+    { category: 'Numerics', features: [ { tag: 'lnum', name: 'Lining Figures', preview: '12' }, { tag: 'onum', name: 'Oldstyle Figures', preview: '12' }, { tag: 'pnum', name: 'Proportional Figures', preview: '12' }, { tag: 'tnum', name: 'Tabular Figures', preview: '12' }, { tag: 'frac', name: 'Fractions', preview: '1/2' }, { tag: 'afrc', name: 'Alternative Fractions', preview: '1/2' }, { tag: 'ordn', name: 'Ordinals', preview: '1st' }, { tag: 'zero', name: 'Slashed Zero', preview: '0' } ] },
+    { category: 'Position', features: [ { tag: 'sups', name: 'Superscript', preview: 'x²' }, { tag: 'subs', name: 'Subscript', preview: 'x₂' }, { tag: 'sinf', name: 'Scientific Inferiors', preview: 'x₂' }, { tag: 'numr', name: 'Numerator', preview: '1/' }, { tag: 'dnom', name: 'Denominator', preview: '/2' } ] },
+    { category: 'Stylistic', features: [ { tag: 'swsh', name: 'Swash', preview: 'Q' }, { tag: 'cswh', name: 'Contextual Swash', preview: 'Q' }, { tag: 'salt', name: 'Stylistic Alternates', preview: 'a' }, { tag: 'ss01', name: 'Stylistic Set 1', preview: '1' }, { tag: 'ss02', name: 'Stylistic Set 2', preview: '2' }, { tag: 'ss03', name: 'Stylistic Set 3', preview: '3' }, { tag: 'ss04', name: 'Stylistic Set 4', preview: '4' }, { tag: 'ss05', name: 'Stylistic Set 5', preview: '5' }, { tag: 'ss06', name: 'Stylistic Set 6', preview: '6' }, { tag: 'ss07', name: 'Stylistic Set 7', preview: '7' }, { tag: 'ss08', name: 'Stylistic Set 8', preview: '8' }, { tag: 'ss09', name: 'Stylistic Set 9', preview: '9' }, { tag: 'ss10', name: 'Stylistic Set 10', preview: '10' }, { tag: 'ss11', name: 'Stylistic Set 11', preview: '11' }, { tag: 'ss12', name: 'Stylistic Set 12', preview: '12' }, { tag: 'ss13', name: 'Stylistic Set 13', preview: '13' }, { tag: 'ss14', name: 'Stylistic Set 14', preview: '14' }, { tag: 'ss15', name: 'Stylistic Set 15', preview: '15' }, { tag: 'ss16', name: 'Stylistic Set 16', preview: '16' }, { tag: 'ss17', name: 'Stylistic Set 17', preview: '17' }, { tag: 'ss18', name: 'Stylistic Set 18', preview: '18' }, { tag: 'ss19', name: 'Stylistic Set 19', preview: '19' }, { tag: 'ss20', name: 'Stylistic Set 20', preview: '20' } ] },
+    { category: 'Character Variants', features: [ { tag: 'cv01', name: 'Character Variant 1', preview: 'A' }, { tag: 'cv02', name: 'Character Variant 2', preview: 'B' }, { tag: 'cv03', name: 'Character Variant 3', preview: 'C' }, { tag: 'cv04', name: 'Character Variant 4', preview: 'D' }, { tag: 'cv05', name: 'Character Variant 5', preview: 'E' } ] }
   ];
 
   function renderDynamicFontFeatures() {
@@ -300,6 +332,54 @@ const { initialCSS } = Astro.props;
       };
       wsRange.addEventListener('input', (e) => updateWS((e.target as HTMLInputElement).value));
       wsInput.addEventListener('input', (e) => updateWS((e.target as HTMLInputElement).value));
+    }
+
+    // Font Style
+    const fontStyleBtns = document.querySelectorAll('.fontstyle-btn');
+    fontStyleBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const style = target.getAttribute('data-style');
+        if (style) {
+          fontStyleBtns.forEach(b => {
+            b.classList.remove('bg-[#3a3a3a]', 'text-white');
+            b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          });
+          target.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+          target.classList.add('bg-[#3a3a3a]', 'text-white');
+
+          typoState.fontStyle = style;
+          dispatchTypographyChange();
+        }
+      });
+    });
+
+    // Text Indent
+    const indentRange = document.getElementById('typo-text-indent') as HTMLInputElement;
+    const indentInput = document.getElementById('typo-text-indent-input') as HTMLInputElement;
+    if (indentRange && indentInput) {
+      const updateIndent = (val: string) => {
+        indentRange.value = val;
+        indentInput.value = val;
+        typoState.textIndent = `${val}px`;
+        dispatchTypographyChange();
+      };
+      indentRange.addEventListener('input', (e) => updateIndent((e.target as HTMLInputElement).value));
+      indentInput.addEventListener('input', (e) => updateIndent((e.target as HTMLInputElement).value));
+    }
+
+    // Paragraph Spacing
+    const pSpaceRange = document.getElementById('typo-paragraph-spacing') as HTMLInputElement;
+    const pSpaceInput = document.getElementById('typo-paragraph-spacing-input') as HTMLInputElement;
+    if (pSpaceRange && pSpaceInput) {
+      const updatePSpace = (val: string) => {
+        pSpaceRange.value = val;
+        pSpaceInput.value = val;
+        typoState.paragraphSpacing = `${val}em`;
+        dispatchTypographyChange();
+      };
+      pSpaceRange.addEventListener('input', (e) => updatePSpace((e.target as HTMLInputElement).value));
+      pSpaceInput.addEventListener('input', (e) => updatePSpace((e.target as HTMLInputElement).value));
     }
 
     // Text Color
@@ -413,6 +493,9 @@ ${escapedFontFace}
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">color</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.color}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-transform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textTransform}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-decoration</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textDecoration}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-style</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.fontStyle}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">text-indent</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.textIndent}</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">margin-bottom</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${typoState.paragraphSpacing}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-variation-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${settingsStr}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">  </span><span style="color:#79B8FF">font-feature-settings</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${featureSettingsStr}</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>`;
@@ -570,6 +653,9 @@ ${escapedFontFace}
   color: ${typoState.color};
   text-transform: ${typoState.textTransform};
   text-decoration: ${typoState.textDecoration};
+  font-style: ${typoState.fontStyle};
+  text-indent: ${typoState.textIndent};
+  margin-bottom: ${typoState.paragraphSpacing};
   font-variation-settings: ${getVariationSettingsStr()};
   font-feature-settings: ${getFontFeatureSettingsStr()};
 }`;
