@@ -32,7 +32,7 @@ const { initialCSS } = Astro.props;
                  <label for={`axis-${axis.tag}`} class="text-[11px] font-bold text-slate-400 uppercase">{axis.name} ({axis.tag})</label>
                  <span class="text-[12px] font-medium text-gray-300 axis-value">{axis.default}</span>
                </div>
-               <input id={`axis-${axis.tag}`} type="range" min={axis.min} max={axis.max} value={axis.default} step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+               <input id={`axis-${axis.tag}`} type="range" min={axis.min} max={axis.max} value={axis.default} step="1" class="w-full accent-blue-500 cursor-pointer">
              </div>
            ))}
         </div>
@@ -50,7 +50,7 @@ const { initialCSS } = Astro.props;
                <label for="typo-size" class="text-[11px] font-bold text-slate-400 uppercase">Size (px)</label>
                <input id="typo-size-input" type="number" value="16" min="8" max="144" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
-             <input id="typo-size" type="range" min="8" max="144" value="16" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+             <input id="typo-size" type="range" min="8" max="144" value="16" step="1" class="w-full accent-blue-500 cursor-pointer">
            </div>
 
            <!-- Font Style -->
@@ -69,7 +69,7 @@ const { initialCSS } = Astro.props;
                <label for="typo-line-height" class="text-[11px] font-bold text-slate-400 uppercase">Line Height</label>
                <input id="typo-line-height-input" type="number" value="1.5" min="0.5" max="3" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
-             <input id="typo-line-height" type="range" min="0.5" max="3" value="1.5" step="0.1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+             <input id="typo-line-height" type="range" min="0.5" max="3" value="1.5" step="0.1" class="w-full accent-blue-500 cursor-pointer">
            </div>
 
            <!-- Letter Spacing -->
@@ -78,7 +78,7 @@ const { initialCSS } = Astro.props;
                <label for="typo-letter-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Letter Spacing (em)</label>
                <input id="typo-letter-spacing-input" type="number" value="0" min="-0.1" max="0.5" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
-             <input id="typo-letter-spacing" type="range" min="-0.1" max="0.5" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+             <input id="typo-letter-spacing" type="range" min="-0.1" max="0.5" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer">
            </div>
 
            <!-- Word Spacing -->
@@ -87,7 +87,7 @@ const { initialCSS } = Astro.props;
                <label for="typo-word-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Word Spacing (em)</label>
                <input id="typo-word-spacing-input" type="number" value="0" min="-0.5" max="2" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
-             <input id="typo-word-spacing" type="range" min="-0.5" max="2" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+             <input id="typo-word-spacing" type="range" min="-0.5" max="2" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer">
            </div>
 
            <!-- Text Indent -->
@@ -96,7 +96,7 @@ const { initialCSS } = Astro.props;
                <label for="typo-text-indent" class="text-[11px] font-bold text-slate-400 uppercase">Text Indent (px)</label>
                <input id="typo-text-indent-input" type="number" value="0" min="0" max="100" step="1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
-             <input id="typo-text-indent" type="range" min="0" max="100" value="0" step="1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+             <input id="typo-text-indent" type="range" min="0" max="100" value="0" step="1" class="w-full accent-blue-500 cursor-pointer">
            </div>
 
            <!-- Paragraph Spacing -->
@@ -105,7 +105,7 @@ const { initialCSS } = Astro.props;
                <label for="typo-paragraph-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Paragraph Spacing (em)</label>
                <input id="typo-paragraph-spacing-input" type="number" value="1" min="0" max="4" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
              </div>
-             <input id="typo-paragraph-spacing" type="range" min="0" max="4" value="1" step="0.1" class="w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none">
+             <input id="typo-paragraph-spacing" type="range" min="0" max="4" value="1" step="0.1" class="w-full accent-blue-500 cursor-pointer">
            </div>
 
            <!-- Alignment -->
@@ -706,7 +706,7 @@ ${escapedFontFace}
       input.max = String(axis.max);
       input.value = String(axis.default);
       input.step = '1';
-      input.className = 'w-full accent-blue-500 cursor-pointer h-1.5 bg-gray-600 rounded-lg appearance-none';
+      input.className = 'w-full accent-blue-500 cursor-pointer';
 
       controlDiv.appendChild(headerDiv);
       controlDiv.appendChild(input);
