@@ -1,6 +1,5 @@
 ---
 import { Code } from 'astro:components';
-import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from '@lucide/astro';
 import { defaultFont } from '../config/fonts';
 
 interface Props {
@@ -105,10 +104,10 @@ const { initialCSS } = Astro.props;
            <div>
              <div class="text-[11px] font-bold text-slate-400 uppercase mb-2">Alignment</div>
              <div class="flex gap-1 bg-[#1e1e1e] p-1 rounded border border-[#333]" id="typo-align-group">
-               <button data-align="left" class="flex-1 py-1.5 flex justify-center items-center rounded bg-[#3a3a3a] text-white transition-colors align-btn" aria-label="Align Left"><AlignLeft class="w-4 h-4" /></button>
-               <button data-align="center" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn" aria-label="Align Center"><AlignCenter class="w-4 h-4" /></button>
-               <button data-align="right" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn" aria-label="Align Right"><AlignRight class="w-4 h-4" /></button>
-               <button data-align="justify" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn" aria-label="Align Justify"><AlignJustify class="w-4 h-4" /></button>
+               <button data-align="left" class="flex-1 py-1.5 flex justify-center items-center rounded bg-[#3a3a3a] text-white transition-colors align-btn text-[10px]" aria-label="Align Left">Left</button>
+               <button data-align="center" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn text-[10px]" aria-label="Align Center">Center</button>
+               <button data-align="right" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn text-[10px]" aria-label="Align Right">Right</button>
+               <button data-align="justify" class="flex-1 py-1.5 flex justify-center items-center rounded text-gray-400 hover:text-white hover:bg-[#2a2a2a] transition-colors align-btn text-[10px]" aria-label="Align Justify">Justify</button>
              </div>
            </div>
 
@@ -194,6 +193,10 @@ const { initialCSS } = Astro.props;
 </aside>
 
 <script>
+  import * as fontkit from 'fontkit';
+  import { Buffer } from 'buffer';
+  window.Buffer = Buffer;
+
   import { fonts, defaultFont } from '../config/fonts';
 
   let currentFontConfig = defaultFont;
@@ -241,11 +244,22 @@ const { initialCSS } = Astro.props;
     { category: 'Character Variants', features: [ { tag: 'cv01', name: 'Character Variant 1', preview: 'A' }, { tag: 'cv02', name: 'Character Variant 2', preview: 'B' }, { tag: 'cv03', name: 'Character Variant 3', preview: 'C' }, { tag: 'cv04', name: 'Character Variant 4', preview: 'D' }, { tag: 'cv05', name: 'Character Variant 5', preview: 'E' } ] }
   ];
 
-  function renderDynamicFontFeatures() {
+  function renderDynamicFontFeatures(availableFeatures: string[] = []) {
     const container = document.getElementById('dynamic-font-features');
     if (!container) return;
 
-    container.innerHTML = otFeatures.map(group => `
+
+    const filteredGroups = otFeatures.map(group => {
+      const activeFeatures = group.features.filter(f => availableFeatures.includes(f.tag));
+      return { ...group, features: activeFeatures };
+    }).filter(group => group.features.length > 0);
+
+    if (filteredGroups.length === 0) {
+      container.innerHTML = '<p class="text-[12px] text-gray-500 italic">No advanced OpenType features found in this font.</p>';
+      return;
+    }
+
+    container.innerHTML = filteredGroups.map(group => `
       <details class="group bg-[#1e1e1e] border border-[#333] rounded overflow-hidden">
         <summary class="text-[11px] font-bold text-gray-500 uppercase p-3 cursor-pointer select-none hover:bg-[#252525] transition-colors flex justify-between items-center list-none [&::-webkit-details-marker]:hidden">
           ${group.category}
@@ -596,8 +610,9 @@ ${escapedFontFace}
 
 
   // Handle font selection from LeftSidebar
-  window.addEventListener('font-selected', ((event: CustomEvent) => {
-    const fontId = event.detail.id;
+  window.addEventListener('font-selected', (async (event: CustomEvent | Event) => {
+    const customEvent = event as CustomEvent;
+    const fontId = customEvent.detail.id;
     const fontConfig = fonts.find(f => f.id === fontId);
 
     if (fontConfig) {
@@ -609,26 +624,90 @@ ${escapedFontFace}
       if (detailsFontName) detailsFontName.textContent = currentFontConfig.fontName;
       if (detailsFontType) detailsFontType.textContent = currentFontConfig.type;
 
+      try {
+        const res = await fetch(currentFontConfig.fileUrl);
+        const buffer = await res.arrayBuffer();
+        const font = fontkit.create(new Uint8Array(buffer) as any) as any;
+
+        let dynamicAxes = currentFontConfig.axes;
+        if (font.variationAxes) {
+          dynamicAxes = Object.keys(font.variationAxes).map(tag => {
+            const axis = font.variationAxes[tag];
+            return {
+              tag: tag,
+              name: axis.name,
+              min: axis.min,
+              max: axis.max,
+              default: axis.default
+            };
+          });
+        }
+
+        currentFontConfig = { ...currentFontConfig, axes: dynamicAxes };
+        renderAxesControls(dynamicAxes);
+
+        renderDynamicFontFeatures(font.availableFeatures || []);
+
+        // rebind toggles since we rebuilt the DOM
+        const featureToggles = document.querySelectorAll('.feature-toggle');
+        featureToggles.forEach(toggle => {
+           toggle.addEventListener('change', dispatchAxesChange);
+        });
+      } catch (err) {
+        console.error("Error parsing font:", err);
+        renderAxesControls(currentFontConfig.axes);
+        renderDynamicFontFeatures([]);
+      }
+
       updateFeaturePreviews();
-      renderAxesControls(currentFontConfig.axes);
     }
   }) as EventListener);
 
   // Initialize
-  renderDynamicFontFeatures();
-  setupSliderListeners();
-  updateFeaturePreviews();
-  setupTypographyListeners();
+  (async () => {
+    try {
+      const res = await fetch(currentFontConfig.fileUrl);
+      const buffer = await res.arrayBuffer();
+      const font = fontkit.create(new Uint8Array(buffer) as any) as any;
 
-  const featuresInputEl = document.getElementById('font-feature-settings-input');
-  if (featuresInputEl) {
-    featuresInputEl.addEventListener('input', dispatchAxesChange);
-  }
+      let dynamicAxes = currentFontConfig.axes;
+      if (font.variationAxes) {
+        dynamicAxes = Object.keys(font.variationAxes).map(tag => {
+          const axis = font.variationAxes[tag];
+          return {
+            tag: tag,
+            name: axis.name,
+            min: axis.min,
+            max: axis.max,
+            default: axis.default
+          };
+        });
+      }
+      currentFontConfig = { ...currentFontConfig, axes: dynamicAxes };
+      renderAxesControls(dynamicAxes);
 
-  const featureToggles = document.querySelectorAll('.feature-toggle');
-  featureToggles.forEach(toggle => {
-     toggle.addEventListener('change', dispatchAxesChange);
-  });
+      renderDynamicFontFeatures(font.availableFeatures || []);
+    } catch (err) {
+      console.error("Error parsing font on init:", err);
+      renderDynamicFontFeatures([]);
+    }
+
+    setupSliderListeners();
+    updateFeaturePreviews();
+    setupTypographyListeners();
+
+    const featuresInputEl = document.getElementById('font-feature-settings-input');
+    if (featuresInputEl) {
+      featuresInputEl.addEventListener('input', dispatchAxesChange);
+    }
+
+    const featureToggles = document.querySelectorAll('.feature-toggle');
+    featureToggles.forEach(toggle => {
+       toggle.addEventListener('change', dispatchAxesChange);
+    });
+  })();
+
+
 
   // Helper to sync feature preview fonts
   function updateFeaturePreviews() {

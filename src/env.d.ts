@@ -19,4 +19,7 @@ interface CustomEventMap {
 
 declare global {
   interface WindowEventMap extends CustomEventMap {}
+  interface Window {
+    Buffer: any;
+  }
 }
