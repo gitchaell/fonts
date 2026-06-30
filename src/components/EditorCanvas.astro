@@ -109,9 +109,9 @@
   window.addEventListener('axes-changed', (e) => {
     const event = e as CustomEvent;
     const root = document.documentElement;
-    if (event.detail.features) {
-       root.style.setProperty('--font-feature-settings', event.detail.features);
-       root.style.setProperty('--font-variation-settings', event.detail.settings);
+    if (event.detail) {
+       root.style.setProperty('--font-feature-settings', event.detail.features || 'normal');
+       root.style.setProperty('--font-variation-settings', event.detail.settings || 'normal');
     }
   });
 
@@ -176,6 +176,8 @@
      text-transform: var(--text-transform, inherit);
      text-decoration: var(--text-decoration, inherit);
      font-style: var(--font-style, inherit);
+     font-feature-settings: inherit;
+     font-variation-settings: inherit;
   }
 
   #editorjs p {

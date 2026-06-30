@@ -149,11 +149,6 @@ const { initialCSS } = Astro.props;
 
         <div class="space-y-4" id="font-features-container">
            <div id="dynamic-font-features" class="space-y-4"></div>
-
-           <div>
-              <label for="font-feature-settings-input" class="text-[11px] font-bold text-gray-500 uppercase mb-2 block">Manual Features</label>
-              <input type="text" id="font-feature-settings-input" placeholder="e.g. 'ss01' 1, 'swsh' 1" class="w-full bg-[#1e1e1e] border border-[#333] rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors">
-           </div>
         </div>
       </div>
     </div>
@@ -200,6 +195,21 @@ const { initialCSS } = Astro.props;
   import { fonts, defaultFont } from '../config/fonts';
 
   let currentFontConfig = defaultFont;
+
+  function extractAvailableFeatures(font: any): string[] {
+    const allFeatures = new Set<string>(font.availableFeatures || []);
+    if (font.GSUB && font.GSUB.featureList) {
+      font.GSUB.featureList.forEach((f: any) => {
+        if (f.tag) allFeatures.add(f.tag);
+      });
+    }
+    if (font.GPOS && font.GPOS.featureList) {
+      font.GPOS.featureList.forEach((f: any) => {
+        if (f.tag) allFeatures.add(f.tag);
+      });
+    }
+    return Array.from(allFeatures);
+  }
 
   function getVariationSettingsStr() {
     const activeAxes = document.querySelectorAll('.axis-control');
@@ -528,13 +538,6 @@ ${escapedFontFace}
       }
     });
 
-    const input = document.getElementById('font-feature-settings-input') as HTMLInputElement;
-    if (input && input.value.trim() !== '') {
-      // Split by comma and add any manual features
-      const manualFeatures = input.value.split(',').map(f => f.trim()).filter(f => f);
-      features.push(...manualFeatures);
-    }
-
     return features.length > 0 ? features.join(', ') : 'normal';
   }
 
@@ -646,7 +649,7 @@ ${escapedFontFace}
         currentFontConfig = { ...currentFontConfig, axes: dynamicAxes };
         renderAxesControls(dynamicAxes);
 
-        renderDynamicFontFeatures(font.availableFeatures || []);
+        renderDynamicFontFeatures(extractAvailableFeatures(font));
 
         // rebind toggles since we rebuilt the DOM
         const featureToggles = document.querySelectorAll('.feature-toggle');
@@ -686,7 +689,7 @@ ${escapedFontFace}
       currentFontConfig = { ...currentFontConfig, axes: dynamicAxes };
       renderAxesControls(dynamicAxes);
 
-      renderDynamicFontFeatures(font.availableFeatures || []);
+      renderDynamicFontFeatures(extractAvailableFeatures(font));
     } catch (err) {
       console.error("Error parsing font on init:", err);
       renderDynamicFontFeatures([]);
@@ -695,11 +698,6 @@ ${escapedFontFace}
     setupSliderListeners();
     updateFeaturePreviews();
     setupTypographyListeners();
-
-    const featuresInputEl = document.getElementById('font-feature-settings-input');
-    if (featuresInputEl) {
-      featuresInputEl.addEventListener('input', dispatchAxesChange);
-    }
 
     const featureToggles = document.querySelectorAll('.feature-toggle');
     featureToggles.forEach(toggle => {
