@@ -1,5 +1,0 @@
-fix: ensure font features apply visually in editor canvas
-
-- Removed the heavy-handed OpenType feature hack that flooded the UI for simple fonts.
-- Restored targeted OpenType feature injection specifically for the Inter font, which suffers from fontkit WOFF2 browser parsing limitations.
-- Modified EditorCanvas.astro to explicitly consume `--font-feature-settings` and `--font-variation-settings` variables instead of relying on `inherit`, preventing EditorJS from overwriting typography rules.
