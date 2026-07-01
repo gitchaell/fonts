@@ -259,16 +259,28 @@ const { initialCSS } = Astro.props;
 
   function extractAvailableFeatures(font: any): string[] {
     const allFeatures = new Set<string>(font.availableFeatures || []);
-    if (font.GSUB && font.GSUB.featureList) {
-      font.GSUB.featureList.forEach((f: any) => {
-        if (f.tag) allFeatures.add(f.tag);
-      });
+
+    const extractTags = (records: any) => {
+        if (!records) return;
+        if (Array.isArray(records)) {
+            records.forEach(r => {
+                if (typeof r === 'string') allFeatures.add(r);
+                else if (r && r.tag) allFeatures.add(r.tag);
+            });
+        }
+    };
+
+    if (font.GSUB && font.GSUB.featureList) extractTags(font.GSUB.featureList);
+    if (font.GPOS && font.GPOS.featureList) extractTags(font.GPOS.featureList);
+    if (font.GSUB && font.GSUB.featureRecords) extractTags(font.GSUB.featureRecords);
+    if (font.GPOS && font.GPOS.featureRecords) extractTags(font.GPOS.featureRecords);
+
+    // Hardcode features for Inter as fontkit fails to parse WOFF2 correctly
+    if (currentFontConfig && currentFontConfig.fileName && currentFontConfig.fileName.toLowerCase().includes('inter')) {
+        const interFeatures = ['calt','case','ccmp','cv01','cv02','cv03','cv04','cv05','cv06','cv07','cv08','cv09','cv10','cv11','dnom','frac','kern','liga','locl','mark','mkmk','numr','ordn','pnum','salt','sinf','ss01','ss02','ss03','ss04','ss05','ss06','ss07','ss08','subs','sups','tnum','zero'];
+        interFeatures.forEach(f => allFeatures.add(f));
     }
-    if (font.GPOS && font.GPOS.featureList) {
-      font.GPOS.featureList.forEach((f: any) => {
-        if (f.tag) allFeatures.add(f.tag);
-      });
-    }
+
     return Array.from(allFeatures);
   }
 
