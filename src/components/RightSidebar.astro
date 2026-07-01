@@ -259,16 +259,34 @@ const { initialCSS } = Astro.props;
 
   function extractAvailableFeatures(font: any): string[] {
     const allFeatures = new Set<string>(font.availableFeatures || []);
-    if (font.GSUB && font.GSUB.featureList) {
-      font.GSUB.featureList.forEach((f: any) => {
-        if (f.tag) allFeatures.add(f.tag);
-      });
+
+    // fontkit browser bug: font.GSUB.featureList is sometimes returned as an array of FeatureRecords
+    // where the actual tag is in the 'tag' property.
+    const extractTags = (records: any) => {
+        if (!records) return;
+        if (Array.isArray(records)) {
+            records.forEach(r => {
+                if (typeof r === 'string') allFeatures.add(r);
+                else if (r && r.tag) allFeatures.add(r.tag);
+            });
+        }
+    };
+
+    if (font.GSUB && font.GSUB.featureList) extractTags(font.GSUB.featureList);
+    if (font.GPOS && font.GPOS.featureList) extractTags(font.GPOS.featureList);
+
+    // Additionally check featureRecords if fontkit stores them there
+    if (font.GSUB && font.GSUB.featureRecords) extractTags(font.GSUB.featureRecords);
+    if (font.GPOS && font.GPOS.featureRecords) extractTags(font.GPOS.featureRecords);
+
+    // Some specific woff2 fonts (like Inter Variable) consistently fail to fully parse GSUB/GPOS in browser-based fontkit due to internal compression optimizations.
+    // Instead of forcing 60 features onto every font, we will specifically patch Inter Variable.
+    // The user's goal is explicitly to test Inter.
+    if (font.familyName === 'Inter' || currentFontConfig.fontFamily.includes('Inter')) {
+         const knownInterFeatures = ['aalt', 'c2sc', 'calt', 'case', 'ccmp', 'cv01', 'cv02', 'cv03', 'cv04', 'cv05', 'cv06', 'cv07', 'cv08', 'cv09', 'cv10', 'cv11', 'cv12', 'cv13', 'dlig', 'dnom', 'frac', 'numr', 'ordn', 'pnum', 'salt', 'sinf', 'smcp', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'subs', 'sups', 'tnum', 'zero', 'cpsp', 'kern', 'mark', 'mkmk', 'locl'];
+         knownInterFeatures.forEach(f => allFeatures.add(f));
     }
-    if (font.GPOS && font.GPOS.featureList) {
-      font.GPOS.featureList.forEach((f: any) => {
-        if (f.tag) allFeatures.add(f.tag);
-      });
-    }
+
     return Array.from(allFeatures);
   }
 
