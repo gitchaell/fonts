@@ -166,9 +166,12 @@
   #editorjs ul,
   #editorjs ol,
   #editorjs li,
-  #editorjs .cdx-checklist {
+  #editorjs .cdx-checklist,
+  #editorjs .ce-paragraph,
+  #editorjs .ce-header {
      font-family: inherit;
-     /* Don't override font-size and line-height here to allow em scaling on headings */
+     /* Don't override font-size to allow em scaling on headings, but explicitly inherit line-height */
+     line-height: inherit;
      letter-spacing: var(--letter-spacing, inherit);
      word-spacing: var(--word-spacing, inherit);
      text-align: var(--text-align, inherit);
