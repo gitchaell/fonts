@@ -204,6 +204,59 @@ const { initialCSS } = Astro.props;
 
   let currentFontConfig = defaultFont;
 
+  function extractNamedVariations(font: any) {
+    let variations = {};
+    try {
+      if (font.namedVariations) {
+        variations = font.namedVariations;
+      }
+    } catch (e) {
+      // Fallback for fonts that throw TypeError in fontkit getter (e.g. GeistVF)
+      const nameIdMap: Record<number, string> = {
+        1: 'fontFamily',
+        2: 'fontSubfamily',
+        3: 'uniqueSubfamily',
+        4: 'fullName',
+        5: 'version',
+        6: 'postscriptName',
+        16: 'preferredFamily',
+        17: 'preferredSubfamily',
+      };
+
+      let res: Record<string, Record<string, number>> = {};
+      if (font.fvar && font.fvar.instance) {
+          for (let instance of font.fvar.instance){
+              let settings: Record<string, number> = {};
+              if (font.fvar.axis) {
+                  for(let i = 0; i < font.fvar.axis.length; i++){
+                      let axis = font.fvar.axis[i];
+                      if (instance.coord && instance.coord[i] !== undefined) {
+                          settings[axis.axisTag.trim()] = instance.coord[i];
+                      }
+                  }
+              }
+
+              let name = null;
+              if (instance.name && instance.name.en) {
+                 name = instance.name.en;
+              } else if (instance.nameID && font.name && font.name.records) {
+                 let recordName = nameIdMap[instance.nameID] || instance.nameID;
+                 const record = font.name.records[recordName];
+                 if (record && record.en) {
+                     name = record.en;
+                 }
+              }
+              if (!name) name = `Instance ${instance.nameID}`;
+
+              res[name] = settings;
+          }
+      }
+      variations = res;
+    }
+    return variations;
+  }
+
+
   function extractAvailableFeatures(font: any): string[] {
     const allFeatures = new Set<string>(font.availableFeatures || []);
     if (font.GSUB && font.GSUB.featureList) {
@@ -632,7 +685,8 @@ ${escapedFontFace}
     const instancesSelect = document.getElementById('font-instances') as HTMLSelectElement;
     if (!instancesContainer || !instancesSelect) return;
 
-    if (!font.namedVariations || Object.keys(font.namedVariations).length === 0) {
+    const namedVariations = extractNamedVariations(font);
+    if (!namedVariations || Object.keys(namedVariations).length === 0) {
       instancesContainer.classList.add('hidden');
       return;
     }
@@ -640,7 +694,7 @@ ${escapedFontFace}
     instancesContainer.classList.remove('hidden');
     instancesSelect.innerHTML = '<option value="">Custom</option>';
 
-    Object.entries(font.namedVariations).forEach(([name, axes]) => {
+    Object.entries(namedVariations).forEach(([name, axes]) => {
       const option = document.createElement('option');
       option.value = JSON.stringify(axes);
       option.textContent = name;
