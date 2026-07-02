@@ -9,7 +9,7 @@ interface Props {
 const { initialCSS } = Astro.props;
 ---
 <aside id="right-sidebar" class="w-full lg:w-[320px] lg:h-screen bg-[#1e1e1e] border-t lg:border-t-0 lg:border-l border-[#333] flex flex-col overflow-y-auto shrink-0 z-10 order-2 lg:order-3">
-  <div class="p-6 pb-24 flex flex-col gap-8 h-full">
+  <div class="p-6 pb-32 flex flex-col gap-8 h-full">
 
     <div>
       <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Font Details</h2>
@@ -20,7 +20,7 @@ const { initialCSS } = Astro.props;
 
         <div id="instances-container" class="mb-4 hidden">
           <label for="font-instances" class="text-[11px] font-bold text-slate-400 uppercase mb-1 block">Instances</label>
-          <select id="font-instances" class="w-full bg-[#1e1e1e] border border-[#333] rounded px-2 py-1.5 text-[12px] text-white focus:outline-none focus:border-blue-500">
+          <select id="font-instances" class="w-full bg-[#1e1e1e] border border-[#333] rounded px-2 py-1.5 text-[12px] text-white focus:outline-none focus:border-blue-500 appearance-none bg-no-repeat" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239ca3af%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>'); background-position: right 0.5rem center; background-size: 1em;">
              <option value="">Default</option>
           </select>
         </div>
@@ -32,7 +32,7 @@ const { initialCSS } = Astro.props;
                  <label for={`axis-${axis.tag}`} class="text-[11px] font-bold text-slate-400 uppercase">{axis.name} ({axis.tag})</label>
                  <span class="text-[12px] font-medium text-gray-300 axis-value">{axis.default}</span>
                </div>
-               <input id={`axis-${axis.tag}`} type="range" min={axis.min} max={axis.max} value={axis.default} step="1" class="w-full accent-blue-500 cursor-pointer">
+               <input id={`axis-${axis.tag}`} type="range" min={axis.min} max={axis.max} value={axis.default} step="1" class="w-full custom-range cursor-pointer">
              </div>
            ))}
         </div>
@@ -48,9 +48,9 @@ const { initialCSS } = Astro.props;
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
                <label for="typo-size" class="text-[11px] font-bold text-slate-400 uppercase">Size (px)</label>
-               <input id="typo-size-input" type="number" value="16" min="8" max="144" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+               <input id="typo-size-input" type="number" value="16" min="8" max="144" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500 custom-number">
              </div>
-             <input id="typo-size" type="range" min="8" max="144" value="16" step="1" class="w-full accent-blue-500 cursor-pointer">
+             <input id="typo-size" type="range" min="8" max="144" value="16" step="1" class="w-full custom-range cursor-pointer">
            </div>
 
            <!-- Font Style -->
@@ -67,45 +67,45 @@ const { initialCSS } = Astro.props;
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
                <label for="typo-line-height" class="text-[11px] font-bold text-slate-400 uppercase">Line Height</label>
-               <input id="typo-line-height-input" type="number" value="1.5" min="0.5" max="3" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+               <input id="typo-line-height-input" type="number" value="1.5" min="0.5" max="3" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500 custom-number">
              </div>
-             <input id="typo-line-height" type="range" min="0.5" max="3" value="1.5" step="0.1" class="w-full accent-blue-500 cursor-pointer">
+             <input id="typo-line-height" type="range" min="0.5" max="3" value="1.5" step="0.1" class="w-full custom-range cursor-pointer">
            </div>
 
            <!-- Letter Spacing -->
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
                <label for="typo-letter-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Letter Spacing (em)</label>
-               <input id="typo-letter-spacing-input" type="number" value="0" min="-0.1" max="0.5" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+               <input id="typo-letter-spacing-input" type="number" value="0" min="-0.1" max="0.5" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500 custom-number">
              </div>
-             <input id="typo-letter-spacing" type="range" min="-0.1" max="0.5" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer">
+             <input id="typo-letter-spacing" type="range" min="-0.1" max="0.5" value="0" step="0.01" class="w-full custom-range cursor-pointer">
            </div>
 
            <!-- Word Spacing -->
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
                <label for="typo-word-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Word Spacing (em)</label>
-               <input id="typo-word-spacing-input" type="number" value="0" min="-0.5" max="2" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+               <input id="typo-word-spacing-input" type="number" value="0" min="-0.5" max="2" step="0.01" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500 custom-number">
              </div>
-             <input id="typo-word-spacing" type="range" min="-0.5" max="2" value="0" step="0.01" class="w-full accent-blue-500 cursor-pointer">
+             <input id="typo-word-spacing" type="range" min="-0.5" max="2" value="0" step="0.01" class="w-full custom-range cursor-pointer">
            </div>
 
            <!-- Text Indent -->
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
                <label for="typo-text-indent" class="text-[11px] font-bold text-slate-400 uppercase">Text Indent (px)</label>
-               <input id="typo-text-indent-input" type="number" value="0" min="0" max="100" step="1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+               <input id="typo-text-indent-input" type="number" value="0" min="0" max="100" step="1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500 custom-number">
              </div>
-             <input id="typo-text-indent" type="range" min="0" max="100" value="0" step="1" class="w-full accent-blue-500 cursor-pointer">
+             <input id="typo-text-indent" type="range" min="0" max="100" value="0" step="1" class="w-full custom-range cursor-pointer">
            </div>
 
            <!-- Paragraph Spacing -->
            <div class="typo-control">
              <div class="flex justify-between items-center mb-1">
                <label for="typo-paragraph-spacing" class="text-[11px] font-bold text-slate-400 uppercase">Paragraph Spacing (em)</label>
-               <input id="typo-paragraph-spacing-input" type="number" value="1" min="0" max="4" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500">
+               <input id="typo-paragraph-spacing-input" type="number" value="1" min="0" max="4" step="0.1" class="w-12 bg-[#1e1e1e] border border-[#333] rounded px-1 py-0.5 text-[11px] text-white text-right focus:outline-none focus:border-blue-500 custom-number">
              </div>
-             <input id="typo-paragraph-spacing" type="range" min="0" max="4" value="1" step="0.1" class="w-full accent-blue-500 cursor-pointer">
+             <input id="typo-paragraph-spacing" type="range" min="0" max="4" value="1" step="0.1" class="w-full custom-range cursor-pointer">
            </div>
 
            <!-- Alignment -->
@@ -194,6 +194,60 @@ const { initialCSS } = Astro.props;
     </div>
   </div>
 </aside>
+
+<style is:global>
+  .custom-range {
+    appearance: none;
+    background: transparent;
+    height: 6px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .custom-range::-webkit-slider-thumb {
+    appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    margin-top: -4px;
+  }
+  .custom-range::-moz-range-thumb {
+    appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: none;
+  }
+  .custom-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #333;
+    border-radius: 3px;
+  }
+  .custom-range::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #333;
+    border-radius: 3px;
+  }
+  .custom-range:focus {
+    outline: none;
+  }
+  .custom-number {
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+  .custom-number::-webkit-inner-spin-button,
+  .custom-number::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+</style>
 
 <script>
   import * as fontkit from 'fontkit';
@@ -318,6 +372,124 @@ const { initialCSS } = Astro.props;
     paragraphSpacing: '1em'
   };
 
+  function saveFontConfig() {
+    if (!currentFontConfig || !currentFontConfig.id) return;
+    const fontId = currentFontConfig.id;
+
+    let axesState: Record<string, string> = {};
+    const activeAxes = document.querySelectorAll('.axis-control');
+    activeAxes.forEach(control => {
+      const axis = control.getAttribute('data-axis');
+      const input = control.querySelector('input');
+      if (axis && input) {
+        axesState[axis] = input.value;
+      }
+    });
+
+    let featuresState: string[] = [];
+    const toggles = document.querySelectorAll('.feature-toggle') as NodeListOf<HTMLInputElement>;
+    toggles.forEach(toggle => {
+      if (toggle.checked) {
+        const feature = toggle.getAttribute('data-feature');
+        if (feature) featuresState.push(feature);
+      }
+    });
+
+    const configToSave = {
+      typoState,
+      axes: axesState,
+      features: featuresState
+    };
+
+    let savedConfigs = JSON.parse(localStorage.getItem('typographyConfigs') || '{}');
+    savedConfigs[fontId] = configToSave;
+    localStorage.setItem('typographyConfigs', JSON.stringify(savedConfigs));
+  }
+
+  function loadFontConfig(fontId: string) {
+    let savedConfigs = JSON.parse(localStorage.getItem('typographyConfigs') || '{}');
+    const config = savedConfigs[fontId];
+    if (!config) return;
+
+    if (config.typoState) {
+       typoState = { ...typoState, ...config.typoState };
+
+       const sizeRange = document.getElementById('typo-size') as HTMLInputElement;
+       const sizeInput = document.getElementById('typo-size-input') as HTMLInputElement;
+       if (sizeRange && sizeInput) {
+          const val = typoState.fontSize.replace('px', '');
+          sizeRange.value = val;
+          sizeInput.value = val;
+       }
+
+       const lhRange = document.getElementById('typo-line-height') as HTMLInputElement;
+       const lhInput = document.getElementById('typo-line-height-input') as HTMLInputElement;
+       if (lhRange && lhInput) {
+          lhRange.value = typoState.lineHeight;
+          lhInput.value = typoState.lineHeight;
+       }
+
+       const lsRange = document.getElementById('typo-letter-spacing') as HTMLInputElement;
+       const lsInput = document.getElementById('typo-letter-spacing-input') as HTMLInputElement;
+       if (lsRange && lsInput) {
+          const val = typoState.letterSpacing.replace('em', '');
+          lsRange.value = val;
+          lsInput.value = val;
+       }
+
+       const wsRange = document.getElementById('typo-word-spacing') as HTMLInputElement;
+       const wsInput = document.getElementById('typo-word-spacing-input') as HTMLInputElement;
+       if (wsRange && wsInput) {
+          const val = typoState.wordSpacing.replace('em', '');
+          wsRange.value = val;
+          wsInput.value = val;
+       }
+
+       const tiRange = document.getElementById('typo-text-indent') as HTMLInputElement;
+       const tiInput = document.getElementById('typo-text-indent-input') as HTMLInputElement;
+       if (tiRange && tiInput) {
+          const val = typoState.textIndent.replace('px', '');
+          tiRange.value = val;
+          tiInput.value = val;
+       }
+
+       const psRange = document.getElementById('typo-paragraph-spacing') as HTMLInputElement;
+       const psInput = document.getElementById('typo-paragraph-spacing-input') as HTMLInputElement;
+       if (psRange && psInput) {
+          const val = typoState.paragraphSpacing.replace('em', '');
+          psRange.value = val;
+          psInput.value = val;
+       }
+    }
+
+    if (config.axes) {
+      const axisControls = document.querySelectorAll('.axis-control');
+      axisControls.forEach(control => {
+        const axisTag = control.getAttribute('data-axis');
+        if (axisTag && config.axes[axisTag] !== undefined) {
+           const input = control.querySelector('input');
+           const valueDisplay = control.querySelector('.axis-value');
+           if (input && valueDisplay) {
+             input.value = config.axes[axisTag];
+             valueDisplay.textContent = config.axes[axisTag];
+           }
+        }
+      });
+    }
+
+    if (config.features) {
+       const toggles = document.querySelectorAll('.feature-toggle') as NodeListOf<HTMLInputElement>;
+       toggles.forEach(toggle => {
+          const feature = toggle.getAttribute('data-feature');
+          if (feature && config.features.includes(feature)) {
+             toggle.checked = true;
+          } else {
+             toggle.checked = false;
+          }
+       });
+    }
+  }
+
   const otFeatures = [
     { category: 'Ligatures & Contextual', features: [ { tag: 'liga', name: 'Standard Ligatures', preview: 'fi' }, { tag: 'dlig', name: 'Discretionary Ligatures', preview: 'ct' }, { tag: 'calt', name: 'Contextual Alternates', preview: '->' }, { tag: 'hlig', name: 'Historical Ligatures', preview: 'st' }, { tag: 'rclt', name: 'Required Contextual Alternates', preview: '->' } ] },
     { category: 'Capitals', features: [ { tag: 'smcp', name: 'Small Capitals', preview: 'Aa' }, { tag: 'c2sc', name: 'Capitals to Small Caps', preview: 'AA' }, { tag: 'case', name: 'Case-Sensitive Forms', preview: '(H)' }, { tag: 'titl', name: 'Titling Alternates', preview: 'H' }, { tag: 'pcap', name: 'Petite Capitals', preview: 'Aa' }, { tag: 'c2pc', name: 'Capitals to Petite Caps', preview: 'AA' }, { tag: 'unic', name: 'Unicase', preview: 'aA' } ] },
@@ -413,6 +585,7 @@ const { initialCSS } = Astro.props;
   }
 
    function dispatchTypographyChange() {
+    saveFontConfig();
     window.dispatchEvent(new CustomEvent('typography-changed', {
       detail: typoState
     }));
@@ -660,6 +833,7 @@ ${escapedFontFace}
   }
 
   function dispatchAxesChange() {
+    saveFontConfig();
     const settingsStr = getVariationSettingsStr();
     window.dispatchEvent(new CustomEvent('axes-changed', {
       detail: { settings: settingsStr, features: getFontFeatureSettingsStr() }
@@ -844,7 +1018,10 @@ ${escapedFontFace}
         renderDynamicFontFeatures([]);
       }
 
+      loadFontConfig(fontId);
       updateFeaturePreviews();
+      dispatchTypographyChange();
+      dispatchAxesChange();
     }
   }) as EventListener);
 
@@ -884,13 +1061,17 @@ ${escapedFontFace}
     }
 
     setupSliderListeners();
-    updateFeaturePreviews();
     setupTypographyListeners();
 
     const featureToggles = document.querySelectorAll('.feature-toggle');
     featureToggles.forEach(toggle => {
        toggle.addEventListener('change', dispatchAxesChange);
     });
+
+    loadFontConfig(currentFontConfig.id);
+    updateFeaturePreviews();
+    dispatchTypographyChange();
+    dispatchAxesChange();
   })();
 
 
@@ -928,12 +1109,17 @@ ${escapedFontFace}
               const copyText = document.getElementById('copy-text');
               const copiedText = document.getElementById('copied-text');
               if (copyText && copiedText) {
-                  copyText.style.transform = 'translateY(-100%)';
-                  copiedText.style.transform = 'translateY(0%)';
+                  copyText.style.transform = '';
+                  copiedText.style.transform = '';
+
+                  copyText.classList.add('-translate-y-full');
+                  copiedText.classList.remove('translate-y-full');
+                  copiedText.classList.add('translate-y-0');
 
                   setTimeout(() => {
-                      copyText.style.transform = 'translateY(0%)';
-                      copiedText.style.transform = 'translateY(100%)';
+                      copyText.classList.remove('-translate-y-full');
+                      copyText.classList.remove('translate-y-0');
+                      copyText.classList.add('translate-y-full');
                   }, 2000);
               }
           });
