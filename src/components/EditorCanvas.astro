@@ -30,6 +30,31 @@
         {
           type: "header",
           data: {
+            text: "Comprehensive Character Set",
+            level: 2
+          }
+        },
+        {
+          type: "paragraph",
+          data: {
+            text: "ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789<br>¡!¿?@#$%^&*()_+-=[]{}|;':\",./<>\\"
+          }
+        },
+        {
+          type: "paragraph",
+          data: {
+            text: "<b>Diacritics & Extended Latin:</b> ÁÉÍÓÚÑÜáéíóúñü ÄËÏÖÜäëïöü Çç Åå Øø Ææ Œœ ß"
+          }
+        },
+        {
+          type: "paragraph",
+          data: {
+            text: "<b>Pangrams:</b> The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow. Pack my box with five dozen liquor jugs."
+          }
+        },
+        {
+          type: "header",
+          data: {
             text: "Numerics: Fractions & Figures",
             level: 2
           }
@@ -69,7 +94,7 @@
       ]
   };
 
-  const savedData = localStorage.getItem('editorjsData_v2');
+  const savedData = localStorage.getItem('editorjsData_v3');
   const initialData = savedData ? JSON.parse(savedData) : defaultData;
 
   const editor = new EditorJS({
@@ -92,7 +117,7 @@
     data: initialData,
     onChange: () => {
         editor.save().then((outputData) => {
-           localStorage.setItem('editorjsData_v2', JSON.stringify(outputData));
+           localStorage.setItem('editorjsData_v3', JSON.stringify(outputData));
         }).catch((error) => {
            console.log('Saving failed: ', error);
         });
