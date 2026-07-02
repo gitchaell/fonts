@@ -1,4 +1,4 @@
-export interface FontAxis {
+interface FontAxis {
   tag: string;
   name: string;
   min: number;
