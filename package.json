@@ -25,13 +25,10 @@
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
     "@types/fontkit": "^2.0.9",
-    "playwright": "^1.61.1",
     "typescript": "^6.0.3"
   },
   "description": "```sh npm create astro@latest -- --template minimal ```",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitchaell/fonts.git"
