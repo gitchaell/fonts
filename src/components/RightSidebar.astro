@@ -409,60 +409,124 @@ const { initialCSS } = Astro.props;
   function loadFontConfig(fontId: string) {
     let savedConfigs = JSON.parse(localStorage.getItem('typographyConfigs') || '{}');
     const config = savedConfigs[fontId];
-    if (!config) return;
 
-    if (config.typoState) {
+    if (config && config.typoState) {
        typoState = { ...typoState, ...config.typoState };
-
-       const sizeRange = document.getElementById('typo-size') as HTMLInputElement;
-       const sizeInput = document.getElementById('typo-size-input') as HTMLInputElement;
-       if (sizeRange && sizeInput) {
-          const val = typoState.fontSize.replace('px', '');
-          sizeRange.value = val;
-          sizeInput.value = val;
-       }
-
-       const lhRange = document.getElementById('typo-line-height') as HTMLInputElement;
-       const lhInput = document.getElementById('typo-line-height-input') as HTMLInputElement;
-       if (lhRange && lhInput) {
-          lhRange.value = typoState.lineHeight;
-          lhInput.value = typoState.lineHeight;
-       }
-
-       const lsRange = document.getElementById('typo-letter-spacing') as HTMLInputElement;
-       const lsInput = document.getElementById('typo-letter-spacing-input') as HTMLInputElement;
-       if (lsRange && lsInput) {
-          const val = typoState.letterSpacing.replace('em', '');
-          lsRange.value = val;
-          lsInput.value = val;
-       }
-
-       const wsRange = document.getElementById('typo-word-spacing') as HTMLInputElement;
-       const wsInput = document.getElementById('typo-word-spacing-input') as HTMLInputElement;
-       if (wsRange && wsInput) {
-          const val = typoState.wordSpacing.replace('em', '');
-          wsRange.value = val;
-          wsInput.value = val;
-       }
-
-       const tiRange = document.getElementById('typo-text-indent') as HTMLInputElement;
-       const tiInput = document.getElementById('typo-text-indent-input') as HTMLInputElement;
-       if (tiRange && tiInput) {
-          const val = typoState.textIndent.replace('px', '');
-          tiRange.value = val;
-          tiInput.value = val;
-       }
-
-       const psRange = document.getElementById('typo-paragraph-spacing') as HTMLInputElement;
-       const psInput = document.getElementById('typo-paragraph-spacing-input') as HTMLInputElement;
-       if (psRange && psInput) {
-          const val = typoState.paragraphSpacing.replace('em', '');
-          psRange.value = val;
-          psInput.value = val;
-       }
+    } else {
+       typoState = {
+         fontSize: '16px',
+         lineHeight: '1.5',
+         letterSpacing: '0em',
+         wordSpacing: '0em',
+         textAlign: 'left',
+         color: '#000000',
+         textTransform: 'none',
+         textDecoration: 'none',
+         fontStyle: 'normal',
+         textIndent: '0px',
+         paragraphSpacing: '1em'
+       };
     }
 
-    if (config.axes) {
+    const sizeRange = document.getElementById('typo-size') as HTMLInputElement;
+    const sizeInput = document.getElementById('typo-size-input') as HTMLInputElement;
+    if (sizeRange && sizeInput) {
+       const val = typoState.fontSize.replace('px', '');
+       sizeRange.value = val;
+       sizeInput.value = val;
+    }
+
+    const lhRange = document.getElementById('typo-line-height') as HTMLInputElement;
+    const lhInput = document.getElementById('typo-line-height-input') as HTMLInputElement;
+    if (lhRange && lhInput) {
+       lhRange.value = typoState.lineHeight;
+       lhInput.value = typoState.lineHeight;
+    }
+
+    const lsRange = document.getElementById('typo-letter-spacing') as HTMLInputElement;
+    const lsInput = document.getElementById('typo-letter-spacing-input') as HTMLInputElement;
+    if (lsRange && lsInput) {
+       const val = typoState.letterSpacing.replace('em', '');
+       lsRange.value = val;
+       lsInput.value = val;
+    }
+
+    const wsRange = document.getElementById('typo-word-spacing') as HTMLInputElement;
+    const wsInput = document.getElementById('typo-word-spacing-input') as HTMLInputElement;
+    if (wsRange && wsInput) {
+       const val = typoState.wordSpacing.replace('em', '');
+       wsRange.value = val;
+       wsInput.value = val;
+    }
+
+    const tiRange = document.getElementById('typo-text-indent') as HTMLInputElement;
+    const tiInput = document.getElementById('typo-text-indent-input') as HTMLInputElement;
+    if (tiRange && tiInput) {
+       const val = typoState.textIndent.replace('px', '');
+       tiRange.value = val;
+       tiInput.value = val;
+    }
+
+    const psRange = document.getElementById('typo-paragraph-spacing') as HTMLInputElement;
+    const psInput = document.getElementById('typo-paragraph-spacing-input') as HTMLInputElement;
+    if (psRange && psInput) {
+       const val = typoState.paragraphSpacing.replace('em', '');
+       psRange.value = val;
+       psInput.value = val;
+    }
+
+    const colorPicker = document.getElementById('typo-color') as HTMLInputElement;
+    const colorText = document.getElementById('typo-color-text') as HTMLInputElement;
+    if (colorPicker && colorText) {
+       colorPicker.value = typoState.color;
+       colorText.value = typoState.color;
+    }
+
+    const alignBtns = document.querySelectorAll('.align-btn');
+    alignBtns.forEach(b => {
+       if (b.getAttribute('data-align') === typoState.textAlign) {
+           b.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+           b.classList.add('bg-[#3a3a3a]', 'text-white');
+       } else {
+           b.classList.remove('bg-[#3a3a3a]', 'text-white');
+           b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+       }
+    });
+
+    const transformBtns = document.querySelectorAll('.transform-btn');
+    transformBtns.forEach(b => {
+       if (b.getAttribute('data-transform') === typoState.textTransform) {
+           b.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+           b.classList.add('bg-[#3a3a3a]', 'text-white');
+       } else {
+           b.classList.remove('bg-[#3a3a3a]', 'text-white');
+           b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+       }
+    });
+
+    const decorationBtns = document.querySelectorAll('.decoration-btn');
+    decorationBtns.forEach(b => {
+       if (b.getAttribute('data-decoration') === typoState.textDecoration) {
+           b.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+           b.classList.add('bg-[#3a3a3a]', 'text-white');
+       } else {
+           b.classList.remove('bg-[#3a3a3a]', 'text-white');
+           b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+       }
+    });
+
+    const fontStyleBtns = document.querySelectorAll('.fontstyle-btn');
+    fontStyleBtns.forEach(b => {
+       if (b.getAttribute('data-style') === typoState.fontStyle) {
+           b.classList.remove('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+           b.classList.add('bg-[#3a3a3a]', 'text-white');
+       } else {
+           b.classList.remove('bg-[#3a3a3a]', 'text-white');
+           b.classList.add('text-gray-400', 'hover:bg-[#2a2a2a]', 'hover:text-white');
+       }
+    });
+
+    if (config && config.axes) {
       const axisControls = document.querySelectorAll('.axis-control');
       axisControls.forEach(control => {
         const axisTag = control.getAttribute('data-axis');
@@ -477,7 +541,7 @@ const { initialCSS } = Astro.props;
       });
     }
 
-    if (config.features) {
+    if (config && config.features) {
        const toggles = document.querySelectorAll('.feature-toggle') as NodeListOf<HTMLInputElement>;
        toggles.forEach(toggle => {
           const feature = toggle.getAttribute('data-feature');
@@ -486,6 +550,11 @@ const { initialCSS } = Astro.props;
           } else {
              toggle.checked = false;
           }
+       });
+    } else {
+       const toggles = document.querySelectorAll('.feature-toggle') as NodeListOf<HTMLInputElement>;
+       toggles.forEach(toggle => {
+          toggle.checked = false;
        });
     }
   }
