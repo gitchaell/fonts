@@ -1093,26 +1093,9 @@ ${escapedFontFace}
     }
   }) as EventListener);
 
-
   // Initialize
   (async () => {
-    // Check if we have an active font
-    const activeFontId = localStorage.getItem('activeFontId');
-    if (activeFontId) {
-        const foundFont = fonts.find(f => f.id === activeFontId);
-        if (foundFont) {
-            currentFontConfig = foundFont;
-        }
-    }
-
-    // update details
-    const detailsFontName = document.getElementById('details-font-name');
-    const detailsFontType = document.getElementById('details-font-type');
-    if (detailsFontName) detailsFontName.textContent = currentFontConfig.fontName;
-    if (detailsFontType) detailsFontType.textContent = currentFontConfig.type;
-
     try {
-
       const res = await fetch(currentFontConfig.fileUrl);
       const buffer = await res.arrayBuffer();
       const font = fontkit.create(new Uint8Array(buffer) as any) as any;
