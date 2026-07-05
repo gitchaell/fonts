@@ -1,0 +1,35 @@
+
+> my-astro-app@0.0.1 dev
+> astro dev
+
+▶ Astro collects anonymous usage data.
+  This information helps us improve Astro.
+  Run "astro telemetry disable" to opt-out.
+  https://astro.build/telemetry
+
+18:48:26 [vite] connected.
+18:48:28 [types] Generated 1ms
+18:48:28 [vite] connected.
+ astro  v7.0.3 ready in 2482 ms
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+18:48:28 watching for file changes...
+18:52:06 [200] / 203ms
+18:52:08 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+18:52:08 [vite] ✨ optimized dependencies changed. reloading
+18:52:08 [200] / 85ms
+18:52:12 [200] / 84ms
+18:52:38 [200] / 80ms
+18:52:42 [200] / 199ms
+18:52:59 [200] / 87ms
+18:53:19 [200] / 85ms
+18:53:47 [200] / 88ms
+18:55:17 [watch] src/components/RightSidebar.astro
+18:55:20 [200] / 149ms
+18:55:21 [200] / 70ms
+18:55:24 [200] / 68ms
+18:55:33 [200] / 69ms
+18:55:37 [200] / 68ms
+18:55:52 [200] / 68ms
+18:56:06 [200] / 66ms
+18:56:10 [200] / 67ms
