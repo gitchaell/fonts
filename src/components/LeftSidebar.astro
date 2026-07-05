@@ -40,9 +40,35 @@ import { fonts, defaultFont } from '../config/fonts';
 
 
   if (fontList) {
-    // const fontItems = Array.from(fontList.querySelectorAll('.font-item'));
+const savedActiveId = localStorage.getItem('activeFontId');
+    if (savedActiveId) {
+      const defaultActive = fontList.querySelector('.active-font');
+      if (defaultActive) {
+        defaultActive.classList.remove('active-font', 'bg-[#2c2c2c]', 'border-[#333]', 'shadow-sm');
+        defaultActive.classList.add('hover:bg-[#2c2c2c]', 'border-transparent');
+        const indicator = defaultActive.querySelector('.font-active-indicator');
+        if (indicator) indicator.classList.add('hidden');
+        const nameDisplay = defaultActive.querySelector('.font-name-display');
+        if (nameDisplay) {
+           nameDisplay.classList.remove('text-white');
+           nameDisplay.classList.add('text-slate-300', 'group-hover:text-white');
+        }
+      }
 
-    // Track the currently active element
+      const savedItem = fontList.querySelector(`[data-id="${savedActiveId}"]`);
+      if (savedItem) {
+        savedItem.classList.add('active-font', 'bg-[#2c2c2c]', 'border-[#333]', 'shadow-sm');
+        savedItem.classList.remove('hover:bg-[#2c2c2c]', 'border-transparent');
+        const activeIndicator = savedItem.querySelector('.font-active-indicator');
+        if (activeIndicator) activeIndicator.classList.remove('hidden');
+        const activeNameDisplay = savedItem.querySelector('.font-name-display');
+        if (activeNameDisplay) {
+           activeNameDisplay.classList.remove('text-slate-300', 'group-hover:text-white');
+           activeNameDisplay.classList.add('text-white');
+        }
+      }
+    }
+
     activeItem = fontList.querySelector('.active-font');
 
     fontList.addEventListener('click', (e) => {
@@ -84,6 +110,10 @@ import { fonts, defaultFont } from '../config/fonts';
       const newFont = item.getAttribute('data-font');
       const newName = item.getAttribute('data-name');
       const fontId = item.getAttribute('data-id');
+
+      if (fontId) {
+         localStorage.setItem('activeFontId', fontId);
+      }
 
       if (newFont && newName) {
          window.dispatchEvent(new CustomEvent('font-selected', {

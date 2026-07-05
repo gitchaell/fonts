@@ -39,12 +39,21 @@ const initialCSS = `${defaultFont.fontFace}
   </style>
 
   <script>
-    import { defaultFont } from '../config/fonts';
+    import { defaultFont, fonts } from '../config/fonts';
 
     const root = document.documentElement;
 
     // Initial Font Family
     let currentFontFamily = defaultFont.fontFamily;
+
+    const activeFontId = localStorage.getItem('activeFontId');
+    if (activeFontId) {
+        const foundFont = fonts.find(f => f.id === activeFontId);
+        if (foundFont) {
+            currentFontFamily = foundFont.fontFamily;
+        }
+    }
+
     root.style.setProperty('--font-family', currentFontFamily);
 
     window.addEventListener('font-selected', (e) => {

@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@editorjs/checklist": "^1.6.0",
     "@editorjs/editorjs": "^2.31.6",
     "@editorjs/header": "^2.8.9",
