@@ -1,4 +1,6 @@
 ---
+import { Star } from '@lucide/astro';
+
 interface Props {
   id: string;
   fontFamily: string;
@@ -18,14 +20,19 @@ const indicatorClasses = isActive ? '' : 'hidden';
 const textClasses = isActive ? 'text-white' : 'text-slate-300 group-hover:text-white';
 ---
 
-<button class={`font-item w-full text-left p-3 rounded-lg group relative border transition-colors ${activeClasses}`} data-id={id} data-font={fontFamily} data-name={fontName} aria-label={`Select ${fontName} font`}>
+<div class={`font-item w-full text-left p-3 rounded-lg group relative border transition-colors cursor-pointer ${activeClasses}`} data-id={id} data-font={fontFamily} data-name={fontName} aria-label={`Select ${fontName} font`}>
   <div class={`absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l-lg font-active-indicator ${indicatorClasses}`}></div>
   <div class="flex justify-between items-center mb-1 pl-2">
     <span class={`text-[12px] font-medium font-name-display transition-colors ${textClasses}`}>{fontName}</span>
-    <div class="flex items-center text-slate-500 group-hover:text-slate-400 text-[10px]">
-      <svg class="w-3 h-3 mr-1" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
-      1
+    <div class="flex items-center gap-2">
+      <button class="favorite-btn text-slate-500 hover:text-yellow-400 transition-colors focus:outline-none" aria-label={`Favorite ${fontName}`}>
+        <Star class="w-3.5 h-3.5 star-icon" />
+      </button>
+      <div class="flex items-center text-slate-500 group-hover:text-slate-400 text-[10px]">
+        <svg class="w-3 h-3 mr-1" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
+        1
+      </div>
     </div>
   </div>
-  <div class="text-xl text-gray-200 pl-2 truncate" style={`font-family: ${fontFamily};`}>{fontName.replace('Google Sans ', 'Google ')}</div>
-</button>
+  <div class="text-xl text-gray-200 pl-2 truncate pointer-events-none" style={`font-family: ${fontFamily};`}>{fontName.replace('Google Sans ', 'Google ')}</div>
+</div>

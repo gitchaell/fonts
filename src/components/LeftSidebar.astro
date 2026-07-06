@@ -21,7 +21,7 @@ import { fonts, defaultFont } from '../config/fonts';
     </div>
 
     <!-- Font List -->
-    <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1" id="font-list">
+    <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1 flex flex-col" id="font-list">
       {fonts.map(font => (
         <FontItem
           id={font.id}
@@ -40,7 +40,70 @@ import { fonts, defaultFont } from '../config/fonts';
 
 
   if (fontList) {
-const savedActiveId = localStorage.getItem('activeFontId');
+    // 1. Initialize favorites and order
+    let favoriteFonts: string[] = [];
+    try {
+      const savedFavs = localStorage.getItem('favoriteFonts');
+      if (savedFavs) {
+        favoriteFonts = JSON.parse(savedFavs);
+      }
+    } catch (e) {
+      console.error('Error loading favorite fonts:', e);
+    }
+
+    const fontItems = Array.from(fontList.querySelectorAll('.font-item'));
+    fontItems.forEach((item, index) => {
+      item.setAttribute('data-original-index', index.toString());
+    });
+
+    const updateFavoritesDOM = () => {
+      // Sort the items
+      fontItems.sort((a, b) => {
+        const idA = a.getAttribute('data-id');
+        const idB = b.getAttribute('data-id');
+        const isFavA = idA && favoriteFonts.includes(idA);
+        const isFavB = idB && favoriteFonts.includes(idB);
+
+        if (isFavA && !isFavB) return -1;
+        if (!isFavA && isFavB) return 1;
+
+        // If same favorite status, sort by original index
+        const indexA = parseInt(a.getAttribute('data-original-index') || '0', 10);
+        const indexB = parseInt(b.getAttribute('data-original-index') || '0', 10);
+        return indexA - indexB;
+      });
+
+      // Update the DOM
+      fontItems.forEach(item => {
+        const id = item.getAttribute('data-id');
+        const starBtn = item.querySelector('.favorite-btn');
+        const starIcon = item.querySelector('.star-icon');
+
+        if (id && favoriteFonts.includes(id)) {
+           if (starBtn) {
+             starBtn.classList.add('text-yellow-400');
+             starBtn.classList.remove('text-slate-500');
+           }
+           if (starIcon) {
+             starIcon.classList.add('fill-yellow-400');
+           }
+        } else {
+           if (starBtn) {
+             starBtn.classList.remove('text-yellow-400');
+             starBtn.classList.add('text-slate-500');
+           }
+           if (starIcon) {
+             starIcon.classList.remove('fill-yellow-400');
+           }
+        }
+
+        fontList.appendChild(item); // Re-appending moves the element
+      });
+    };
+
+    updateFavoritesDOM(); // Initial sort and style
+
+    const savedActiveId = localStorage.getItem('activeFontId');
     if (savedActiveId) {
       const defaultActive = fontList.querySelector('.active-font');
       if (defaultActive) {
@@ -72,9 +135,28 @@ const savedActiveId = localStorage.getItem('activeFontId');
     activeItem = fontList.querySelector('.active-font');
 
     fontList.addEventListener('click', (e) => {
-      const item = (e.target as Element).closest('.font-item');
+      const target = e.target as Element;
+      const favBtn = target.closest('.favorite-btn');
+      const item = target.closest('.font-item');
 
-      if (!item || item === activeItem) return;
+      if (!item) return;
+
+      if (favBtn) {
+        // Handle favorite click
+        const fontId = item.getAttribute('data-id');
+        if (fontId) {
+          if (favoriteFonts.includes(fontId)) {
+            favoriteFonts = favoriteFonts.filter(id => id !== fontId);
+          } else {
+            favoriteFonts.push(fontId);
+          }
+          localStorage.setItem('favoriteFonts', JSON.stringify(favoriteFonts));
+          updateFavoritesDOM();
+        }
+        return; // Do not trigger active font selection
+      }
+
+      if (item === activeItem) return;
 
       // Remove active state from previous item
       if (activeItem) {
