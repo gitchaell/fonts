@@ -1,0 +1,124 @@
+
+> my-astro-app@0.0.1 dev
+> astro dev
+
+▶ Astro collects anonymous usage data.
+  This information helps us improve Astro.
+  Run "astro telemetry disable" to opt-out.
+  https://astro.build/telemetry
+
+15:37:02 [vite] connected.
+15:37:05 [types] Generated 0ms
+15:37:05 [vite] connected.
+ astro  v7.0.3 ready in 3286 ms
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+15:37:05 watching for file changes...
+15:39:06 [200] / 369ms
+15:39:08 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+15:39:08 [vite] ✨ optimized dependencies changed. reloading
+15:39:08 [200] / 161ms
+15:39:48 [200] / 93ms
+15:40:13 [watch] src/components/EditorCanvas.astro
+15:40:19 [ERROR] [CompilerError] Expected `,` or `}` but found `Identifier` (The stacktrace appears to be already rewritten by something else, but was passed to vite.ssrFixStacktrace. This may cause incorrect stacktraces.)
+  Stack trace:
+    at /app/src/components/EditorCanvas.astro:114:8
+    [...] See full stack trace in the browser, or rerun with --verbose.
+15:40:19 [ERROR] [CompilerError] Expected `,` or `}` but found `Identifier` (The stacktrace appears to be already rewritten by something else, but was passed to vite.ssrFixStacktrace. This may cause incorrect stacktraces.)
+  Stack trace:
+    at /app/src/components/EditorCanvas.astro:114:8
+    [...] See full stack trace in the browser, or rerun with --verbose.
+15:41:01 [watch] src/components/EditorCanvas.astro
+15:41:35 [watch] src/components/EditorCanvas.astro
+15:41:43 [watch] src/components/EditorCanvas.astro
+15:42:31 Configuration file updated. Restarting...
+15:42:31 [vite] program reload
+15:42:31 [ERROR] [vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:19714:31)
+15:42:31 [vite] connected.
+15:42:34 [vite] connected.
+15:42:34 [vite] Re-optimizing dependencies because lockfile has changed
+15:42:34 [vite] server restarted.
+15:42:37 Configuration file updated. Restarting...
+15:42:37 [vite] connected.
+15:42:39 [vite] connected.
+15:42:39 [vite] Re-optimizing dependencies because lockfile has changed
+15:42:39 [vite] server restarted.
+15:42:43 Configuration file updated. Restarting...
+15:42:43 [vite] connected.
+15:42:45 [vite] connected.
+15:42:45 [vite] Re-optimizing dependencies because lockfile has changed
+15:42:45 [vite] server restarted.
+15:43:02 [200] / 211ms
+15:43:03 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+15:43:03 [vite] ✨ optimized dependencies changed. reloading
+15:43:03 [200] / 77ms
+15:43:23 Configuration file updated. Restarting...
+15:43:23 [vite] program reload
+15:43:23 [ERROR] [vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:19714:31)
+15:43:23 [vite] connected.
+15:43:26 [vite] connected.
+15:43:26 [vite] Re-optimizing dependencies because lockfile has changed
+15:43:26 [vite] server restarted.
+15:44:10 Configuration file updated. Restarting...
+15:44:10 [vite] connected.
+15:44:12 [vite] connected.
+15:44:12 [vite] Re-optimizing dependencies because lockfile has changed
+15:44:12 [vite] server restarted.
+15:44:25 [200] / 145ms
+15:44:25 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+15:44:25 [vite] ✨ optimized dependencies changed. reloading
+15:44:26 [200] / 70ms
+15:45:50 [watch] test_editor.html
+15:47:30 [watch] src/components/EditorCanvas.astro
+15:48:22 [watch] src/components/EditorCanvas.astro
+15:48:40 [200] / 156ms
+15:48:41 [200] / 86ms
+15:49:05 Configuration file updated. Restarting...
+15:49:05 [vite] program reload
+15:49:05 [ERROR] [vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:19714:31)
+15:49:05 [vite] connected.
+15:49:08 [vite] connected.
+15:49:08 [vite] Re-optimizing dependencies because lockfile has changed
+15:49:08 [vite] server restarted.
+15:49:21 [200] / 190ms
+15:49:21 [vite] ✨ new dependencies optimized: @editorjs/checklist, @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+15:49:21 [vite] ✨ optimized dependencies changed. reloading
+15:49:21 [200] / 71ms
+15:52:00 [watch] src/components/EditorCanvas.astro
+15:52:01 Configuration file updated. Restarting...
+15:52:01 [vite] program reload
+15:52:01 [ERROR] [vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:19714:31)
+15:52:01 [vite] connected.
+15:52:04 [vite] connected.
+15:52:04 [vite] Re-optimizing dependencies because lockfile has changed
+15:52:04 [vite] server restarted.
+15:52:25 [200] / 133ms
+15:52:25 [vite] ✨ new dependencies optimized: @editorjs/editorjs, @editorjs/header, @editorjs/list, @editorjs/underline, buffer, fontkit
+15:52:25 [vite] ✨ optimized dependencies changed. reloading
+15:52:25 [200] / 73ms
+15:52:46 [vite] program reload
+15:52:46 [ERROR] [vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:19714:31)
+15:52:47 [200] / 86ms
+15:52:48 [200] / 75ms
+16:23:42 [watch] /src/styles/global.css
+16:24:37 [watch] src/components/LeftSidebar.astro
+16:25:18 [200] / 938ms
+16:25:19 [200] / 181ms
+16:25:53 [vite] program reload
+16:25:57 [200] / 102ms
+16:25:58 [200] / 72ms
