@@ -1,4 +1,3 @@
-declare module '@calumk/editorjs-codecup';
 /// <reference types="astro/client" />
 
 interface FontSelectedEventDetail {
@@ -23,4 +22,3 @@ declare global {
     Buffer: any;
   }
 }
-declare module '@editorjs/checklist';

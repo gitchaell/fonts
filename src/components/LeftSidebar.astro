@@ -62,8 +62,7 @@ import { fonts, defaultFont } from '../config/fonts';
       if (savedFavs) {
         favoriteFonts = JSON.parse(savedFavs);
       }
-    } catch (e) {
-      console.error('Error loading favorite fonts:', e);
+    } catch {
     }
 
     const fontItems = Array.from(fontList.querySelectorAll('.font-item'));

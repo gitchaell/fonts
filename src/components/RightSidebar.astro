@@ -801,8 +801,7 @@ ${escapedFontFace}
           }
         });
         dispatchAxesChange();
-      } catch (err) {
-        console.error("Error parsing instance values", err);
+      } catch {
       }
     };
   }
@@ -907,8 +906,7 @@ ${escapedFontFace}
         featureToggles.forEach(toggle => {
            toggle.addEventListener('change', dispatchAxesChange);
         });
-      } catch (err) {
-        console.error("Error parsing font:", err);
+      } catch {
         renderAxesControls(currentFontConfig.axes);
         renderDynamicFontFeatures([]);
       }
@@ -967,8 +965,7 @@ ${escapedFontFace}
       renderInstances(font);
 
       renderDynamicFontFeatures(extractAvailableFeatures(font));
-    } catch (err) {
-      console.error("Error parsing font on init:", err);
+    } catch {
       renderDynamicFontFeatures([]);
     }
 
