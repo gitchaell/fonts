@@ -1,0 +1,30 @@
+---
+import { defaultFont } from '../config/fonts';
+---
+<div>
+  <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Font Details</h2>
+  <div class="bg-[#2c2c2c] border border-[#333] rounded p-4 shadow-sm">
+    <h3 class="text-xl font-bold text-white mb-1" id="details-font-name">{defaultFont.fontName}</h3>
+    <p class="text-[13px] text-gray-400 mb-2" id="details-font-type">{defaultFont.type}</p>
+    <p class="text-[11px] text-gray-500 mb-4" id="details-font-glyphs"></p>
+
+    <div id="instances-container" class="mb-4 hidden">
+      <label for="font-instances" class="text-[11px] font-bold text-slate-400 uppercase mb-1 block">Instances</label>
+      <select id="font-instances" class="w-full bg-[#1e1e1e] border border-[#333] rounded px-2 py-1.5 text-[12px] text-white focus:outline-none focus:border-blue-500 appearance-none bg-no-repeat" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239ca3af%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>'); background-position: right 0.5rem center; background-size: 1em;">
+         <option value="">Default</option>
+      </select>
+    </div>
+
+    <div class="space-y-4" id="details-axes">
+       {defaultFont.axes.map(axis => (
+         <div class="axis-control" data-axis={axis.tag}>
+           <div class="flex justify-between items-center mb-1">
+             <label for={`axis-${axis.tag}`} class="text-[11px] font-bold text-slate-400 uppercase">{axis.name} ({axis.tag})</label>
+             <span class="text-[12px] font-medium text-gray-300 axis-value">{axis.default}</span>
+           </div>
+           <input id={`axis-${axis.tag}`} type="range" min={axis.min} max={axis.max} value={axis.default} step="1" class="w-full custom-range cursor-pointer">
+         </div>
+       ))}
+    </div>
+  </div>
+</div>

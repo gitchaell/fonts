@@ -38,6 +38,21 @@ import { fonts, defaultFont } from '../config/fonts';
   const fontList = document.getElementById('font-list');
   let activeItem: Element | null = null;
 
+  const searchInput = document.getElementById('font-search') as HTMLInputElement;
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase();
+      const items = fontList ? fontList.querySelectorAll('.font-item') : [];
+      items.forEach(item => {
+        const name = item.getAttribute('data-name')?.toLowerCase() || '';
+        if (name.includes(query)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  }
 
   if (fontList) {
     // 1. Initialize favorites and order

@@ -81,16 +81,6 @@ export const fonts: FontConfig[] = [
     ]
   },
   {
-    id: 'inter',
-    fontFamily: "'Inter SemiBold', sans-serif",
-    fontName: "Inter Static SemiBold",
-    type: "Static Font.",
-    fileUrl: '/fonts/inter/Inter.woff2',
-    fileName: "Inter.woff2",
-    fontFace: `@font-face {\n  font-family: 'Inter SemiBold';\n  src: url('/fonts/inter/Inter.woff2') format('woff2');\n}\n`,
-    axes: []
-  },
-  {
     id: 'inter-variable',
     fontFamily: "'Inter Variable', sans-serif",
     fontName: "Inter",
