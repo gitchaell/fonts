@@ -1,0 +1,39 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  initialCSS: string;
+}
+
+const { initialCSS } = Astro.props;
+---
+<div class="mt-auto pt-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">CSS Output</h2>
+    <button id="copy-css-btn" class="text-[11px] font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center justify-end overflow-hidden relative h-5 w-20" aria-label="Copy CSS">
+       <span id="copy-text" class="absolute inset-0 flex items-center justify-end gap-1.5 transition-transform duration-300">
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy
+       </span>
+       <span id="copied-text" class="absolute inset-0 flex items-center justify-end gap-1.5 text-green-400 transition-transform duration-300 translate-y-full">
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Copied!
+       </span>
+    </button>
+  </div>
+
+  <div id="css-output-container" class="bg-[#1a1b26] rounded border border-[#333] p-4 text-[12px] font-mono overflow-x-auto shadow-inner mb-4">
+    <Code code={initialCSS} lang="css" theme="github-dark" />
+  </div>
+
+  <button id="download-font-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded transition-colors flex items-center justify-center gap-2 relative overflow-hidden" aria-label="Download Font">
+    <span id="download-text" class="flex items-center gap-2 transition-transform duration-300">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Get Font
+    </span>
+    <span id="downloaded-text" class="absolute inset-0 flex items-center justify-center text-white transition-transform duration-300 translate-y-full">
+      <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Downloading...
+    </span>
+  </button>
+</div>
