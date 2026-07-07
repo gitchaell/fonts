@@ -114,7 +114,6 @@
         editor.save().then((outputData) => {
            localStorage.setItem('editorjsData_v3', JSON.stringify(outputData));
         }).catch((error) => {
-           console.log('Saving failed: ', error);
         });
     }
   });

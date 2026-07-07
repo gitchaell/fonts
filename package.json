@@ -8,11 +8,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.9",
     "@editorjs/editorjs": "^2.31.6",
     "@editorjs/header": "^2.8.9",
     "@editorjs/list": "^2.0.9",
