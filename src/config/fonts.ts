@@ -90,12 +90,12 @@ export const fonts: FontConfig[] = [
 	},
 	{
 		id: 'space-grotesk',
-		fontFamily: "'Space Grotesk Variable', sans-serif",
+		fontFamily: "'Space Grotesk', sans-serif",
 		fontName: 'Space Grotesk',
 		type: 'Variable Font with Weight axis.',
 		fileUrl: '/fonts/space-grotesk/SpaceGroteskVariable.woff2',
 		fileName: 'SpaceGroteskVariable.woff2',
-		fontFace: `@font-face {\n  font-family: 'Space Grotesk Variable';\n  src: url('/fonts/space-grotesk/SpaceGroteskVariable.woff2') format('woff2-variations');\n}\n`,
+		fontFace: `@font-face {\n  font-family: 'Space Grotesk';\n  src: url('/fonts/space-grotesk/SpaceGroteskVariable.woff2') format('woff2-variations');\n}\n`,
 		axes: [{ tag: 'wght', name: 'Weight', min: 300, max: 700, default: 300 }],
 	},
 	{
