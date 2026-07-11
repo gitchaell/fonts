@@ -1,6 +1,12 @@
+<p align="center">
+  <img src="public/favicon.svg" width="120px" />
+</p>
+
+---
+
 # Typography Playground: Arquitectura y Diseño de Sistema
 
-[Placeholder: Logo del Proyecto]
+![dashboard-1](public/dashboard-1.png)
 
 He redactado este documento para detallar la arquitectura, decisiones de diseño y funcionamiento interno de **Typography Playground**, una aplicación web orientada al análisis y ajuste en tiempo real de fuentes variables (Variable Fonts) y características OpenType. El objetivo es desglosar la utilidad de la herramienta y explicar el razonamiento técnico detrás de su implementación.
 
@@ -13,8 +19,6 @@ La complejidad intrínseca de la tipografía digital moderna, especialmente con 
 1. **Selección y Carga de Activos:** El sistema carga archivos WOFF2 locales o instanciados y extrae metadatos profundos (ejes de variación, tablas GSUB/GPOS y glyphs) utilizando la librería `fontkit` en el lado del cliente, evitando llamadas redundantes al servidor.
 2. **Manipulación del Canvas:** El lienzo central utiliza Editor.js para permitir la edición de texto estructurado. Los eventos generados por los controles laterales (deslizadores de ejes, toggles de OpenType, ajustes de em/px) se sincronizan con las variables CSS inyectadas en la raíz del documento.
 3. **Generación de Salida Computada:** Mientras el usuario ajusta el entorno tipográfico, la aplicación compila un bloque de código CSS que refleja el estado actual del componente de previsualización, unificando `font-variation-settings` y `font-feature-settings` en tiempo real.
-
-[📸 Captura: Interfaz general mostrando la interacción entre los ejes de la fuente variable y el panel de código CSS.]
 
 ## 2. Análisis Profundo de Arquitectura y Modelos
 
@@ -97,7 +101,5 @@ La pila elegida optimiza la entrega de contenido estático rápido mientras sopo
 | **Editor.js** | Editor de texto basado en bloques utilizado en el lienzo principal, proveyendo salida JSON limpia en lugar de HTML sucio. |
 | **Fontkit** | Motor de procesamiento de tipografías avanzado para el navegador. Analiza archivos de fuentes binarios para extraer datos de variación e instancias. |
 | **Lucide / Astro** | Proveedor de iconografía SVG ligera. |
-
-[📸 Captura: Visualización detallada del panel de características OpenType y sus toggles booleanos generados dinámicamente.]
 
 El acoplamiento de un editor rico basado en bloques con un analizador binario de fuentes instanciado en el cliente establece una arquitectura altamente resiliente y performante, evitando por completo la latencia de red en las operaciones de modificación en tiempo real. La separación de responsabilidades a través de eventos personalizados del DOM garantiza que el lienzo y los controles permanezcan lógicamente aislados, posibilitando futuras expansiones del proyecto sin refactorizaciones profundas.
