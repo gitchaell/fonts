@@ -77,12 +77,12 @@ export const fonts: FontConfig[] = [
 	},
 	{
 		id: 'inter-variable',
-		fontFamily: "'Inter Variable', sans-serif",
+		fontFamily: "'Inter', sans-serif",
 		fontName: 'Inter',
 		type: 'Variable Font with Weight and Optical Size axes.',
 		fileUrl: '/fonts/inter/InterVariable.woff2',
 		fileName: 'InterVariable.woff2',
-		fontFace: `@font-face {\n  font-family: 'Inter Variable';\n  font-style: normal;\n  src: url('/fonts/inter/InterVariable.woff2') format('woff2-variations');\n}\n`,
+		fontFace: `@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  src: url('/fonts/inter/InterVariable.woff2') format('woff2-variations');\n}\n`,
 		axes: [
 			{ tag: 'opsz', name: 'Optical Size', min: 14, max: 32, default: 14 },
 			{ tag: 'wght', name: 'Weight', min: 100, max: 900, default: 400 },
