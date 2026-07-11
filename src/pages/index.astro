@@ -13,7 +13,7 @@ const initialCSS = `${defaultFont.fontFace}
   letter-spacing: 0em;
   text-align: left;
   color: #000000;
-  font-variation-settings: 'wght' ${defaultFont.axes.find(a => a.tag === 'wght')?.default || 400}, 'wdth' ${defaultFont.axes.find(a => a.tag === 'wdth')?.default || 100}, 'opsz' ${defaultFont.axes.find(a => a.tag === 'opsz')?.default || 14};
+  font-variation-settings: 'wght' ${defaultFont.axes.find((a) => a.tag === 'wght')?.default || 400}, 'wdth' ${defaultFont.axes.find((a) => a.tag === 'wdth')?.default || 100}, 'opsz' ${defaultFont.axes.find((a) => a.tag === 'opsz')?.default || 14};
 }`;
 ---
 
