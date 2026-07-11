@@ -1,41 +1,43 @@
 {
-  "name": "fonts",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
-  },
-  "dependencies": {
-    "@editorjs/editorjs": "^2.31.6",
-    "@editorjs/header": "^2.8.9",
-    "@editorjs/list": "^2.0.9",
-    "@editorjs/underline": "^1.2.1",
-    "@lucide/astro": "^1.22.0",
-    "@tailwindcss/vite": "^4.3.1",
-    "astro": "^7.0.3",
-    "buffer": "^6.0.3",
-    "fontkit": "^2.0.4",
-    "tailwindcss": "^4.3.1"
-  },
-  "devDependencies": {
-    "@types/fontkit": "^2.0.9",
-    "typescript": "^6.0.3"
-  },
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gitchaell/fonts.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gitchaell/fonts/issues"
-  },
-  "homepage": "https://github.com/gitchaell/fonts#readme"
+	"name": "fonts",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.9",
+		"@editorjs/editorjs": "^2.31.6",
+		"@editorjs/header": "^2.8.9",
+		"@editorjs/list": "^2.0.9",
+		"@editorjs/underline": "^1.2.1",
+		"@lucide/astro": "^1.22.0",
+		"@tailwindcss/vite": "^4.3.1",
+		"astro": "^7.0.3",
+		"buffer": "^6.0.3",
+		"fontkit": "^2.0.4",
+		"tailwindcss": "^4.3.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.3",
+		"@types/fontkit": "^2.0.9",
+		"typescript": "^6.0.3"
+	},
+	"description": "",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gitchaell/fonts.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/gitchaell/fonts/issues"
+	},
+	"homepage": "https://github.com/gitchaell/fonts#readme"
 }

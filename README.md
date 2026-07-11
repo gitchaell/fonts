@@ -12,7 +12,7 @@ He redactado este documento para detallar la arquitectura, decisiones de diseño
 
 ## 1. Utilidad y Funcionamiento General
 
-La complejidad intrínseca de la tipografía digital moderna, especialmente con la introducción de las fuentes variables (Variable Fonts) y el estándar OpenType, requiere interfaces capaces de exponer estas capacidades sin ofuscar la lógica subyacente. Typography Playground resuelve el problema de la inspección y manipulación de tipografías dinámicas al proveer un entorno controlado donde los ajustes visuales se traducen de forma instantánea a código CSS puro.
+La complejidad intrínseca de la tipografía digital moderna, especialmente con la introducción de las fuentes variables (Variable Fonts) y el estándar OpenType, requiere interfaces capaces de exponer estas capacidades sin ofuscar la lógica subyacente. Typography Playground resuelve el problema de la inspección y manipulación de tipografías dinámicas al proveer un entorno controlado donde los ajustes visuales se traducen de forma instantánea a código CSS puro. Recientemente he reestructurado y optimizado los archivos de tipografía locales, así como también los estilos CSS que los integran, con la intención de mantener la solidez y el alto desempeño de la aplicación en todo momento.
 
 ### Flujo Operativo Principal
 
@@ -91,7 +91,7 @@ classDiagram
 
 ## 3. Stack Tecnológico
 
-La pila elegida optimiza la entrega de contenido estático rápido mientras soporta manipulación binaria en el cliente (parsing de fuentes).
+La pila elegida optimiza la entrega de contenido estático rápido mientras soporta manipulación binaria en el cliente (parsing de fuentes). Además, he integrado un motor de linter y formateo de alto rendimiento para garantizar un estándar de código impecable a través de todo el proyecto.
 
 | Tecnología | Rol y Razón Técnica |
 | :--- | :--- |
@@ -100,6 +100,7 @@ La pila elegida optimiza la entrega de contenido estático rápido mientras sopo
 | **Tailwind CSS** | Motor de estilos de utilidad. Facilita el estilado rápido de la UI de las barras laterales y los componentes interactivos. |
 | **Editor.js** | Editor de texto basado en bloques utilizado en el lienzo principal, proveyendo salida JSON limpia en lugar de HTML sucio. |
 | **Fontkit** | Motor de procesamiento de tipografías avanzado para el navegador. Analiza archivos de fuentes binarios para extraer datos de variación e instancias. |
+| **Biome** | Herramienta de formateo rápido y configurada de forma centralizada para homogeneizar estilos de código y linting tanto en Astro como en TypeScript. |
 | **Lucide / Astro** | Proveedor de iconografía SVG ligera. |
 
 El acoplamiento de un editor rico basado en bloques con un analizador binario de fuentes instanciado en el cliente establece una arquitectura altamente resiliente y performante, evitando por completo la latencia de red en las operaciones de modificación en tiempo real. La separación de responsabilidades a través de eventos personalizados del DOM garantiza que el lienzo y los controles permanezcan lógicamente aislados, posibilitando futuras expansiones del proyecto sin refactorizaciones profundas.

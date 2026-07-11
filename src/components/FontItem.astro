@@ -2,10 +2,10 @@
 import { Star } from '@lucide/astro';
 
 interface Props {
-  id: string;
-  fontFamily: string;
-  fontName: string;
-  isActive?: boolean;
+	id: string;
+	fontFamily: string;
+	fontName: string;
+	isActive?: boolean;
 }
 
 const { id, fontFamily, fontName, isActive = false } = Astro.props;
@@ -13,11 +13,13 @@ const { id, fontFamily, fontName, isActive = false } = Astro.props;
 // We will rely more on the active class state in the client side,
 // but for initial render, we can still set these.
 const activeClasses = isActive
-  ? 'active-font bg-[#2c2c2c] border-[#333] shadow-sm'
-  : 'hover:bg-[#2c2c2c] border-transparent';
+	? 'active-font bg-[#2c2c2c] border-[#333] shadow-sm'
+	: 'hover:bg-[#2c2c2c] border-transparent';
 
 const indicatorClasses = isActive ? '' : 'hidden';
-const textClasses = isActive ? 'text-white' : 'text-slate-300 group-hover:text-white';
+const textClasses = isActive
+	? 'text-white'
+	: 'text-slate-300 group-hover:text-white';
 ---
 
 <div class={`font-item w-full text-left p-3 rounded-lg group relative border transition-colors cursor-pointer ${activeClasses}`} data-id={id} data-font={fontFamily} data-name={fontName} aria-label={`Select ${fontName} font`}>

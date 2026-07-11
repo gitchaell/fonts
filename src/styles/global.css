@@ -9,15 +9,15 @@
 @import "./fonts/space-grotesk.css";
 
 :root {
-  --font-family: 'Google Sans', sans-serif;
-  --font-size: 16px;
-  --font-weight: 400;
-  --line-height: 1.5;
-  --letter-spacing: normal;
+	--font-family: "Google Sans", sans-serif;
+	--font-size: 16px;
+	--font-weight: 400;
+	--line-height: 1.5;
+	--letter-spacing: normal;
 }
 
 body {
-  font-family: var(--font-family);
-  background-color: #f8fafc;
-  color: #0f172a;
+	font-family: var(--font-family);
+	background-color: #f8fafc;
+	color: #0f172a;
 }

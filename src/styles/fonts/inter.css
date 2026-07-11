@@ -1,4 +1,11 @@
 @font-face {
-  font-family: 'Inter Variable';
-  src: url('/fonts/inter/InterVariable.woff2') format('woff2-variations');
+	font-family: "Inter Variable";
+	font-style: normal;
+	src: url("/fonts/inter/InterVariable.woff2") format("woff2-variations");
+}
+
+@font-face {
+	font-family: "Inter Variable";
+	font-style: italic;
+	src: url("/fonts/inter/InterItalicVariable.woff2") format("woff2-variations");
 }
