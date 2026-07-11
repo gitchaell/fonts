@@ -76,7 +76,7 @@ export const fonts: FontConfig[] = [
 		axes: [{ tag: 'wght', name: 'Weight', min: 100, max: 900, default: 400 }],
 	},
 	{
-		id: 'inter-variable',
+		id: 'inter',
 		fontFamily: "'Inter', sans-serif",
 		fontName: 'Inter',
 		type: 'Variable Font with Weight and Optical Size axes.',
