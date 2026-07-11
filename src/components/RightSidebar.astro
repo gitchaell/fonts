@@ -92,7 +92,6 @@ const { initialCSS } = Astro.props;
         variations = font.namedVariations;
       }
     } catch (e) {
-      // Fallback for fonts that throw TypeError in fontkit getter (e.g. GeistVF)
       const nameIdMap: Record<number, string> = {
         1: 'fontFamily',
         2: 'fontSubfamily',

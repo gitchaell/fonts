@@ -61,9 +61,9 @@ export const fonts: FontConfig[] = [
     fontFamily: "'Geist', sans-serif",
     fontName: "Geist Sans",
     type: "Variable Font with Weight axis.",
-    fileUrl: '/fonts/geist/GeistVF.woff2',
-    fileName: "GeistVF.woff2",
-    fontFace: `@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/geist/GeistVF.woff2') format('woff2-variations');\n}\n`,
+    fileUrl: '/fonts/geist/GeistSansVariable.woff2',
+    fileName: "GeistSansVariable.woff2",
+    fontFace: `@font-face {\n  font-family: 'Geist Sans';\n  src: url('/fonts/geist/GeistSansVariable.woff2') format('woff2-variations');\n}\n`,
     axes: [
       { tag: "wght", name: "Weight", min: 100, max: 900, default: 400 }
     ]
@@ -73,9 +73,9 @@ export const fonts: FontConfig[] = [
     fontFamily: "'Geist Mono', monospace",
     fontName: "Geist Mono",
     type: "Variable Font with Weight axis.",
-    fileUrl: '/fonts/geist-mono/GeistMonoVF.woff2',
-    fileName: "GeistMonoVF.woff2",
-    fontFace: `@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/geist-mono/GeistMonoVF.woff2') format('woff2-variations');\n}\n`,
+    fileUrl: '/fonts/geist-mono/GeistMonoVariable.woff2',
+    fileName: "GeistMonoVariable.woff2",
+    fontFace: `@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/geist-mono/GeistMonoVariable.woff2') format('woff2-variations');\n}\n`,
     axes: [
       { tag: "wght", name: "Weight", min: 100, max: 900, default: 400 }
     ]

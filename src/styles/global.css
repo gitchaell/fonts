@@ -1,13 +1,12 @@
 @import "tailwindcss";
 @import "./fonts/geist-mono.css";
-@import "./fonts/geist.css";
+@import "./fonts/geist-sans.css";
 @import "./fonts/google-sans-code.css";
 @import "./fonts/google-sans-flex.css";
 @import "./fonts/google-sans-mono.css";
 @import "./fonts/google-sans.css";
-@import "./fonts/inter-semibold.css";
-@import "./fonts/inter-variable.css";
-@import "./fonts/space-grotesk-variable.css";
+@import "./fonts/inter.css";
+@import "./fonts/space-grotesk.css";
 
 :root {
   --font-family: 'Google Sans', sans-serif;
