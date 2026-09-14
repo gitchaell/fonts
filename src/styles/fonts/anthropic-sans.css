@@ -1,0 +1,11 @@
+@font-face {
+	font-family: "Anthropic Sans";
+	font-style: normal;
+	src: url("/fonts/anthropic/AnthropicSans.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Anthropic Sans";
+	font-style: italic;
+	src: url("/fonts/anthropic/AnthropicSans-Italic.woff2") format("woff2");
+}

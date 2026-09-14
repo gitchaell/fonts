@@ -1,0 +1,11 @@
+@font-face {
+	font-family: "Anthropic Serif";
+	font-style: normal;
+	src: url("/fonts/anthropic/AnthropicSerif.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Anthropic Serif";
+	font-style: italic;
+	src: url("/fonts/anthropic/AnthropicSerif-Italic.woff2") format("woff2");
+}

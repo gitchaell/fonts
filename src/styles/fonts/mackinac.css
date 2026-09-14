@@ -1,0 +1,11 @@
+@font-face {
+	font-family: "Mackinac";
+	font-style: normal;
+	src: url("/fonts/mackinac/Mackinac.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Mackinac";
+	font-style: italic;
+	src: url("/fonts/mackinac/Mackinac-Italic.woff2") format("woff2");
+}
