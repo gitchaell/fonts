@@ -7,6 +7,10 @@
 @import "./fonts/google-sans.css";
 @import "./fonts/inter.css";
 @import "./fonts/space-grotesk.css";
+@import "./fonts/anthropic-mono.css";
+@import "./fonts/anthropic-sans.css";
+@import "./fonts/anthropic-serif.css";
+@import "./fonts/mackinac.css";
 
 :root {
 	--font-family: "Google Sans", sans-serif;
