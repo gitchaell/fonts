@@ -12,7 +12,7 @@ Si eres un modelo de IA leyendo este archivo para implementar o modificar estilo
    - Descarga o copia los archivos `.woff2` desde las URLs proveídas y colócalos en `public/fonts/<nombre-de-la-fuente>/`.
    - Si el proyecto usa un framework como Astro, Next.js, o un servidor estático, asegúrate de que las rutas relativas de los recursos en los estilos comiencen con `/fonts/`.
 2. **Definición CSS (@font-face):**
-   - Crea un archivo CSS individual para cada fuente en `src/styles/fonts/<nombre-de-la-fuente>.css` usando la sintaxis `@font-face` con formato `woff2-variations` (para fuentes variables).
+   - Crea un archivo CSS individual para cada fuente en `src/styles/fonts/<nombre-de-la-fuente>.css` usando la sintaxis `@font-face` con formato `woff2-variations` (para fuentes variables) o `woff2` (para fuentes estáticas).
    - Importa estos archivos individuales en tu archivo CSS global (`global.css` o `main.css`).
 3. **Configuración de Tailwind CSS:**
    - Si el proyecto utiliza Tailwind CSS, extiende la configuración (`tailwind.config.mjs` o `tailwind.config.js`) agregando las familias tipográficas mapeadas correspondientemente.
@@ -29,8 +29,9 @@ Los proyectos deben estructurarse de la siguiente manera para mantener la consis
 nombre-del-proyecto/
 ├── public/
 │   └── fonts/
-│       ├── space-grotesk/
-│       │   └── SpaceGroteskVariable.woff2
+│       ├── mackinac/
+│       │   ├── Mackinac.woff2
+│       │   └── Mackinac-Italic.woff2
 │       ├── geist-sans/
 │       │   └── GeistSansVariable.woff2
 │       └── geist-mono/
@@ -39,7 +40,7 @@ nombre-del-proyecto/
     ├── styles/
     │   ├── global.css          # Archivo de entrada global que importa los CSS de fuentes
     │   └── fonts/
-    │       ├── space-grotesk.css
+    │       ├── mackinac.css
     │       ├── geist-sans.css
     │       └── geist-mono.css
 ```
@@ -48,37 +49,40 @@ nombre-del-proyecto/
 
 ## Catálogo de Fuentes y Configuración
 
-### 1. Space Grotesk (Para Títulos y Headings)
+### 1. Mackinac (Para Títulos y Headings)
 
-Una tipografía sans-serif geométrica con un carácter fuerte y moderno, ideal para captar la atención en encabezados y elementos gráficos destacados.
+Una tipografía serif elegante con personalidad editorial y cálida, ideal para dar distinción, sofisticación y jerarquía visual a encabezados y títulos principales.
 
-- **Casos de Uso:** Encabezados (`h1`, `h2`, `h3`), hero sections, y textos de alta jerarquía visual.
+- **Casos de Uso:** Encabezados (`h1`, `h2`, `h3`), hero sections, titulares editoriales y elementos gráficos destacados.
 - **Archivos y Recursos:**
-  - **Archivo WOFF2 (Descarga):** [SpaceGroteskVariable.woff2](https://github.com/gitchaell/fonts/raw/refs/heads/main/public/fonts/space-grotesk/SpaceGroteskVariable.woff2)
-  - **CSS fontface de referencia:** [space-grotesk.css](https://raw.githubusercontent.com/gitchaell/fonts/refs/heads/main/src/styles/fonts/space-grotesk.css)
+  - **Archivo WOFF2 Regular (Descarga):** [Mackinac.woff2](https://github.com/gitchaell/fonts/raw/refs/heads/main/public/fonts/mackinac/Mackinac.woff2)
+  - **Archivo WOFF2 Italic (Descarga):** [Mackinac-Italic.woff2](https://github.com/gitchaell/fonts/raw/refs/heads/main/public/fonts/mackinac/Mackinac-Italic.woff2)
+  - **CSS fontface de referencia:** [mackinac.css](https://raw.githubusercontent.com/gitchaell/fonts/refs/heads/main/src/styles/fonts/mackinac.css)
 
 #### Integración CSS
 
 ```css
 /* Declaración (@font-face) */
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/space-grotesk/SpaceGroteskVariable.woff2') format('woff2-variations');
-  font-weight: 300 700;
+  font-family: 'Mackinac';
   font-style: normal;
+  src: url('/fonts/mackinac/Mackinac.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mackinac';
+  font-style: italic;
+  src: url('/fonts/mackinac/Mackinac-Italic.woff2') format('woff2');
   font-display: swap;
 }
 
 /* Ejemplo de uso recomendado */
 .heading-primary {
-  font-family: 'Space Grotesk', sans-serif;
-  font-variation-settings: 'wght' 500;
+  font-family: 'Mackinac', serif;
   font-feature-settings: 
     'liga' 1,  /* Habilitar ligaduras estándar */
-    'tnum' 1,  /* Números tabulares (monocastigados) */
-    'zero' 1,  /* Cero barrado */
-    'salt' 1,  /* Alternativas estilísticas */
-    'ss05' 1;  /* Conjunto estilístico 5 */
+    'kern' 1;  /* Kerning de caracteres */
 }
 ```
 
@@ -174,7 +178,7 @@ Agrega las definiciones de las fuentes dentro del bloque `@theme`:
   --font-mono: "Geist Mono", monospace;
 
   /* Registra una nueva utilidad personalizada (utilidad font-display) */
-  --font-display: "Space Grotesk", sans-serif;
+  --font-display: "Mackinac", serif;
 }
 ```
 
@@ -191,7 +195,7 @@ Para centralizar las tipografías en el bundle final de la aplicación, importa 
 /* Importar declaraciones de fuentes individuales */
 @import "./fonts/geist-sans.css";
 @import "./fonts/geist-mono.css";
-@import "./fonts/space-grotesk.css";
+@import "./fonts/mackinac.css";
 
 /* Estilos base del documento */
 @layer base {
@@ -204,9 +208,8 @@ Para centralizar las tipografías en el bundle final de la aplicación, importa 
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-variation-settings: 'wght' 600; /* Peso semi-bold por defecto para títulos */
-    font-feature-settings: 'liga' 1, 'tnum' 1, 'zero' 1, 'salt' 1, 'ss05' 1;
+    font-family: 'Mackinac', serif;
+    font-feature-settings: 'liga' 1, 'kern' 1;
   }
 
   code, pre {
